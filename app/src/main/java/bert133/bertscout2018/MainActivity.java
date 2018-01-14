@@ -16,9 +16,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             /*TextView textView = (TextView) rootView.findViewById(R.id.section_label);*/
             /*textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));*/
-            GridView gridview = (GridView) rootView.findViewById(R.id.gridView);
+            final GridView gridview = (GridView) rootView.findViewById(R.id.gridView);
 
             String[] teams = new String[]{
                     "133",
@@ -228,19 +230,12 @@ public class MainActivity extends AppCompatActivity {
                     "0000",
             };
 
-            final List<String> teamList = new ArrayList<String>(Arrays.asList(teams));
+            List<String> teamList = new ArrayList<String>(Arrays.asList(teams));
 
             ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>
                     (getContext(), android.R.layout.simple_list_item_1, teamList);
 
-/*
-            final ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>
-                    (this,android.R.layout.simple_list_item_1, teamList);
-*/
-
-            
             gridview.setAdapter(gridViewArrayAdapter);
-
 
             return rootView;
         }
@@ -265,8 +260,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 1;
         }
     }
 }
