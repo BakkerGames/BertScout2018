@@ -27,6 +27,7 @@
 
         </android.support.v7.widget.Toolbar>
 
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
@@ -46,5 +47,6 @@
         app:srcCompat="@android:drawable/ic_dialog_email" />
 */
 -->
+
 
 </android.support.design.widget.CoordinatorLayout>

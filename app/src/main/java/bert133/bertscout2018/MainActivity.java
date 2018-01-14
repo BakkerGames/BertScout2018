@@ -16,7 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -115,8 +121,127 @@ public class MainActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            /*TextView textView = (TextView) rootView.findViewById(R.id.section_label);*/
+            /*textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));*/
+            GridView gridview = (GridView) rootView.findViewById(R.id.gridView);
+
+            String[] teams = new String[]{
+                    "133",
+                    "58",
+                    "172",
+                    "5687",
+                    "1111",
+                    "2222",
+                    "3333",
+                    "4444",
+                    "5555",
+                    "6666",
+                    "7777",
+                    "8888",
+                    "9999",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+                    "0000",
+            };
+
+            final List<String> teamList = new ArrayList<String>(Arrays.asList(teams));
+
+            ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>
+                    (getContext(), android.R.layout.simple_list_item_1, teamList);
+
+/*
+            final ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>
+                    (this,android.R.layout.simple_list_item_1, teamList);
+*/
+
+            
+            gridview.setAdapter(gridViewArrayAdapter);
+
+
             return rootView;
         }
     }
