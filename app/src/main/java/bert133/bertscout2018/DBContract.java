@@ -42,20 +42,19 @@ public final class DBContract {
 
         public static final String TABLE_NAME_STAND = "stand_scouting";
 
-        public static final String COLNAME_STAND_MATCH = "match_no";
         public static final String COLNAME_STAND_TEAM = "team";
-        public static final String COLNAME_STAND_ALLIANCE = "alliance_red_blue";
+        public static final String COLNAME_STAND_MATCH = "match";
 
         public static final String COLNAME_STAND_AUTO_BASELINE = "auto_baseline";
         public static final String COLNAME_STAND_AUTO_SWITCH = "auto_switch";
         public static final String COLNAME_STAND_AUTO_SCALE = "auto_scale";
 
-        public static final String COLNAME_STAND_TELEOP_SWITCH = "tele_switch";
-        public static final String COLNAME_STAND_TELEOP_SCALE = "tele_scale";
-        public static final String COLNAME_STAND_TELEOP_EXCHANGE = "tele_exchange";
-        public static final String COLNAME_STAND_TELEOP_CLIMBED = "tele_climbed";
-        public static final String COLNAME_STAND_TELEOP_PARKED = "tele_touchpad";
-        public static final String COLNAME_STAND_TELEOP_PENALTIES = "tele_penalties";
+        public static final String COLNAME_STAND_TELE_SWITCH = "tele_switch";
+        public static final String COLNAME_STAND_TELE_SCALE = "tele_scale";
+        public static final String COLNAME_STAND_TELE_EXCHANGE = "tele_exchange";
+        public static final String COLNAME_STAND_TELE_PARKED = "tele_parked";
+        public static final String COLNAME_STAND_TELE_CLIMBED = "tele_climbed";
+        public static final String COLNAME_STAND_TELE_PENALTIES = "tele_penalties";
 
         public static final String COLNAME_STAND_RATING = "rating";
 
@@ -65,20 +64,19 @@ public final class DBContract {
 
                         TableStandInfo._ID + " INTEGER PRIMARY KEY" +
 
-                        ", " + TableStandInfo.COLNAME_STAND_MATCH + " TEXT" +
                         ", " + TableStandInfo.COLNAME_STAND_TEAM + " INTEGER" +
-                        ", " + TableStandInfo.COLNAME_STAND_ALLIANCE + " TEXT" +
+                        ", " + TableStandInfo.COLNAME_STAND_MATCH + " INTEGER" +
 
                         ", " + TableStandInfo.COLNAME_STAND_AUTO_BASELINE + " INTEGER" +
                         ", " + TableStandInfo.COLNAME_STAND_AUTO_SWITCH + " INTEGER" +
                         ", " + TableStandInfo.COLNAME_STAND_AUTO_SCALE + " INTEGER" +
 
-                        ", " + TableStandInfo.COLNAME_STAND_TELEOP_SWITCH + " INTEGER" +
-                        ", " + TableStandInfo.COLNAME_STAND_TELEOP_SCALE + " INTEGER" +
-                        ", " + TableStandInfo.COLNAME_STAND_TELEOP_EXCHANGE + " INTEGER" +
-                        ", " + TableStandInfo.COLNAME_STAND_TELEOP_CLIMBED + " INTEGER" +
-                        ", " + TableStandInfo.COLNAME_STAND_TELEOP_PARKED + " INTEGER" +
-                        ", " + TableStandInfo.COLNAME_STAND_TELEOP_PENALTIES + " INTEGER" +
+                        ", " + TableStandInfo.COLNAME_STAND_TELE_SWITCH + " INTEGER" +
+                        ", " + TableStandInfo.COLNAME_STAND_TELE_SCALE + " INTEGER" +
+                        ", " + TableStandInfo.COLNAME_STAND_TELE_EXCHANGE + " INTEGER" +
+                        ", " + TableStandInfo.COLNAME_STAND_TELE_PARKED + " INTEGER" +
+                        ", " + TableStandInfo.COLNAME_STAND_TELE_CLIMBED + " INTEGER" +
+                        ", " + TableStandInfo.COLNAME_STAND_TELE_PENALTIES + " INTEGER" +
 
                         ", " + TableStandInfo.COLNAME_STAND_RATING + " INTEGER" +
 

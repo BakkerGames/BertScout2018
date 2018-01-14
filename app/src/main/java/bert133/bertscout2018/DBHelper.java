@@ -16,7 +16,7 @@ import org.json.JSONObject;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "bert_scout.db";
+    public static final String DATABASE_NAME = "bert_scout_2018.db";
     public static final int DATABASE_VERSION = 1;
 
     public DBHelper(Context context) {
@@ -69,23 +69,25 @@ public class DBHelper extends SQLiteOpenHelper {
                     try {
                         switch (results.getColumnName(i)) {
                             case DBContract.TableStandInfo._ID:
-                            case DBContract.TableStandInfo.COLNAME_STAND_MATCH:
                             case DBContract.TableStandInfo.COLNAME_STAND_TEAM:
-                            case DBContract.TableStandInfo.COLNAME_STAND_AUTO_SWITCH:
-                            case DBContract.TableStandInfo.COLNAME_STAND_AUTO_SCALE:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELEOP_SWITCH:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELEOP_SCALE:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELEOP_EXCHANGE:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELEOP_PENALTIES:
+                            case DBContract.TableStandInfo.COLNAME_STAND_MATCH:
+                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_SWITCH:
+                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_SCALE:
+                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_EXCHANGE:
+                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_PENALTIES:
                             case DBContract.TableStandInfo.COLNAME_STAND_RATING:
                                 rowObject.put(results.getColumnName(i), results.getInt(i));
                                 break;
+/*
                             case DBContract.TableStandInfo.COLNAME_STAND_ALLIANCE:
                                 rowObject.put(results.getColumnName(i), results.getString(i));
                                 break;
+*/
                             case DBContract.TableStandInfo.COLNAME_STAND_AUTO_BASELINE:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELEOP_CLIMBED:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELEOP_PARKED:
+                            case DBContract.TableStandInfo.COLNAME_STAND_AUTO_SWITCH:
+                            case DBContract.TableStandInfo.COLNAME_STAND_AUTO_SCALE:
+                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_PARKED:
+                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_CLIMBED:
                                 if (results.getInt(i) == 0) {
                                     rowObject.put(results.getColumnName(i), false);
                                 } else {
@@ -113,20 +115,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         try {
 
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_MATCH, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH));
             contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TEAM, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TEAM));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_ALLIANCE, standInfo.getString(DBContract.TableStandInfo.COLNAME_STAND_ALLIANCE));
+            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_MATCH, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH));
 
+            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_AUTO_BASELINE, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_AUTO_BASELINE));
             contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_AUTO_SWITCH, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_AUTO_SWITCH));
             contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_AUTO_SCALE, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_AUTO_SCALE));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_AUTO_BASELINE, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_AUTO_BASELINE));
 
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_SWITCH, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_SWITCH));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_SCALE, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_SCALE));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_EXCHANGE, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_EXCHANGE));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_CLIMBED, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_CLIMBED));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_PARKED, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_PARKED));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_PENALTIES, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELEOP_PENALTIES));
+            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_SWITCH, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELE_SWITCH));
+            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_SCALE, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELE_SCALE));
+            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_EXCHANGE, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELE_EXCHANGE));
+            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_PARKED, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_TELE_PARKED));
+            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_CLIMBED, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_TELE_CLIMBED));
+            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_PENALTIES, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELE_PENALTIES));
 
             contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_RATING, standInfo.getString(DBContract.TableStandInfo.COLNAME_STAND_RATING));
 
@@ -145,8 +146,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 // see if there might already be a record like this
                 Cursor results;
                 String query = "SELECT * FROM " + DBContract.TableStandInfo.TABLE_NAME_STAND +
-                        " WHERE " + DBContract.TableStandInfo.COLNAME_STAND_MATCH + " = " + standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH) +
-                        " AND " + DBContract.TableStandInfo.COLNAME_STAND_TEAM + " = " + standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TEAM);
+                        " WHERE " + DBContract.TableStandInfo.COLNAME_STAND_TEAM + " = " + standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TEAM) +
+                        " AND " + DBContract.TableStandInfo.COLNAME_STAND_MATCH + " = " + standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH);
 
                 results = db.rawQuery(query, null);
 
@@ -168,11 +169,11 @@ public class DBHelper extends SQLiteOpenHelper {
                     // it does already exist
                     db.update(DBContract.TableStandInfo.TABLE_NAME_STAND,
                             contentValues,
-                            DBContract.TableStandInfo.COLNAME_STAND_MATCH + " = ? " +
-                                    "AND " + DBContract.TableStandInfo.COLNAME_STAND_TEAM + " = ?",
+                            DBContract.TableStandInfo.COLNAME_STAND_TEAM + " = ? " +
+                                    "AND " + DBContract.TableStandInfo.COLNAME_STAND_MATCH + " = ?",
                             new String[]{
-                                    String.valueOf(standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH)),
-                                    String.valueOf(standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TEAM))}
+                                    String.valueOf(standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TEAM)),
+                                    String.valueOf(standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH))}
                     );
 
                 }
