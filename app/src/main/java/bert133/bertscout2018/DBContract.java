@@ -13,6 +13,31 @@ public final class DBContract {
     private DBContract() {
     }
 
+    public static class TableTeamInfo implements BaseColumns {
+
+        public static final String TABLE_NAME_TEAM = "team_info";
+
+        public static final String COLNAME_TEAM = "team";
+        public static final String COLNAME_RATING = "rating";
+        public static final String COLNAME_PICKED = "picked";
+
+        public static final String SQL_QUERY_CREATE_TABLE =
+
+                "CREATE TABLE " + TableTeamInfo.TABLE_NAME_TEAM + " (" +
+
+                        TableTeamInfo._ID + " INTEGER PRIMARY KEY" +
+
+                        ", " + TableTeamInfo.COLNAME_TEAM + " INTEGER" +
+                        ", " + TableTeamInfo.COLNAME_RATING + " INTEGER" +
+                        ", " + TableTeamInfo.COLNAME_PICKED + " INTEGER" +
+
+                        ");";
+
+        public static final String SQL_QUERY_DELETE_TABLE =
+                "DROP TABLE IF EXISTS " + TABLE_NAME_TEAM + ";";
+
+    }
+
     public static class TableStandInfo implements BaseColumns {
 
         public static final String TABLE_NAME_STAND = "stand_scouting";
