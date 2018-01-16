@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BertScout2018</string>
     <string name="title_name">BERT 133 Scouting 2018</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="action_add_team">Add Team</string>
+    <string name="action_sync_data">Sync Data</string>
+    <string name="action_clear_data">Clear Data</string>
 </resources>

@@ -3,8 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="bert133.bertscout2018.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:id="@+id/action_add_team"
+        android:orderInCategory="101"
+        android:title="@string/action_add_team"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sync_data"
+        android:orderInCategory="102"
+        android:title="@string/action_sync_data"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_clear_data"
+        android:orderInCategory="103"
+        android:title="@string/action_clear_data"
         app:showAsAction="never" />
 </menu>

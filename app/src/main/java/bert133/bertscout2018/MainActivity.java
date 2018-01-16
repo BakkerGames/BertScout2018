@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -57,17 +57,6 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
 
     }
 
@@ -87,7 +76,16 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add_team) {
+            toolbar.setTitle("Add Team!");
+            return true;
+        }
+        if (id == R.id.action_sync_data) {
+            toolbar.setTitle("Sync Data!");
+            return true;
+        }
+        if (id == R.id.action_clear_data) {
+            toolbar.setTitle("Clear Data!");
             return true;
         }
 
@@ -122,113 +120,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             /*TextView textView = (TextView) rootView.findViewById(R.id.section_label);*/
             /*textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));*/
             final GridView gridview = (GridView) rootView.findViewById(R.id.gridView);
-
-            String[] teams = new String[]{
-                    "133",
-                    "58",
-                    "172",
-                    "5687",
-                    "1111",
-                    "2222",
-                    "3333",
-                    "4444",
-                    "5555",
-                    "6666",
-                    "7777",
-                    "8888",
-                    "9999",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-                    "0000",
-            };
 
             List<String> teamList = new ArrayList<String>(Arrays.asList(teams));
 
@@ -236,6 +131,15 @@ public class MainActivity extends AppCompatActivity {
                     (getContext(), android.R.layout.simple_list_item_1, teamList);
 
             gridview.setAdapter(gridViewArrayAdapter);
+
+/*
+            // todo ### this code doesn't work, this context fails here, never runs when debugging ###
+            gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    Toast.makeText(null, "" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
+*/
 
             return rootView;
         }
@@ -263,4 +167,109 @@ public class MainActivity extends AppCompatActivity {
             return 1;
         }
     }
+
+    public static String[] teams = new String[]{
+            "133",
+            "58",
+            "172",
+            "5687",
+            "1111",
+            "2222",
+            "3333",
+            "4444",
+            "5555",
+            "6666",
+            "7777",
+            "8888",
+            "9999",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+            "0000",
+    };
+
+
 }
