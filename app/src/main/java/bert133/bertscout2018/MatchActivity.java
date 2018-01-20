@@ -15,7 +15,7 @@ public class MatchActivity extends AppCompatActivity {
         // get team number from MainActivity
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.TEAM_MESSAGE);
-        TextView textView = findViewById(R.id.textViewMessage);
-        textView.setText(message);
+
+        this.setTitle(String.format("Match Scouting - Team %s", message));
     }
 }

@@ -8,9 +8,59 @@
     tools:context="bert133.bertscout2018.MatchActivity">
 
     <TextView
-        android:id="@+id/textViewMessage"
-        android:layout_width="match_parent"
+        android:id="@+id/stand_match_label"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp" />
+        android:paddingTop="5sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="10sp"
+        android:textSize="30sp"
+        android:labelFor="@+id/stand_match_number"
+        android:text="Match"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_number"
+        app:layout_constraintStart_toEndOf="@id/stand_match_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="0sp"
+        android:textSize="30sp"
+        android:ems="2"
+        android:inputType="number"
+        android:text="999"
+        />
+
+    <Button
+        android:id="@+id/stand_match_minus_btn"
+        app:layout_constraintStart_toEndOf="@id/stand_match_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="0sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="0sp"
+        android:paddingEnd="0sp"
+        android:textSize="30sp"
+        android:minWidth="50dp"
+        android:text="—"
+        />
+
+    <Button
+        android:id="@+id/stand_match_plus_btn"
+        app:layout_constraintStart_toEndOf="@id/stand_match_minus_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="0sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="0sp"
+        android:paddingEnd="0sp"
+        android:textSize="30sp"
+        android:minWidth="50dp"
+        android:text="+"
+        />
 
 </android.support.constraint.ConstraintLayout>
