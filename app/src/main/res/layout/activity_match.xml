@@ -252,4 +252,96 @@
         android:inputType="number"
         android:text="0"
         />
+
+    <TextView
+        android:id="@+id/stand_match_tele_parked_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tele Parked"
+        android:textSize="30dp"
+        app:layout_constraintTop_toBottomOf="@id/stand_match_tele_exchange_label"
+        />
+
+    <CheckBox
+        android:id="@+id/stand_match_tele_parked_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="36dp"
+        app:layout_constraintStart_toStartOf= "@+id/stand_match_auto_baseline_checkBox"
+        app:layout_constraintBottom_toBottomOf="@+id/stand_match_tele_parked_label"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_tele_climbed_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tele Climbed"
+        android:textSize="30dp"
+        app:layout_constraintTop_toBottomOf="@id/stand_match_tele_parked_label"
+        />
+
+    <CheckBox
+        android:id="@+id/stand_match_tele_climbed_checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="36dp"
+        app:layout_constraintStart_toStartOf= "@+id/stand_match_auto_baseline_checkBox"
+        app:layout_constraintBottom_toBottomOf="@+id/stand_match_tele_climbed_label"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_penalties_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Penalties"
+        android:textSize="30dp"
+        app:layout_constraintTop_toBottomOf="@id/stand_match_tele_climbed_label"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_penalties_text"
+        app:layout_constraintStart_toStartOf= "@+id/stand_match_auto_baseline_checkBox"
+        app:layout_constraintBottom_toBottomOf="@id/stand_match_penalties_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingTop="5sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="0sp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:ems="2"
+        android:inputType="number"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_rating_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating"
+        android:textSize="30dp"
+        app:layout_constraintTop_toBottomOf="@id/stand_match_penalties_label"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_rating_text"
+        app:layout_constraintStart_toStartOf= "@+id/stand_match_auto_baseline_checkBox"
+        app:layout_constraintBottom_toBottomOf="@id/stand_match_rating_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingTop="5sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="0sp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:ems="2"
+        android:inputType="number"
+        android:text="0"
+        />
 </android.support.constraint.ConstraintLayout>
