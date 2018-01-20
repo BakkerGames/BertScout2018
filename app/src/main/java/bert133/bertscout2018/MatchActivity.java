@@ -1,4 +1,4 @@
-package com.example.chime.bertscout2018;
+package bert133.bertscout2018;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.chime.bertscout2018">
+    package="bert133.bertscout2018">
 
     <application
         android:allowBackup="true"

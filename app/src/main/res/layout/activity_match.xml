@@ -5,7 +5,7 @@
     android:id="@+id/matchScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.chime.bertscout2018.MatchActivity">
+    tools:context="bert133.bertscout2018.MatchActivity">
 
     <TextView
         android:id="@+id/textViewMessage"

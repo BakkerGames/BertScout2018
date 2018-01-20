@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.chime.bertscout2018.MainActivity">
+    tools:context="bert133.bertscout2018.MainActivity">
 
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/gridView"

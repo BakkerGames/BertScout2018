@@ -1,4 +1,4 @@
-package com.example.chime.bertscout2018;
+package bert133.bertscout2018;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TEAM_MESSAGE = "com.example.chime.bertscout2018.TEAM_MESSAGE";
+    public static final String TEAM_MESSAGE = "bert133.bertscout2018.TEAM_MESSAGE";
 
     public static String[] teams;
 
@@ -85,7 +85,5 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 }
