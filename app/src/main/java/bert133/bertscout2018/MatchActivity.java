@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MatchActivity extends AppCompatActivity {
@@ -110,6 +111,17 @@ public class MatchActivity extends AppCompatActivity {
                     tempValue = 1;
                 }
                 matchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        Button matchGoButton = (Button) findViewById(R.id.stand_match_go_btn);
+        matchGoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // hide button layout
+                RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.stand_match_button_layout);
+                layoutButtons.setVisibility(View.INVISIBLE);
+                // todo ### show match info layout
             }
         });
 
