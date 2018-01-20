@@ -130,6 +130,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="36dp"
+        android:layout_marginStart="50dp"
         app:layout_constraintStart_toEndOf="@+id/stand_match_auto_baseline_label"
         app:layout_constraintBottom_toBottomOf="@+id/stand_match_auto_baseline_label"
         />
@@ -170,5 +171,85 @@
         android:textSize="36dp"
         app:layout_constraintStart_toStartOf="@+id/stand_match_auto_baseline_checkBox"
         app:layout_constraintBottom_toBottomOf="@+id/stand_match_auto_scale_label"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_tele_switch_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tele Switch"
+        android:textSize="30dp"
+        app:layout_constraintTop_toBottomOf="@id/stand_match_auto_scale_label"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_tele_switch_text"
+        app:layout_constraintStart_toStartOf= "@+id/stand_match_auto_baseline_checkBox"
+        app:layout_constraintBottom_toBottomOf="@id/stand_match_tele_switch_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingTop="5sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="0sp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:ems="2"
+        android:inputType="number"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_tele_scale_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tele Scale"
+        android:textSize="30dp"
+        app:layout_constraintTop_toBottomOf="@id/stand_match_tele_switch_label"
+        />
+    <TextView
+        android:id="@+id/stand_match_tele_scale_text"
+        app:layout_constraintStart_toStartOf= "@+id/stand_match_auto_baseline_checkBox"
+        app:layout_constraintBottom_toBottomOf="@id/stand_match_tele_scale_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingTop="5sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="0sp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:ems="2"
+        android:inputType="number"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_tele_exchange_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tele Exchange"
+        android:textSize="30dp"
+        app:layout_constraintTop_toBottomOf="@id/stand_match_tele_scale_label"
+        />
+
+    <TextView
+        android:id="@+id/stand_match_tele_exchange_text"
+        app:layout_constraintStart_toStartOf= "@+id/stand_match_auto_baseline_checkBox"
+        app:layout_constraintBottom_toBottomOf="@id/stand_match_tele_exchange_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingTop="5sp"
+        android:paddingBottom="0sp"
+        android:paddingStart="10sp"
+        android:paddingEnd="0sp"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:ems="2"
+        android:inputType="number"
+        android:text="0"
         />
 </android.support.constraint.ConstraintLayout>
