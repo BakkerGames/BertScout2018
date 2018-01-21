@@ -121,7 +121,8 @@ public class MatchActivity extends AppCompatActivity {
                 // hide button layout
                 RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.stand_match_button_layout);
                 layoutButtons.setVisibility(View.INVISIBLE);
-                // todo ### show match info layout
+                RelativeLayout layoutInfo = (RelativeLayout) findViewById(R.id.stand_match_info_layout);
+                layoutInfo.setVisibility(View.VISIBLE);
             }
         });
 
