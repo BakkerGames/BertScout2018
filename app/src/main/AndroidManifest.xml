@@ -23,6 +23,18 @@
             android:name=".TeamActivity"
             android:label="@string/team_activity_title"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddTeamActivity"
+            android:label="@string/add_team_activity_title"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SyncDataActivity"
+            android:label="@string/sync_data_activity_title"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ClearDataActivity"
+            android:label="@string/clear_data_activity_title"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

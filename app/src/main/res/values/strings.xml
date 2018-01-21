@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">BertScout2018</string>
-    <string name="title_name">BERT 133 Scouting 2018</string>
-    <string name="action_add_team">Add Team</string>
+    <string name="title_name">BERT133 2018 Scouting</string>
+    <string name="action_add_team">Add Teams</string>
     <string name="action_sync_data">Sync Data</string>
     <string name="action_clear_data">Clear Data</string>
     <string name="match_activity_title">Match Scouting</string>
     <string name="match_activity_title_team">Match Scouting - Team %s</string>
     <string name="team_activity_title">Team Information</string>
+    <string name="add_team_activity_title">Add Teams</string>
+    <string name="sync_data_activity_title">Sync Data</string>
+    <string name="clear_data_activity_title">Clear Data</string>
 </resources>

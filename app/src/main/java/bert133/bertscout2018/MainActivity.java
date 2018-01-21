@@ -88,15 +88,18 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_team) {
-            Toast.makeText(this, "Add Team!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, AddTeamActivity.class);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.action_sync_data) {
-            Toast.makeText(this, "Sync Data!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, SyncDataActivity.class);
+            startActivity(intent);
             return true;
         }
         if (id == R.id.action_clear_data) {
-            Toast.makeText(this, "Clear Data!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, ClearDataActivity.class);
+            startActivity(intent);
             return true;
         }
 
