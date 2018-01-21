@@ -6,4 +6,5 @@
     <string name="action_clear_data">Clear Data</string>
     <string name="match_activity_title">Match Scouting</string>
     <string name="match_activity_title_team">Match Scouting - Team %s</string>
+    <string name="team_activity_title">Team Information</string>
 </resources>

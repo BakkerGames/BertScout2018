@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 GridView gridView = (GridView) findViewById(R.id.gridView);
                 TextView v = (TextView) gridView.getChildAt(i);
 
+                // send team number
                 Intent intent = new Intent(MainActivity.this, MatchActivity.class);
                 intent.putExtra(TEAM_MESSAGE, v.getText());
                 startActivity(intent);
@@ -61,11 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 GridView gridView = (GridView) findViewById(R.id.gridView);
                 TextView v = (TextView) gridView.getChildAt(position);
 
-//                Intent intent = new Intent(MainActivity.this, MatchActivity.class);
-//                intent.putExtra(TEAM_MESSAGE, v.getText());
-//                startActivity(intent);
+                // send team number
+                Intent intent = new Intent(MainActivity.this, TeamActivity.class);
+                intent.putExtra(TEAM_MESSAGE, v.getText());
+                startActivity(intent);
 
-                Toast.makeText(MainActivity.this, v.getText(), Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

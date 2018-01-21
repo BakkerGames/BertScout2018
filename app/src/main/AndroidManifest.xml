@@ -18,8 +18,11 @@
         <activity
             android:name=".MatchActivity"
             android:label="@string/match_activity_title"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TeamActivity"
+            android:label="@string/team_activity_title"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
