@@ -39,20 +39,36 @@ public class MainActivity extends AppCompatActivity {
         GridView gridView = (GridView) findViewById(R.id.gridView);
         gridView.setAdapter(gridViewArrayAdapter);
 
+        gridView.setLongClickable(true);
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 GridView gridView = (GridView) findViewById(R.id.gridView);
-                TextView v = (TextView) gridView.getChildAt(position);
+                TextView v = (TextView) gridView.getChildAt(i);
 
                 Intent intent = new Intent(MainActivity.this, MatchActivity.class);
                 intent.putExtra(TEAM_MESSAGE, v.getText());
                 startActivity(intent);
-
-                //Toast.makeText(MainActivity.this, v.getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View arg1,
+                                           int position, long arg3) {
+                GridView gridView = (GridView) findViewById(R.id.gridView);
+                TextView v = (TextView) gridView.getChildAt(position);
+
+//                Intent intent = new Intent(MainActivity.this, MatchActivity.class);
+//                intent.putExtra(TEAM_MESSAGE, v.getText());
+//                startActivity(intent);
+
+                Toast.makeText(MainActivity.this, v.getText(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     @Override
