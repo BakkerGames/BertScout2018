@@ -80,7 +80,7 @@ public class MatchActivity extends AppCompatActivity {
                     } else if (tempValue % 10 != 0) {
                         tempValue = tempValue - (tempValue % 10);
                     } else {
-                        tempValue=tempValue-10;
+                        tempValue = tempValue - 10;
                     }
                 } catch (Exception e) {
                     tempValue = 1;
@@ -100,12 +100,12 @@ public class MatchActivity extends AppCompatActivity {
                     tempValue = Integer.parseInt(matchText.getText().toString());
                     if (tempValue < 10) {
                         tempValue = 10;
-                    } else if (tempValue >= 990 ) {
+                    } else if (tempValue >= 990) {
                         tempValue = 999;
                     } else if (tempValue % 10 != 0) {
                         tempValue = tempValue + 10 - (tempValue % 10);
                     } else {
-                        tempValue=tempValue+10;
+                        tempValue = tempValue + 10;
                     }
                 } catch (Exception e) {
                     tempValue = 1;
