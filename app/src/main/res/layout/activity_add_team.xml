@@ -6,4 +6,65 @@
     android:layout_height="match_parent"
     tools:context="bert133.bertscout2018.AddTeamActivity">
 
+    <RelativeLayout
+        android:id="@+id/add_teams_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/add_teams_team_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/add_teams_team_number_edit"
+            android:paddingBottom="0sp"
+            android:paddingEnd="10sp"
+            android:paddingStart="10sp"
+            android:paddingTop="5sp"
+            android:text="Team Number"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/add_teams_team_number_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/add_teams_team_number_label"
+            android:layout_alignBaseline="@id/add_teams_team_number_label"
+            android:ems="3"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:inputType="number"
+            android:maxLength="4"
+            android:text=""
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/add_teams_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:layout_toRightOf="@id/add_teams_team_number_edit"
+            android:layout_alignBaseline="@id/add_teams_team_number_edit"
+            android:textSize="30sp"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/add_teams_list_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="10sp"
+        android:paddingStart="10sp"
+        app:layout_constraintTop_toBottomOf="@id/add_teams_layout">
+
+        <TextView
+            android:id="@+id/add_teams_list_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="30sp"
+            android:text=""
+            />
+
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
