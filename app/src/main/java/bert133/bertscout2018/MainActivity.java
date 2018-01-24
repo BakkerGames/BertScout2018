@@ -1,6 +1,8 @@
 package bert133.bertscout2018;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -23,10 +25,18 @@ public class MainActivity extends AppCompatActivity {
 
     public static String[] teams;
 
+    private void createDatabase(){
+        SQLiteDatabase db = openOrCreateDatabase(DBHelper.DATABASE_NAME, Context.MODE_PRIVATE, null);
+        db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
+        db.execSQL(DBContract.TableStandInfo.SQL_QUERY_CREATE_TABLE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        createDatabase();
 
         teams = new String[80];
         for (int i = 0; i < 80; i++) {

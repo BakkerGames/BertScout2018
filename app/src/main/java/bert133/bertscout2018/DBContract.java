@@ -23,7 +23,7 @@ public final class DBContract {
 
         public static final String SQL_QUERY_CREATE_TABLE =
 
-                "CREATE TABLE " + TableTeamInfo.TABLE_NAME_TEAM + " (" +
+                "CREATE TABLE IF NOT EXISTS " + TableTeamInfo.TABLE_NAME_TEAM + " (" +
 
                         TableTeamInfo._ID + " INTEGER PRIMARY KEY" +
 
@@ -60,7 +60,7 @@ public final class DBContract {
 
         public static final String SQL_QUERY_CREATE_TABLE =
 
-                "CREATE TABLE " + TableStandInfo.TABLE_NAME_STAND + " (" +
+                "CREATE TABLE IF NOT EXISTS " + TableStandInfo.TABLE_NAME_STAND + " (" +
 
                         TableStandInfo._ID + " INTEGER PRIMARY KEY" +
 
