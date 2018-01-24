@@ -1,9 +1,5 @@
 package bert133.bertscout2018;
 
-/**
- * Created by chimera343 on 01/14/2018.
- */
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -25,16 +21,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
-        db.execSQL(DBContract.TableStandInfo.SQL_QUERY_CREATE_TABLE);
+        db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
+        db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
         if (oldVersion < newVersion) {
-            db.execSQL(DBContract.TableStandInfo.SQL_QUERY_DELETE_TABLE);
-            db.execSQL(DBContract.TableStandInfo.SQL_QUERY_CREATE_TABLE);
+            db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_DELETE_TABLE);
+            db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
+            db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_DELETE_TABLE);
+            db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_CREATE_TABLE);
             return;
         }
         return;
@@ -49,10 +46,10 @@ public class DBHelper extends SQLiteOpenHelper {
         String query;
 
         if (teamNumber == 0) {
-            query = "SELECT * FROM " + DBContract.TableStandInfo.TABLE_NAME_STAND +
+            query = "SELECT * FROM " + DBContract.TableMatchInfo.TABLE_NAME_MATCH +
                     " ORDER BY CAST(match_no AS INTEGER)";
         } else {
-            query = "SELECT * FROM " + DBContract.TableStandInfo.TABLE_NAME_STAND +
+            query = "SELECT * FROM " + DBContract.TableMatchInfo.TABLE_NAME_MATCH +
                     " WHERE team = " + teamNumber +
                     " ORDER BY CAST(match_no AS INTEGER)";
         }
@@ -68,26 +65,26 @@ public class DBHelper extends SQLiteOpenHelper {
                 if (results.getColumnName(i) != null) {
                     try {
                         switch (results.getColumnName(i)) {
-                            case DBContract.TableStandInfo._ID:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TEAM:
-                            case DBContract.TableStandInfo.COLNAME_STAND_MATCH:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_SWITCH:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_SCALE:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_EXCHANGE:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_PENALTIES:
-                            case DBContract.TableStandInfo.COLNAME_STAND_RATING:
+                            case DBContract.TableMatchInfo._ID:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TEAM:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PENALTIES:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_RATING:
                                 rowObject.put(results.getColumnName(i), results.getInt(i));
                                 break;
 /*
-                            case DBContract.TableStandInfo.COLNAME_STAND_ALLIANCE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_ALLIANCE:
                                 rowObject.put(results.getColumnName(i), results.getString(i));
                                 break;
 */
-                            case DBContract.TableStandInfo.COLNAME_STAND_AUTO_BASELINE:
-                            case DBContract.TableStandInfo.COLNAME_STAND_AUTO_SWITCH:
-                            case DBContract.TableStandInfo.COLNAME_STAND_AUTO_SCALE:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_PARKED:
-                            case DBContract.TableStandInfo.COLNAME_STAND_TELE_CLIMBED:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PARKED:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_CLIMBED:
                                 if (results.getInt(i) == 0) {
                                     rowObject.put(results.getColumnName(i), false);
                                 } else {
@@ -115,29 +112,29 @@ public class DBHelper extends SQLiteOpenHelper {
 
         try {
 
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TEAM, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TEAM));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_MATCH, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER));
 
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_AUTO_BASELINE, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_AUTO_BASELINE));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_AUTO_SWITCH, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_AUTO_SWITCH));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_AUTO_SCALE, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_AUTO_SCALE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, standInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE));
 
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_SWITCH, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELE_SWITCH));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_SCALE, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELE_SCALE));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_EXCHANGE, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELE_EXCHANGE));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_PARKED, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_TELE_PARKED));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_CLIMBED, standInfo.getBoolean(DBContract.TableStandInfo.COLNAME_STAND_TELE_CLIMBED));
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_TELE_PENALTIES, standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TELE_PENALTIES));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PARKED, standInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PARKED));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_CLIMBED, standInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_CLIMBED));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PENALTIES, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PENALTIES));
 
-            contentValues.put(DBContract.TableStandInfo.COLNAME_STAND_RATING, standInfo.getString(DBContract.TableStandInfo.COLNAME_STAND_RATING));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, standInfo.getString(DBContract.TableMatchInfo.COLNAME_MATCH_RATING));
 
-            if (standInfo.has(DBContract.TableStandInfo._ID)) {
+            if (standInfo.has(DBContract.TableMatchInfo._ID)) {
 
                 db.update(
-                        DBContract.TableStandInfo.TABLE_NAME_STAND,
+                        DBContract.TableMatchInfo.TABLE_NAME_MATCH,
                         contentValues,
                         "_id = ?",
-                        new String[]{String.valueOf(standInfo.getInt(DBContract.TableStandInfo._ID))}
+                        new String[]{String.valueOf(standInfo.getInt(DBContract.TableMatchInfo._ID))}
                 );
                 return true;
 
@@ -145,9 +142,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 // see if there might already be a record like this
                 Cursor results;
-                String query = "SELECT * FROM " + DBContract.TableStandInfo.TABLE_NAME_STAND +
-                        " WHERE " + DBContract.TableStandInfo.COLNAME_STAND_TEAM + " = " + standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TEAM) +
-                        " AND " + DBContract.TableStandInfo.COLNAME_STAND_MATCH + " = " + standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH);
+                String query = "SELECT * FROM " + DBContract.TableMatchInfo.TABLE_NAME_MATCH +
+                        " WHERE " + DBContract.TableMatchInfo.COLNAME_MATCH_TEAM + " = " + standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM) +
+                        " AND " + DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER + " = " + standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER);
 
                 results = db.rawQuery(query, null);
 
@@ -155,25 +152,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
                     // it is a new record
                     long newID = db.insert(
-                            DBContract.TableStandInfo.TABLE_NAME_STAND,
+                            DBContract.TableMatchInfo.TABLE_NAME_MATCH,
                             null,
                             contentValues
                     );
                     if (newID > 0) {
-                        standInfo.put(DBContract.TableStandInfo._ID, newID);
+                        standInfo.put(DBContract.TableMatchInfo._ID, newID);
                         return true;
                     }
 
                 } else {
 
                     // it does already exist
-                    db.update(DBContract.TableStandInfo.TABLE_NAME_STAND,
+                    db.update(DBContract.TableMatchInfo.TABLE_NAME_MATCH,
                             contentValues,
-                            DBContract.TableStandInfo.COLNAME_STAND_TEAM + " = ? " +
-                                    "AND " + DBContract.TableStandInfo.COLNAME_STAND_MATCH + " = ?",
+                            DBContract.TableMatchInfo.COLNAME_MATCH_TEAM + " = ? " +
+                                    "AND " + DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER + " = ?",
                             new String[]{
-                                    String.valueOf(standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_TEAM)),
-                                    String.valueOf(standInfo.getInt(DBContract.TableStandInfo.COLNAME_STAND_MATCH))}
+                                    String.valueOf(standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM)),
+                                    String.valueOf(standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER))}
                     );
 
                 }
@@ -191,9 +188,9 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         int result;
         try {
-            db.execSQL(DBContract.TableStandInfo.SQL_QUERY_DELETE_TABLE);
+            db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_DELETE_TABLE);
             try {
-                db.execSQL(DBContract.TableStandInfo.SQL_QUERY_CREATE_TABLE);
+                db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_CREATE_TABLE);
                 result = 0;
             } catch (Exception e) {
                 result = 2; // error during create

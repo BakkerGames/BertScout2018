@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,9 +25,11 @@ public class MainActivity extends AppCompatActivity {
     public static String[] teams;
 
     private void createDatabase(){
-        SQLiteDatabase db = openOrCreateDatabase(DBHelper.DATABASE_NAME, Context.MODE_PRIVATE, null);
+        SQLiteDatabase db = openOrCreateDatabase(DBContract.DATABASE_NAME, Context.MODE_PRIVATE, null);
+        db.execSQL(DBContract.TableVersionInfo.SQL_QUERY_CREATE_TABLE);
+        // todo check version number and delete tables if necessary
         db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
-        db.execSQL(DBContract.TableStandInfo.SQL_QUERY_CREATE_TABLE);
+        db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_CREATE_TABLE);
     }
 
     @Override
