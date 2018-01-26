@@ -4,11 +4,13 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +23,20 @@ public class AddTeamActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_team);
+
+        // show all teams already there
+        JSONArray teamList = mDBHelper.getTeamInfoList();
+        TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
+        try {
+            for (int i = 0; i < teamList.length(); i++) {
+                JSONObject teamInfo = teamList.getJSONObject(i);
+                if (i > 0) {
+                    teamNumberList.append(", ");
+                }
+                teamNumberList.append(String.format("%d", teamInfo.getInt("team")));
+            }
+        } catch (Exception ex) {
+        }
 
         Button addTeamButton = (Button) findViewById(R.id.add_teams_add_button);
         addTeamButton.setOnClickListener(new View.OnClickListener() {
