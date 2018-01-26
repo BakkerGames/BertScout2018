@@ -17,7 +17,7 @@ public final class DBContract {
         public static final String TABLE_NAME_VERSION = "version_info";
 
         public static final String COLNAME_VERSION = "version";
-        public static final String COLNAME_DEVICENAME = "version";
+        public static final String COLNAME_DEVICENAME = "device_name";
 
         public static final String SQL_QUERY_CREATE_TABLE =
 
@@ -25,8 +25,8 @@ public final class DBContract {
 
                         TableVersionInfo._ID + " INTEGER PRIMARY KEY" +
 
-                        ", " + TableVersionInfo.COLNAME_VERSION + " INTEGER UNIQUE" +
-                        ", " + TableVersionInfo.COLNAME_DEVICENAME + " STRING" +
+                        ", " + TableVersionInfo.COLNAME_VERSION + " INTEGER" +
+                        ", " + TableVersionInfo.COLNAME_DEVICENAME + " TEXT" +
 
                         ");";
 
