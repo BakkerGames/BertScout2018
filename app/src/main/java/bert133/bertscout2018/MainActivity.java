@@ -14,15 +14,21 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Context context = this;
+    private DBHelper mDBHelper = new DBHelper(context);
+
     public static final String TEAM_MESSAGE = "bert133.bertscout2018.TEAM_MESSAGE";
 
-    public static String[] teams;
+    //public static String[] teams;
 
     private void createDatabase(){
         SQLiteDatabase db = openOrCreateDatabase(DBContract.DATABASE_NAME, Context.MODE_PRIVATE, null);
@@ -39,12 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
         createDatabase();
 
-        teams = new String[80];
-        for (int i = 0; i < 80; i++) {
-            teams[i] = String.format("%d", i + 1001);
+        // show all teams already there
+        JSONArray teamListJA = mDBHelper.getTeamInfoList();
+        List<String> teamList = new ArrayList<String>();
+        try {
+            for (int i = 0; i < teamListJA.length(); i++) {
+                JSONObject teamInfo = teamListJA.getJSONObject(i);
+                teamList.add(String.format("%d", teamInfo.getInt("team")));
+            }
+        } catch (Exception ex) {
         }
-
-        List<String> teamList = new ArrayList<String>(Arrays.asList(teams));
         ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, teamList);
         GridView gridView = (GridView) findViewById(R.id.gridView);
