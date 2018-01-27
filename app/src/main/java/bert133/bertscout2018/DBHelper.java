@@ -21,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(DBContract.TableVersionInfo.SQL_QUERY_CREATE_TABLE);
         db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
         db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_CREATE_TABLE);
     }
@@ -28,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < newVersion) {
+            // just drop and re-create tables
             db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_DELETE_TABLE);
             db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
             db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_DELETE_TABLE);
