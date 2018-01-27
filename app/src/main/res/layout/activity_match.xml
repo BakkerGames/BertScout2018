@@ -317,18 +317,27 @@
             android:text="Rating"
             android:textSize="30dp" />
 
-        <TextView
-            android:id="@+id/stand_match_rating_text"
+        <!--<TextView-->
+            <!--android:id="@+id/stand_match_rating_text"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="@+id/stand_match_rating_label"-->
+            <!--android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:layout_toRightOf="@+id/stand_match_rating_label"-->
+            <!--android:ems="2"-->
+            <!--android:text="0"-->
+            <!--android:textSize="30sp"-->
+            <!--android:textStyle="bold" />-->
+
+        <RatingBar
+            android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_rating_label"
             android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
-            android:layout_margin="10dp"
             android:layout_toRightOf="@+id/stand_match_rating_label"
-            android:ems="2"
-            android:text="0"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:layout_alignTop="@+id/stand_match_rating_label"
+             />
 
     </RelativeLayout>
 
