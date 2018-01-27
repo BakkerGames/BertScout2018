@@ -21,12 +21,12 @@ public final class DBContract {
 
         public static final String SQL_QUERY_CREATE_TABLE =
 
-                "CREATE TABLE IF NOT EXISTS " + TableVersionInfo.TABLE_NAME_VERSION + " (" +
+                "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_VERSION + " (" +
 
-                        TableVersionInfo._ID + " INTEGER PRIMARY KEY" +
+                        _ID + " INTEGER PRIMARY KEY" +
 
-                        ", " + TableVersionInfo.COLNAME_VERSION + " INTEGER" +
-                        ", " + TableVersionInfo.COLNAME_DEVICENAME + " TEXT" +
+                        ", " + COLNAME_VERSION + " INTEGER" +
+                        ", " + COLNAME_DEVICENAME + " TEXT" +
 
                         ");";
 
@@ -41,22 +41,50 @@ public final class DBContract {
 
         public static final String COLNAME_TEAM = "team";
         public static final String COLNAME_RATING = "rating";
+        public static final String COLNAME_PICK_NUMBER = "pick_number";
         public static final String COLNAME_PICKED = "picked";
 
         public static final String SQL_QUERY_CREATE_TABLE =
 
-                "CREATE TABLE IF NOT EXISTS " + TableTeamInfo.TABLE_NAME_TEAM + " (" +
+                "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_TEAM + " (" +
 
-                        TableTeamInfo._ID + " INTEGER PRIMARY KEY" +
+                        _ID + " INTEGER PRIMARY KEY" +
 
-                        ", " + TableTeamInfo.COLNAME_TEAM + " INTEGER UNIQUE" +
-                        ", " + TableTeamInfo.COLNAME_RATING + " INTEGER" +
-                        ", " + TableTeamInfo.COLNAME_PICKED + " INTEGER" +
+                        ", " + COLNAME_TEAM + " INTEGER UNIQUE" +
+                        ", " + COLNAME_RATING + " INTEGER" +
+
+                        ", " + COLNAME_PICK_NUMBER + " INTEGER" +
+                        ", " + COLNAME_PICKED + " INTEGER" +
 
                         ");";
 
         public static final String SQL_QUERY_DELETE_TABLE =
                 "DROP TABLE IF EXISTS " + TABLE_NAME_TEAM + ";";
+
+    }
+
+    public static class TableTeamComments implements BaseColumns {
+
+        public static final String TABLE_NAME_TEAMCOMMENTS = "team_comments";
+
+        public static final String COLNAME_TEAMCOMMENTS_TEAM = "team";
+        public static final String COLNAME_MATCHCOMMENTS_UUID = "uuid";
+        public static final String COLNAME_TEAMCOMMENTS_COMMENT = "comment";
+
+        public static final String SQL_QUERY_CREATE_TABLE =
+
+                "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_TEAMCOMMENTS + " (" +
+
+                        _ID + " INTEGER PRIMARY KEY" +
+
+                        ", " + COLNAME_TEAMCOMMENTS_TEAM + " INTEGER UNIQUE" +
+                        ", " + COLNAME_MATCHCOMMENTS_UUID + " TEXT" +
+                        ", " + COLNAME_TEAMCOMMENTS_COMMENT + " TEXT" +
+
+                        ");";
+
+        public static final String SQL_QUERY_DELETE_TABLE =
+                "DROP TABLE IF EXISTS " + TABLE_NAME_TEAMCOMMENTS + ";";
 
     }
 
@@ -82,25 +110,25 @@ public final class DBContract {
 
         public static final String SQL_QUERY_CREATE_TABLE =
 
-                "CREATE TABLE IF NOT EXISTS " + TableMatchInfo.TABLE_NAME_MATCH + " (" +
+                "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_MATCH + " (" +
 
-                        TableMatchInfo._ID + " INTEGER PRIMARY KEY" +
+                        _ID + " INTEGER PRIMARY KEY" +
 
-                        ", " + TableMatchInfo.COLNAME_MATCH_TEAM + " INTEGER" +
-                        ", " + TableMatchInfo.COLNAME_MATCH_NUMBER + " INTEGER" +
+                        ", " + COLNAME_MATCH_TEAM + " INTEGER" +
+                        ", " + COLNAME_MATCH_NUMBER + " INTEGER" +
 
-                        ", " + TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE + " INTEGER" +
-                        ", " + TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH + " INTEGER" +
-                        ", " + TableMatchInfo.COLNAME_MATCH_AUTO_SCALE + " INTEGER" +
+                        ", " + COLNAME_MATCH_AUTO_BASELINE + " INTEGER" +
+                        ", " + COLNAME_MATCH_AUTO_SWITCH + " INTEGER" +
+                        ", " + COLNAME_MATCH_AUTO_SCALE + " INTEGER" +
 
-                        ", " + TableMatchInfo.COLNAME_MATCH_TELE_SWITCH + " INTEGER" +
-                        ", " + TableMatchInfo.COLNAME_MATCH_TELE_SCALE + " INTEGER" +
-                        ", " + TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE + " INTEGER" +
-                        ", " + TableMatchInfo.COLNAME_MATCH_TELE_PARKED + " INTEGER" +
-                        ", " + TableMatchInfo.COLNAME_MATCH_TELE_CLIMBED + " INTEGER" +
-                        ", " + TableMatchInfo.COLNAME_MATCH_TELE_PENALTIES + " INTEGER" +
+                        ", " + COLNAME_MATCH_TELE_SWITCH + " INTEGER" +
+                        ", " + COLNAME_MATCH_TELE_SCALE + " INTEGER" +
+                        ", " + COLNAME_MATCH_TELE_EXCHANGE + " INTEGER" +
+                        ", " + COLNAME_MATCH_TELE_PARKED + " INTEGER" +
+                        ", " + COLNAME_MATCH_TELE_CLIMBED + " INTEGER" +
+                        ", " + COLNAME_MATCH_TELE_PENALTIES + " INTEGER" +
 
-                        ", " + TableMatchInfo.COLNAME_MATCH_RATING + " INTEGER" +
+                        ", " + COLNAME_MATCH_RATING + " INTEGER " +
 
                         ");";
 
@@ -109,4 +137,30 @@ public final class DBContract {
 
     }
 
+    public static class TableMatchComments implements BaseColumns {
+
+        public static final String TABLE_NAME_MATCHCOMMENTS = "match_comments";
+
+        public static final String COLNAME_MATCHCOMMENTS_TEAM = "team";
+        public static final String COLNAME_MATCHCOMMENTS_MATCH = "match";
+        public static final String COLNAME_MATCHCOMMENTS_UUID = "uuid";
+        public static final String COLNAME_MATCHCOMMENTS_COMMENT = "comment";
+
+        public static final String SQL_QUERY_CREATE_TABLE =
+
+                "CREATE TABLE IF NOT EXISTS " + TABLE_NAME_MATCHCOMMENTS + " (" +
+
+                        _ID + " INTEGER PRIMARY KEY" +
+
+                        ", " + COLNAME_MATCHCOMMENTS_TEAM + " INTEGER" +
+                        ", " + COLNAME_MATCHCOMMENTS_MATCH + " INTEGER" +
+                        ", " + COLNAME_MATCHCOMMENTS_UUID + " TEXT" +
+                        ", " + COLNAME_MATCHCOMMENTS_COMMENT + " TEXT" +
+
+                        ");";
+
+        public static final String SQL_QUERY_DELETE_TABLE =
+                "DROP TABLE IF EXISTS " + TABLE_NAME_MATCHCOMMENTS + ";";
+
+    }
 }

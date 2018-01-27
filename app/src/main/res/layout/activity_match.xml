@@ -140,8 +140,7 @@
             android:text=""
             android:textOff=""
             android:textOn="Yes"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/stand_match_auto_switch_label"
@@ -162,8 +161,7 @@
             android:text=""
             android:textOff=""
             android:textOn="Yes"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/stand_match_auto_scale_label"
@@ -184,8 +182,7 @@
             android:text=""
             android:textOff=""
             android:textOn="Yes"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/stand_match_tele_switch_label"
@@ -276,8 +273,7 @@
             android:text=""
             android:textOff=""
             android:textOn="Yes"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/stand_match_tele_climbed_label"
@@ -298,8 +294,7 @@
             android:text=""
             android:textOff=""
             android:textOn="Yes"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/stand_match_penalties_label"
@@ -333,28 +328,36 @@
             android:textSize="30dp" />
 
         <!--<TextView-->
-            <!--android:id="@+id/stand_match_rating_text"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignBaseline="@+id/stand_match_rating_label"-->
-            <!--android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"-->
-            <!--android:layout_margin="10dp"-->
-            <!--android:layout_toRightOf="@+id/stand_match_rating_label"-->
-            <!--android:ems="2"-->
-            <!--android:text="0"-->
-            <!--android:textSize="30sp"-->
-            <!--android:textStyle="bold" />-->
+        <!--android:id="@+id/stand_match_rating_text"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBaseline="@+id/stand_match_rating_label"-->
+        <!--android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:layout_toRightOf="@+id/stand_match_rating_label"-->
+        <!--android:ems="2"-->
+        <!--android:text="0"-->
+        <!--android:textSize="30sp"-->
+        <!--android:textStyle="bold" />-->
 
         <RatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
-            android:layout_toRightOf="@+id/stand_match_rating_label"
             android:layout_alignTop="@+id/stand_match_rating_label"
+            android:layout_toRightOf="@+id/stand_match_rating_label"
             android:stepSize="1"
-            android:
-             />
+            />
+
+        <TextView
+            android:id="@+id/stand_match_comments_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stand_match_rating_label"
+            android:layout_marginLeft="10sp"
+            android:text="Comments:"
+            android:textSize="30dp" />
 
     </RelativeLayout>
 
