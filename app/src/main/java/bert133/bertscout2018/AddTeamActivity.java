@@ -25,18 +25,7 @@ public class AddTeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_team);
 
         // show all teams already there
-        JSONArray teamList = mDBHelper.getTeamInfoList();
-        TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
-        try {
-            for (int i = 0; i < teamList.length(); i++) {
-                JSONObject teamInfo = teamList.getJSONObject(i);
-                if (i > 0) {
-                    teamNumberList.append(", ");
-                }
-                teamNumberList.append(String.format("%d", teamInfo.getInt("team")));
-            }
-        } catch (Exception ex) {
-        }
+        ShowTeamList();
 
         Button addTeamButton = (Button) findViewById(R.id.add_teams_add_button);
         addTeamButton.setOnClickListener(new View.OnClickListener() {
@@ -72,13 +61,14 @@ public class AddTeamActivity extends AppCompatActivity {
                         return;
                     }
 
-                    if (!value.equals("")) {
-                        if (String.valueOf(teamNumberList.getText()).length() > 0) {
-                            teamNumberList.append(", ");
-                        }
-                        teamNumberList.append(value);
-                        teamNumberEdit.setText("");
-                    }
+                    ShowTeamList();
+//                    if (!value.equals("")) {
+//                        if (String.valueOf(teamNumberList.getText()).length() > 0) {
+//                            teamNumberList.append(", ");
+//                        }
+//                        teamNumberList.append(value);
+//                        teamNumberEdit.setText("");
+//                    }
                 } else {
                     Toast.makeText(getApplicationContext(), String.format("Team %s already exists!", teamNumber), Toast.LENGTH_LONG).show();
                 }
@@ -86,5 +76,72 @@ public class AddTeamActivity extends AppCompatActivity {
                 teamNumberEdit.setText("");
             }
         });
+
+//        Button deleteTeamButton = (Button) findViewById(R.id.add_teams_delete_button);
+//        deleteTeamButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                EditText teamNumberEdit = (EditText) findViewById(R.id.add_teams_team_number_edit);
+//                TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
+//                String value = String.valueOf(teamNumberEdit.getText());
+//                while (value.startsWith("0")) {
+//                    value = value.substring(1);
+//                }
+//
+//                int teamNumber = Integer.parseInt(value);
+//                JSONObject currTeam = mDBHelper.getTeamInfo(teamNumber);
+//
+//                if (currTeam != null) {
+//
+//                    currTeam = new JSONObject();
+//
+//                    try {
+//                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM, teamNumber);
+//                        currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, 0);
+//                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, 0);
+//                    } catch (JSONException ex) {
+//                        Toast.makeText(getApplicationContext(), "Error filling TeamInfo", Toast.LENGTH_LONG).show();
+//                        return;
+//                    }
+//
+//                    try {
+//                        mDBHelper.updateTeamInfo(currTeam);
+//                    } catch (Exception ex) {
+//                        Toast.makeText(getApplicationContext(), "Error saving TeamInfo", Toast.LENGTH_LONG).show();
+//                        return;
+//                    }
+//
+//                    if (!value.equals("")) {
+//                        if (String.valueOf(teamNumberList.getText()).length() > 0) {
+//                            teamNumberList.append(", ");
+//                        }
+//                        teamNumberList.append(value);
+//                        teamNumberEdit.setText("");
+//                    }
+//                } else {
+//                    Toast.makeText(getApplicationContext(), String.format("Team %s already exists!", teamNumber), Toast.LENGTH_LONG).show();
+//                }
+//
+//                teamNumberEdit.setText("");
+//            }
+//        });
+
+
+    }
+
+    public void ShowTeamList(){
+        JSONArray teamList = mDBHelper.getTeamInfoList();
+        TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
+        teamNumberList.setText("");
+        try {
+            for (int i = 0; i < teamList.length(); i++) {
+                JSONObject teamInfo = teamList.getJSONObject(i);
+                if (i > 0) {
+                    teamNumberList.append(", ");
+                }
+                teamNumberList.append(String.format("%d", teamInfo.getInt("team")));
+            }
+        } catch (Exception ex) {
+        }
     }
 }

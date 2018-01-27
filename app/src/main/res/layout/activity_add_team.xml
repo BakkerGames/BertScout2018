@@ -47,6 +47,16 @@
             android:textSize="30sp"
             />
 
+        <Button
+            android:id="@+id/add_teams_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:layout_toRightOf="@id/add_teams_add_button"
+            android:layout_alignBaseline="@id/add_teams_team_number_edit"
+            android:textSize="30sp"
+            />
+
     </RelativeLayout>
 
     <RelativeLayout
