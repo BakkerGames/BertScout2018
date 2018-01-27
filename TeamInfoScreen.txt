@@ -1,0 +1,19 @@
+Team Infomation
+
+
+List of matches
+	rating
+	???
+View
+Edit
+Delete
+
+Average rating
+
+Our Pick Number (1, 2, 3...)
+button for already Picked
+
+Comments (use for pit scouting)
+list of comments, easier to send
+
+

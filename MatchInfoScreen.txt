@@ -1,0 +1,20 @@
+Match Info Screen
+
+add Comments
+
+cycle time
+	pickup cube
+	place on switch
+	place on scale
+	place in exchange
+
+	
+scout name
+	remember last entered
+	
+make yes/no buttons like last year
+
+add +/- buttons
+
+add star rating (pit scouting last year)
+
