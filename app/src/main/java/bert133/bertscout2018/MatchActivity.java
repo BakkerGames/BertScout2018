@@ -24,11 +24,11 @@ public class MatchActivity extends AppCompatActivity {
 
         // --- buttons ---
 
-        Button matchMinusButton = (Button) findViewById(R.id.stand_match_minus_btn);
+        Button matchMinusButton = (Button) findViewById(R.id.match_number_minus_btn);
         matchMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = (TextView) findViewById(R.id.stand_match_number);
+                TextView matchText = (TextView) findViewById(R.id.match_number_text);
                 matchText.requestFocus();
                 int tempValue;
                 try {
@@ -45,11 +45,11 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        Button matchPlusButton = (Button) findViewById(R.id.stand_match_plus_btn);
+        Button matchPlusButton = (Button) findViewById(R.id.match_number_plus_btn);
         matchPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = (TextView) findViewById(R.id.stand_match_number);
+                TextView matchText = (TextView) findViewById(R.id.match_number_text);
                 matchText.requestFocus();
                 int tempValue;
                 try {
@@ -66,11 +66,11 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        Button matchMinus10Button = (Button) findViewById(R.id.stand_match_minus10_btn);
+        Button matchMinus10Button = (Button) findViewById(R.id.match_number_minus10_btn);
         matchMinus10Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = (TextView) findViewById(R.id.stand_match_number);
+                TextView matchText = (TextView) findViewById(R.id.match_number_text);
                 matchText.requestFocus();
                 int tempValue;
                 try {
@@ -89,11 +89,11 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        Button matchPlus10Button = (Button) findViewById(R.id.stand_match_plus10_btn);
+        Button matchPlus10Button = (Button) findViewById(R.id.match_number_plus10_btn);
         matchPlus10Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = (TextView) findViewById(R.id.stand_match_number);
+                TextView matchText = (TextView) findViewById(R.id.match_number_text);
                 matchText.requestFocus();
                 int tempValue;
                 try {
@@ -114,17 +114,16 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        Button matchGoButton = (Button) findViewById(R.id.stand_match_go_btn);
+        Button matchGoButton = (Button) findViewById(R.id.match_go_btn);
         matchGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // hide button layout
-                RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.stand_match_button_layout);
+                RelativeLayout layoutButtons = (RelativeLayout) findViewById(R.id.match_button_layout);
                 layoutButtons.setVisibility(View.INVISIBLE);
-                RelativeLayout layoutInfo = (RelativeLayout) findViewById(R.id.stand_match_info_layout);
+                RelativeLayout layoutInfo = (RelativeLayout) findViewById(R.id.match_info_layout);
                 layoutInfo.setVisibility(View.VISIBLE);
             }
         });
-
     }
 }

@@ -8,15 +8,15 @@
     tools:context="bert133.bertscout2018.MatchActivity">
 
     <RelativeLayout
-        android:id="@+id/stand_match_labels_layout"
+        android:id="@+id/match_labels_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/stand_match_label"
+            android:id="@+id/match_number_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:labelFor="@+id/stand_match_number"
+            android:labelFor="@+id/match_number"
             android:paddingBottom="0sp"
             android:paddingEnd="10sp"
             android:paddingStart="10sp"
@@ -25,12 +25,12 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/stand_match_number"
+            android:id="@+id/match_number_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_label"
+            android:layout_alignBaseline="@+id/match_number_label"
             android:layout_margin="10dp"
-            android:layout_toEndOf="@id/stand_match_label"
+            android:layout_toEndOf="@id/match_number_label"
             android:ems="2"
             android:text="1"
             android:textSize="30sp"
@@ -39,13 +39,13 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/stand_match_button_layout"
+        android:id="@+id/match_button_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/stand_match_labels_layout">
+        app:layout_constraintStart_toEndOf="@id/match_labels_layout">
 
         <Button
-            android:id="@+id/stand_match_minus_btn"
+            android:id="@+id/match_number_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
@@ -58,11 +58,11 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/stand_match_plus_btn"
+            android:id="@+id/match_number_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/stand_match_minus_btn"
+            android:layout_toEndOf="@id/match_number_minus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -72,11 +72,11 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/stand_match_minus10_btn"
+            android:id="@+id/match_number_minus10_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/stand_match_plus_btn"
+            android:layout_toEndOf="@id/match_number_plus_btn"
             android:minWidth="80dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -86,11 +86,11 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/stand_match_plus10_btn"
+            android:id="@+id/match_number_plus10_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/stand_match_minus10_btn"
+            android:layout_toEndOf="@id/match_number_minus10_btn"
             android:minWidth="80dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -100,11 +100,11 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/stand_match_go_btn"
+            android:id="@+id/match_go_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/stand_match_plus10_btn"
+            android:layout_toEndOf="@id/match_number_plus10_btn"
             android:minWidth="80dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -116,14 +116,16 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/stand_match_info_layout"
+        android:id="@+id/match_info_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/stand_match_button_layout">
+        app:layout_constraintTop_toBottomOf="@id/match_button_layout">
+
+        <!-- auto baseline -->
 
         <TextView
-            android:id="@+id/stand_match_auto_baseline_label"
+            android:id="@+id/match_auto_baseline_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
@@ -131,210 +133,347 @@
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/stand_match_auto_baseline_checkBox"
+            android:id="@+id/match_auto_baseline_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_auto_baseline_label"
+            android:layout_alignBaseline="@+id/match_auto_baseline_label"
             android:layout_marginStart="50dp"
-            android:layout_toEndOf="@+id/stand_match_auto_baseline_label"
+            android:layout_toEndOf="@+id/match_auto_baseline_label"
             android:text=""
             android:textOff=""
             android:textOn="Yes"
             android:textSize="20dp" />
 
+        <!-- auto switch -->
+
         <TextView
-            android:id="@+id/stand_match_auto_switch_label"
+            android:id="@+id/match_auto_switch_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_auto_baseline_label"
+            android:layout_below="@id/match_auto_baseline_label"
             android:layout_marginLeft="10sp"
             android:text="Auto Switch"
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/stand_match_auto_switch_checkBox"
+            android:id="@+id/match_auto_switch_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_auto_switch_label"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
-            android:layout_toRightOf="@+id/stand_match_auto_switch_label"
+            android:layout_alignBaseline="@+id/match_auto_switch_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_toRightOf="@+id/match_auto_switch_label"
             android:text=""
             android:textOff=""
             android:textOn="Yes"
             android:textSize="20dp" />
 
+        <!-- auto scale -->
+
         <TextView
-            android:id="@+id/stand_match_auto_scale_label"
+            android:id="@+id/match_auto_scale_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_auto_switch_label"
+            android:layout_below="@id/match_auto_switch_label"
             android:layout_marginLeft="10sp"
             android:text="Auto Scale"
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/stand_match_auto_scale_checkBox"
+            android:id="@+id/match_auto_scale_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_auto_scale_label"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
-            android:layout_toRightOf="@+id/stand_match_auto_scale_label"
+            android:layout_alignBaseline="@+id/match_auto_scale_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_toRightOf="@+id/match_auto_scale_label"
             android:text=""
             android:textOff=""
             android:textOn="Yes"
             android:textSize="20dp" />
 
+        <!-- tele switch -->
+
         <TextView
-            android:id="@+id/stand_match_tele_switch_label"
+            android:id="@+id/match_tele_switch_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_auto_scale_label"
+            android:layout_below="@id/match_auto_scale_label"
             android:layout_marginLeft="10sp"
             android:text="Tele Switch"
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/stand_match_tele_switch_text"
+            android:id="@+id/match_tele_switch_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_tele_switch_label"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
+            android:layout_alignBaseline="@+id/match_tele_switch_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
             android:layout_margin="10dp"
-            android:layout_toRightOf="@+id/stand_match_tele_switch_label"
+            android:layout_toRightOf="@+id/match_tele_switch_label"
             android:ems="2"
             android:text="0"
             android:textAlignment="textStart"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/stand_match_tele_scale_label"
+        <Button
+            android:id="@+id/match_tele_switch_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_tele_switch_label"
+            android:layout_toEndOf="@id/match_tele_switch_text"
+            android:layout_alignBaseline="@+id/match_tele_switch_text"
+            android:layout_margin="0dp"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="—"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/match_tele_switch_plus_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_tele_switch_minus_btn"
+            android:layout_alignBaseline="@+id/match_tele_switch_text"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="+"
+            android:textSize="30sp" />
+
+        <!-- tele scale -->
+
+        <TextView
+            android:id="@+id/match_tele_scale_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/match_tele_switch_label"
             android:layout_marginLeft="10sp"
             android:text="Tele Scale"
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/stand_match_tele_scale_text"
+            android:id="@+id/match_tele_scale_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_tele_scale_label"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
+            android:layout_alignBaseline="@+id/match_tele_scale_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
             android:layout_margin="10dp"
-            android:layout_toRightOf="@+id/stand_match_tele_scale_label"
+            android:layout_toRightOf="@+id/match_tele_scale_label"
             android:ems="2"
             android:text="0"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-
-        <TextView
-            android:id="@+id/stand_match_tele_exchange_label"
+        <Button
+            android:id="@+id/match_tele_scale_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_tele_scale_label"
+            android:layout_toEndOf="@id/match_tele_scale_text"
+            android:layout_alignBaseline="@+id/match_tele_scale_text"
+            android:layout_margin="0dp"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="—"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/match_tele_scale_plus_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_tele_scale_minus_btn"
+            android:layout_alignBaseline="@+id/match_tele_scale_minus_btn"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="+"
+            android:textSize="30sp" />
+
+        <!-- tele exchange -->
+
+        <TextView
+            android:id="@+id/match_tele_exchange_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/match_tele_scale_label"
             android:layout_marginLeft="10sp"
             android:text="Tele Exchange"
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/stand_match_tele_exchange_text"
+            android:id="@+id/match_tele_exchange_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_tele_exchange_label"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
+            android:layout_alignBaseline="@+id/match_tele_exchange_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
             android:layout_margin="10dp"
-            android:layout_toRightOf="@+id/stand_match_tele_exchange_label"
+            android:layout_toRightOf="@+id/match_tele_exchange_label"
             android:ems="2"
             android:text="0"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/stand_match_tele_exchange_label"
-            app:layout_constraintStart_toStartOf="@+id/stand_match_auto_baseline_checkBox" />
+            app:layout_constraintBottom_toBottomOf="@id/match_tele_exchange_label"
+            app:layout_constraintStart_toStartOf="@+id/match_auto_baseline_checkBox" />
 
-        <TextView
-            android:id="@+id/stand_match_tele_parked_label"
+        <Button
+            android:id="@+id/match_tele_exchange_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_tele_exchange_label"
+            android:layout_toEndOf="@id/match_tele_exchange_text"
+            android:layout_alignBaseline="@+id/match_tele_exchange_text"
+            android:layout_margin="0dp"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="—"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/match_tele_exchange_plus_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_tele_exchange_minus_btn"
+            android:layout_alignBaseline="@+id/match_tele_exchange_minus_btn"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="+"
+            android:textSize="30sp" />
+
+        <!-- tele parked -->
+
+        <TextView
+            android:id="@+id/match_tele_parked_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/match_tele_exchange_label"
             android:layout_marginLeft="10sp"
             android:text="Tele Parked"
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/stand_match_tele_parked_checkBox"
+            android:id="@+id/match_tele_parked_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_tele_parked_label"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
-            android:layout_toRightOf="@+id/stand_match_tele_parked_label"
+            android:layout_alignBaseline="@+id/match_tele_parked_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_toRightOf="@+id/match_tele_parked_label"
             android:text=""
             android:textOff=""
             android:textOn="Yes"
             android:textSize="20dp" />
 
+        <!-- tele climbed -->
+
         <TextView
-            android:id="@+id/stand_match_tele_climbed_label"
+            android:id="@+id/match_tele_climbed_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_tele_parked_label"
+            android:layout_below="@id/match_tele_parked_label"
             android:layout_marginLeft="10sp"
             android:text="Tele Climbed"
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/stand_match_tele_climbed_checkBox"
+            android:id="@+id/match_tele_climbed_checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_tele_climbed_label"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
-            android:layout_toRightOf="@+id/stand_match_tele_climbed_label"
+            android:layout_alignBaseline="@+id/match_tele_climbed_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_toRightOf="@+id/match_tele_climbed_label"
             android:text=""
             android:textOff=""
             android:textOn="Yes"
             android:textSize="20dp" />
 
+        <!-- penalties -->
+
         <TextView
-            android:id="@+id/stand_match_penalties_label"
+            android:id="@+id/match_penalties_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_tele_climbed_label"
+            android:layout_below="@id/match_tele_climbed_label"
             android:layout_marginLeft="10sp"
             android:text="Penalties"
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/stand_match_penalties_text"
+            android:id="@+id/match_penalties_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/stand_match_penalties_label"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
+            android:layout_alignBaseline="@+id/match_penalties_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
             android:layout_margin="10dp"
-            android:layout_toRightOf="@+id/stand_match_penalties_label"
+            android:layout_toRightOf="@+id/match_penalties_label"
             android:ems="2"
             android:text="0"
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/stand_match_rating_label"
+        <Button
+            android:id="@+id/match_penalties_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_penalties_label"
+            android:layout_toEndOf="@id/match_penalties_text"
+            android:layout_alignBaseline="@+id/match_penalties_text"
+            android:layout_margin="0dp"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="—"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/match_penalties_plus_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_penalties_minus_btn"
+            android:layout_alignBaseline="@+id/match_penalties_minus_btn"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="+"
+            android:textSize="30sp" />
+
+        <!-- rating -->
+
+        <TextView
+            android:id="@+id/match_rating_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/match_penalties_label"
             android:layout_marginLeft="10sp"
             android:text="Rating"
             android:textSize="30dp" />
 
         <!--<TextView-->
-        <!--android:id="@+id/stand_match_rating_text"-->
+        <!--android:id="@+id/match_rating_text"-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignBaseline="@+id/stand_match_rating_label"-->
-        <!--android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"-->
+        <!--android:layout_alignBaseline="@+id/match_rating_label"-->
+        <!--android:layout_alignLeft="@+id/match_auto_baseline_checkBox"-->
         <!--android:layout_margin="10dp"-->
-        <!--android:layout_toRightOf="@+id/stand_match_rating_label"-->
+        <!--android:layout_toRightOf="@+id/match_rating_label"-->
         <!--android:ems="2"-->
         <!--android:text="0"-->
         <!--android:textSize="30sp"-->
@@ -344,17 +483,19 @@
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/stand_match_auto_baseline_checkBox"
-            android:layout_alignTop="@+id/stand_match_rating_label"
-            android:layout_toRightOf="@+id/stand_match_rating_label"
+            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignTop="@+id/match_rating_label"
+            android:layout_toRightOf="@+id/match_rating_label"
             android:stepSize="1"
             />
 
+        <!-- comments -->
+
         <TextView
-            android:id="@+id/stand_match_comments_label"
+            android:id="@+id/match_comments_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/stand_match_rating_label"
+            android:layout_below="@id/match_rating_label"
             android:layout_marginLeft="10sp"
             android:text="Comments:"
             android:textSize="30dp" />
