@@ -13,6 +13,7 @@ public class Match {
     public int TeleSwitch;
     public int TeleScale;
     public int TeleExchange;
+    public int CycleTime;
     public boolean TeleParked;
     public boolean TeleClimbed;
     public int TelePenalties;
