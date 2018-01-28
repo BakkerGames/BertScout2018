@@ -77,7 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // send team number
                 Intent intent = new Intent(MainActivity.this, MatchActivity.class);
-                intent.putExtra(TEAM_MESSAGE, v.getText());
+                String teamMessage = (String)v.getText();
+                if (teamMessage.endsWith(" *")){
+                    teamMessage= teamMessage.replace(" *","");
+                }
+                intent.putExtra(TEAM_MESSAGE, teamMessage);
                 startActivity(intent);
             }
         });
@@ -92,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // send team number
                 Intent intent = new Intent(MainActivity.this, TeamActivity.class);
-                intent.putExtra(TEAM_MESSAGE, v.getText());
+                String teamMessage = (String)v.getText();
+                if (teamMessage.endsWith(" *")){
+                    teamMessage= teamMessage.replace(" *","");
+                }
+                intent.putExtra(TEAM_MESSAGE, teamMessage);
                 startActivity(intent);
 
                 return true;
