@@ -5,5 +5,106 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="bert133.bertscout2018.TeamActivity">
+    
+    <RelativeLayout
+        android:id="@+id/match_labels_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
+        <!-- rating -->
+
+        <TextView
+            android:id="@+id/team_rating_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="20sp"
+            android:text="Overall Rating"
+            android:textSize="30dp" />
+
+        <RatingBar
+            android:id="@+id/team_rating_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_alignTop="@+id/team_rating_label"
+            android:layout_toRightOf="@+id/team_rating_label"
+            android:stepSize="1"
+            />
+
+        <TextView
+            android:id="@+id/team_pick_number_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/team_rating_label"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10sp"
+            android:text="Pick Number"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/team_pick_number_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/team_pick_number_label"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/team_pick_number_label"
+            android:layout_alignStart="@+id/team_rating_value"
+            android:ems="2"
+            android:text="0"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/team_pick_number_minus_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/team_pick_number_text"
+            android:layout_alignBaseline="@+id/team_pick_number_text"
+            android:layout_margin="0dp"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="—"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/team_pick_number_plus_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_toEndOf="@id/team_pick_number_minus_btn"
+            android:layout_alignBaseline="@+id/team_pick_number_minus_btn"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="+"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/team_picked_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/team_pick_number_label"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10sp"
+            android:text="Team Picked"
+            android:textSize="30dp" />
+
+        <ToggleButton
+            android:id="@+id/team_picked_checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/team_picked_label"
+            android:layout_toRightOf="@+id/team_picked_label"
+            android:layout_alignStart="@+id/team_rating_value"
+            android:text=""
+            android:textOff=""
+            android:textOn="Yes"
+            android:textSize="20dp" />
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
