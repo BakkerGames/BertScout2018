@@ -125,5 +125,175 @@ public class MatchActivity extends AppCompatActivity {
                 layoutInfo.setVisibility(View.VISIBLE);
             }
         });
+        
+        // tele switch buttons
+
+        Button matchTeleSwitchMinusButton = (Button) findViewById(R.id.match_tele_switch_minus_btn);
+        matchTeleSwitchMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView matchText = (TextView) findViewById(R.id.match_tele_switch_text);
+                matchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    if (tempValue <= 0) {
+                        tempValue = 0;
+                    } else {
+                        tempValue--;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                matchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        Button matchTeleSwitchPlusButton = (Button) findViewById(R.id.match_tele_switch_plus_btn);
+        matchTeleSwitchPlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView matchText = (TextView) findViewById(R.id.match_tele_switch_text);
+                matchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    if (tempValue >= 999) {
+                        tempValue = 999;
+                    } else {
+                        tempValue++;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                matchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        Button matchTeleScaleMinusButton = (Button) findViewById(R.id.match_tele_scale_minus_btn);
+        matchTeleScaleMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView matchText = (TextView) findViewById(R.id.match_tele_scale_text);
+                matchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    if (tempValue <= 0) {
+                        tempValue = 0;
+                    } else {
+                        tempValue--;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                matchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        Button matchTeleScalePlusButton = (Button) findViewById(R.id.match_tele_scale_plus_btn);
+        matchTeleScalePlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView matchText = (TextView) findViewById(R.id.match_tele_scale_text);
+                matchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    if (tempValue >= 999) {
+                        tempValue = 999;
+                    } else {
+                        tempValue++;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                matchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        Button matchTeleExchangeMinusButton = (Button) findViewById(R.id.match_tele_exchange_minus_btn);
+        matchTeleExchangeMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView matchText = (TextView) findViewById(R.id.match_tele_exchange_text);
+                matchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    if (tempValue <= 0) {
+                        tempValue = 0;
+                    } else {
+                        tempValue--;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                matchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        Button matchTeleExchangePlusButton = (Button) findViewById(R.id.match_tele_exchange_plus_btn);
+        matchTeleExchangePlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView matchText = (TextView) findViewById(R.id.match_tele_exchange_text);
+                matchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    if (tempValue >= 999) {
+                        tempValue = 999;
+                    } else {
+                        tempValue++;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                matchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        Button matchPenaltiesMinusButton = (Button) findViewById(R.id.match_penalties_minus_btn);
+        matchPenaltiesMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView matchText = (TextView) findViewById(R.id.match_penalties_text);
+                matchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    if (tempValue <= 0) {
+                        tempValue = 0;
+                    } else {
+                        tempValue--;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                matchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        Button matchPenaltiesPlusButton = (Button) findViewById(R.id.match_penalties_plus_btn);
+        matchPenaltiesPlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView matchText = (TextView) findViewById(R.id.match_penalties_text);
+                matchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    if (tempValue >= 999) {
+                        tempValue = 999;
+                    } else {
+                        tempValue++;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                matchText.setText(Integer.toString(tempValue));
+            }
+        });
     }
 }
