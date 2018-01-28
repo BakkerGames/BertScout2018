@@ -51,10 +51,17 @@ public class MainActivity extends AppCompatActivity {
         try {
             for (int i = 0; i < teamListJA.length(); i++) {
                 JSONObject teamInfo = teamListJA.getJSONObject(i);
-                teamList.add(String.format("%d", teamInfo.getInt("team")));
+                boolean picked = teamInfo.getBoolean("picked");
+                String teamText = String.format("%d", teamInfo.getInt("team"));
+                if (teamInfo.getBoolean("picked")){
+                    teamText = teamText + " *";
+                }
+                teamList.add(teamText);
             }
         } catch (Exception ex) {
+            Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG);
         }
+
         ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, teamList);
         GridView gridView = (GridView) findViewById(R.id.gridView);
