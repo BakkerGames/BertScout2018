@@ -48,27 +48,21 @@ public class AddTeamActivity extends AppCompatActivity {
                     try {
                         currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM, teamNumber);
                         currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, 0);
-                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, 0);
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER, 0);
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, false);
                     } catch (JSONException ex) {
-                        Toast.makeText(getApplicationContext(), "Error filling TeamInfo", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                         return;
                     }
 
                     try {
                         mDBHelper.updateTeamInfo(currTeam);
                     } catch (Exception ex) {
-                        Toast.makeText(getApplicationContext(), "Error saving TeamInfo", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                         return;
                     }
 
                     ShowTeamList();
-//                    if (!value.equals("")) {
-//                        if (String.valueOf(teamNumberList.getText()).length() > 0) {
-//                            teamNumberList.append(", ");
-//                        }
-//                        teamNumberList.append(value);
-//                        teamNumberEdit.setText("");
-//                    }
                 } else {
                     Toast.makeText(getApplicationContext(), String.format("Team %s already exists!", teamNumber), Toast.LENGTH_LONG).show();
                 }
@@ -98,7 +92,7 @@ public class AddTeamActivity extends AppCompatActivity {
 //                    try {
 //                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM, teamNumber);
 //                        currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, 0);
-//                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, 0);
+//                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, false);
 //                    } catch (JSONException ex) {
 //                        Toast.makeText(getApplicationContext(), "Error filling TeamInfo", Toast.LENGTH_LONG).show();
 //                        return;
@@ -142,6 +136,8 @@ public class AddTeamActivity extends AppCompatActivity {
                 teamNumberList.append(String.format("%d", teamInfo.getInt("team")));
             }
         } catch (Exception ex) {
+            Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+            return;
         }
     }
 }

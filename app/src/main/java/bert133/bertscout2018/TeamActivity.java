@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -35,16 +36,46 @@ public class TeamActivity extends AppCompatActivity {
         // set title
         this.setTitle(String.format("Team Information - Team %s", message));
 
+        // set objects here
+        final RatingBar ratingStars = (RatingBar) findViewById(R.id.team_rating_value);
+        final TextView matchText = (TextView) findViewById(R.id.team_pick_number_text);
+        final Button teamPickNumberMinusButton = (Button) findViewById(R.id.team_pick_number_minus_btn);
+        final Button teamPickNumberPlusButton = (Button) findViewById(R.id.team_pick_number_plus_btn);
+        final ToggleButton teamPickedButton = (ToggleButton) findViewById(R.id.team_picked_checkBox);
+
         // set current information
 
         JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
+        try {
+            ratingStars.setRating(currTeam.getInt(DBContract.TableTeamInfo.COLNAME_RATING));
+            teamPickedButton.setChecked(currTeam.getBoolean(DBContract.TableTeamInfo.COLNAME_PICKED));
+            matchText.setText(String.format("%d", currTeam.getInt(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER)));
+        } catch (Exception ex) {
+            Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
 
+        // rating
 
-        Button teamPickNumberMinusButton = (Button) findViewById(R.id.team_pick_number_minus_btn);
+        ratingStars.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
+                try {
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, (int)rating);
+                    mDBHelper.updateTeamInfo(currTeam);
+                } catch (Exception ex) {
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        });
+
+        // pick number
+
         teamPickNumberMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = (TextView) findViewById(R.id.team_pick_number_text);
                 matchText.requestFocus();
                 int tempValue;
                 try {
@@ -57,11 +88,19 @@ public class TeamActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                // get the team record from database
+                JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
+                try {
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER, tempValue);
+                    mDBHelper.updateTeamInfo(currTeam);
+                } catch (Exception ex) {
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-        Button teamPickNumberPlusButton = (Button) findViewById(R.id.team_pick_number_plus_btn);
         teamPickNumberPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,49 +117,36 @@ public class TeamActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
+                try {
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER, tempValue);
+                    mDBHelper.updateTeamInfo(currTeam);
+                } catch (Exception ex) {
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-
-        ToggleButton teamPickedButton = (ToggleButton) findViewById(R.id.team_picked_checkBox);
-        try
-        {
-            teamPickedButton.setChecked(currTeam.getBoolean(DBContract.TableTeamInfo.COLNAME_PICKED));
-        }catch(Exception ex){
-        }
+        // picked
 
         teamPickedButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                Toast.makeText(getApplicationContext(),
-//                        String.valueOf(buttonView.isChecked()), Toast.LENGTH_SHORT).show();
 
                 // get the team record from database
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
 
-                //Toast.makeText(context, currTeam.toString(), Toast.LENGTH_LONG).show(); // todo for testing
-
                 // update the picked flag
                 try {
-                    if (buttonView.isChecked()) {
-                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, 1);
-                    } else {
-                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, 0);
-                    }
-                } catch (JSONException ex) {
-                }
-                //Toast.makeText(context, currTeam.toString(), Toast.LENGTH_LONG).show(); // todo for testing
-
-                // save the team record
-                try {
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, buttonView.isChecked());
                     mDBHelper.updateTeamInfo(currTeam);
                 } catch (Exception ex) {
-                    Toast.makeText(getApplicationContext(), "Error saving TeamInfo", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-
             }
         });
 

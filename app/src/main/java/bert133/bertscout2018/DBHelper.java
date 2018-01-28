@@ -62,6 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         switch (results.getColumnName(i)) {
                             case DBContract.TableTeamInfo._ID:
                             case DBContract.TableTeamInfo.COLNAME_TEAM:
+                            case DBContract.TableTeamInfo.COLNAME_PICK_NUMBER:
                             case DBContract.TableTeamInfo.COLNAME_RATING:
                                 rowObject.put(results.getColumnName(i), results.getInt(i));
                                 break;
@@ -145,7 +146,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             contentValues.put(DBContract.TableTeamInfo.COLNAME_TEAM, teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM));
             contentValues.put(DBContract.TableTeamInfo.COLNAME_RATING, teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_RATING));
-            contentValues.put(DBContract.TableTeamInfo.COLNAME_PICKED, teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_PICKED));
+            contentValues.put(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER, teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER));
+            contentValues.put(DBContract.TableTeamInfo.COLNAME_PICKED, teamInfo.getBoolean(DBContract.TableTeamInfo.COLNAME_PICKED));
 
             if (teamInfo.has(DBContract.TableTeamInfo._ID)) {
 
