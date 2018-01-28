@@ -35,6 +35,11 @@ public class TeamActivity extends AppCompatActivity {
         // set title
         this.setTitle(String.format("Team Information - Team %s", message));
 
+        // set current information
+
+        JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
+
+
         Button teamPickNumberMinusButton = (Button) findViewById(R.id.team_pick_number_minus_btn);
         teamPickNumberMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +83,13 @@ public class TeamActivity extends AppCompatActivity {
         });
 
 
-        final ToggleButton teamPickedButton = (ToggleButton) findViewById(R.id.team_picked_checkBox);
+        ToggleButton teamPickedButton = (ToggleButton) findViewById(R.id.team_picked_checkBox);
+        try
+        {
+            teamPickedButton.setChecked(currTeam.getBoolean(DBContract.TableTeamInfo.COLNAME_PICKED));
+        }catch(Exception ex){
+        }
+
         teamPickedButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
