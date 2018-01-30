@@ -127,5 +127,51 @@
             android:inputType="textMultiLine"
             android:text=""
             android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/save_comment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/team_comment_label"
+            android:layout_toEndOf="@+id/team_rating_label"
+            android:layout_toStartOf="@+id/team_pick_number_minus_btn"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="Save Comment"
+            android:textSize="15sp" />
+        <Button
+            android:id="@+id/view_comments_button"
+            android:layout_width="291dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_matches_button"
+            android:minWidth="50dp"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="View Comments"
+            android:textSize="30sp"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="400dp" />
+
+        <Button
+            android:id="@+id/view_matches_button"
+            android:layout_width="291dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/team_comment_text"
+            android:minWidth="50dp"
+            android:layout_marginLeft="160dp"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="View Matches"
+            android:textSize="30sp" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
