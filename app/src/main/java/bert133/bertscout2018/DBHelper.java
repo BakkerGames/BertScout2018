@@ -133,8 +133,47 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         results.close();
+        return teamList; }
 
-        return teamList;
+    public JSONArray teamComment() {
+
+        JSONArray teamComment = new JSONArray();
+        JSONObject rowObject = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor results;
+
+        String query;
+        query = "SELECT * FROM " + DBContract.TableTeamComments.COLNAME_TEAMCOMMENTS_COMMENT +
+                " ORDER BY " + DBContract.TableTeamComments.COLNAME_TEAMCOMMENTS_TEAM;
+
+        results = db.rawQuery(query, null);
+        results.moveToFirst();
+
+        while (!results.isAfterLast()) {
+            int totalColumn = results.getColumnCount();
+            rowObject = new JSONObject();
+
+            for (int i = 0; i < totalColumn; i++) {
+                if (results.getColumnName(i) != null) {
+                    try {
+                        switch (results.getColumnName(i)) {
+                            case DBContract.TableTeamComments.COLNAME_TEAMCOMMENTS_TEAM:
+                            case DBContract.TableTeamComments.COLNAME_TEAMCOMMENTS_COMMENT:
+                                rowObject.put(results.getColumnName(i), results.getInt(i));
+                                break;
+                        }
+                    } catch (JSONException e) {
+                        return null;
+                    }
+                }
+            }
+            teamComment().put(rowObject);
+            results.moveToNext();
+        }
+
+        results.close();
+
+        return teamComment();
     }
 
     public boolean updateTeamInfo(JSONObject teamInfo) {

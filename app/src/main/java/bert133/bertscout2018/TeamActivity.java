@@ -12,8 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class TeamActivity extends AppCompatActivity {
 
@@ -22,6 +26,8 @@ public class TeamActivity extends AppCompatActivity {
 
     private Context context = this;
     private DBHelper mDBHelper = new DBHelper(context);
+
+    ArrayList<String> teamCommentArray= new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,7 @@ public class TeamActivity extends AppCompatActivity {
         final Button teamPickNumberMinusButton = (Button) findViewById(R.id.team_pick_number_minus_btn);
         final Button teamPickNumberPlusButton = (Button) findViewById(R.id.team_pick_number_plus_btn);
         final ToggleButton teamPickedButton = (ToggleButton) findViewById(R.id.team_picked_checkBox);
+        final Button saveCommentButton = (Button) findViewById(R.id.save_comment_button);
 
         // set current information
 
@@ -148,6 +155,22 @@ public class TeamActivity extends AppCompatActivity {
                     return;
                 }
             }
+        });
+
+        saveCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               JSONArray teamComment = mDBHelper.teamComment();
+               TextView commentText = (TextView) findViewById(R.id.team_comment_text);
+               try {
+               teamComment.put(DBContract.TableTeamComments.COLNAME_TEAMCOMMENTS_TEAM);
+               teamComment.put(DBContract.TableTeamComments.COLNAME_MATCHCOMMENTS_UUID);
+               teamComment.put(DBContract.TableTeamComments.COLNAME_TEAMCOMMENTS_COMMENT);
+            } catch (Exception ex) {
+                   Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                   return;
+               }
+               }
         });
 
     }
