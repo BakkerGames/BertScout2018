@@ -112,6 +112,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         switch (results.getColumnName(i)) {
                             case DBContract.TableTeamInfo._ID:
                             case DBContract.TableTeamInfo.COLNAME_TEAM:
+                            case DBContract.TableTeamInfo.COLNAME_PICK_NUMBER:
                             case DBContract.TableTeamInfo.COLNAME_RATING:
                                 rowObject.put(results.getColumnName(i), results.getInt(i));
                                 break;

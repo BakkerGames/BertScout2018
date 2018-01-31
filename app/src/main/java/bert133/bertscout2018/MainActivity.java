@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject teamInfo = teamListJA.getJSONObject(i);
                 boolean picked = teamInfo.getBoolean("picked");
                 String teamText = String.format("%d", teamInfo.getInt("team"));
+                if (teamInfo.getInt("pick_number") > 0){
+                    teamText = teamText + " #" + String.format("%d", teamInfo.getInt("pick_number"));
+                }
                 if (teamInfo.getBoolean("picked")){
                     teamText = teamText + " *";
                 }
@@ -78,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
                 // send team number
                 Intent intent = new Intent(MainActivity.this, MatchActivity.class);
                 String teamMessage = (String)v.getText();
-                if (teamMessage.endsWith(" *")){
-                    teamMessage= teamMessage.replace(" *","");
+                if (teamMessage.contains(" ")){
+                    teamMessage= teamMessage.substring(0, teamMessage.indexOf(" "));
                 }
                 intent.putExtra(TEAM_MESSAGE, teamMessage);
                 startActivity(intent);
@@ -97,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 // send team number
                 Intent intent = new Intent(MainActivity.this, TeamActivity.class);
                 String teamMessage = (String)v.getText();
-                if (teamMessage.endsWith(" *")){
-                    teamMessage= teamMessage.replace(" *","");
+                if (teamMessage.contains(" ")){
+                    teamMessage= teamMessage.substring(0, teamMessage.indexOf(" "));
                 }
                 intent.putExtra(TEAM_MESSAGE, teamMessage);
                 startActivity(intent);
