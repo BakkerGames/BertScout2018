@@ -34,11 +34,12 @@ public class AddTeamActivity extends AppCompatActivity {
                 EditText teamNumberEdit = (EditText) findViewById(R.id.add_teams_team_number_edit);
                 TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
                 String value = String.valueOf(teamNumberEdit.getText());
-                while (value.startsWith("0")) {
-                    value = value.substring(1);
-                }
-
                 int teamNumber = Integer.parseInt(value);
+                if (teamNumber < 1)
+                {
+                    teamNumberEdit.setText("");
+                    return;
+                }
                 JSONObject currTeam = mDBHelper.getTeamInfo(teamNumber);
 
                 if (currTeam == null) {
