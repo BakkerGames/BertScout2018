@@ -5,10 +5,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+
+import org.json.JSONObject;
 
 public class MatchActivity extends AppCompatActivity {
+
+    int myTeamNumber;
+    int myMatchNumber;
+    boolean loadingValues = false;
+    DBHelper mDBHelper = new DBHelper(this);
+    JSONObject matchInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +30,41 @@ public class MatchActivity extends AppCompatActivity {
         // get team number from MainActivity
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.TEAM_MESSAGE);
+        myTeamNumber = Integer.parseInt(message);
 
         // set title
         this.setTitle(String.format("Match Scouting - Team %s", message));
 
-        // --- buttons ---
+        // set objects here
 
         Button matchMinusButton = (Button) findViewById(R.id.match_number_minus_btn);
+        Button matchPlusButton = (Button) findViewById(R.id.match_number_plus_btn);
+        Button matchMinus10Button = (Button) findViewById(R.id.match_number_minus10_btn);
+        Button matchPlus10Button = (Button) findViewById(R.id.match_number_plus10_btn);
+        Button matchGoButton = (Button) findViewById(R.id.match_go_btn);
+        Button matchTeleSwitchMinusButton = (Button) findViewById(R.id.match_tele_switch_minus_btn);
+        Button matchTeleSwitchPlusButton = (Button) findViewById(R.id.match_tele_switch_plus_btn);
+        Button matchTeleScaleMinusButton = (Button) findViewById(R.id.match_tele_scale_minus_btn);
+        Button matchTeleScalePlusButton = (Button) findViewById(R.id.match_tele_scale_plus_btn);
+        Button matchTeleExchangeMinusButton = (Button) findViewById(R.id.match_tele_exchange_minus_btn);
+        Button matchTeleExchangePlusButton = (Button) findViewById(R.id.match_tele_exchange_plus_btn);
+        Button matchPenaltiesMinusButton = (Button) findViewById(R.id.match_penalties_minus_btn);
+        Button matchPenaltiesPlusButton = (Button) findViewById(R.id.match_penalties_plus_btn);
+
+        final ToggleButton matchAutoBaselineToggle = (ToggleButton) findViewById(R.id.match_auto_baseline_toggle);
+        final ToggleButton matchAutoSwitchToggle = (ToggleButton) findViewById(R.id.match_auto_switch_toggle);
+        final ToggleButton matchAutoScaleToggle = (ToggleButton) findViewById(R.id.match_auto_scale_toggle);
+        final TextView matchTeleSwitchText = (TextView) findViewById(R.id.match_tele_switch_text);
+        final TextView matchTeleScaleText = (TextView) findViewById(R.id.match_tele_scale_text);
+        final TextView matchTeleExchangeText = (TextView) findViewById(R.id.match_tele_exchange_text);
+        final RatingBar matchCycleTypeRating = (RatingBar) findViewById(R.id.match_cycletime_rating);
+        final ToggleButton matchParkedToggle = (ToggleButton) findViewById(R.id.match_parked_toggle);
+        final ToggleButton matchClimbedToggle = (ToggleButton) findViewById(R.id.match_climbed_toggle);
+        final TextView matchPenaltiesText = (TextView) findViewById(R.id.match_penalties_text);
+        final RatingBar matchOverallRating = (RatingBar) findViewById(R.id.match_overall_rating);
+
+        // --- buttons ---
+
         matchMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +85,6 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        Button matchPlusButton = (Button) findViewById(R.id.match_number_plus_btn);
         matchPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +105,6 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        Button matchMinus10Button = (Button) findViewById(R.id.match_number_minus10_btn);
         matchMinus10Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +127,6 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        Button matchPlus10Button = (Button) findViewById(R.id.match_number_plus10_btn);
         matchPlus10Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +151,6 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
 
-        Button matchGoButton = (Button) findViewById(R.id.match_go_btn);
         matchGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,12 +159,130 @@ public class MatchActivity extends AppCompatActivity {
                 layoutButtons.setVisibility(View.INVISIBLE);
                 RelativeLayout layoutInfo = (RelativeLayout) findViewById(R.id.match_info_layout);
                 layoutInfo.setVisibility(View.VISIBLE);
+
+                // set current information
+                TextView matchText = (TextView) findViewById(R.id.match_number_text);
+                myMatchNumber = Integer.parseInt(matchText.getText().toString());
+                matchInfo = mDBHelper.getMatchInfo(myTeamNumber, myMatchNumber);
+                try {
+                    if (matchInfo == null) {
+                        matchInfo = new JSONObject();
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM, myTeamNumber);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER, myMatchNumber);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, false);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, false);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, false);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH, 0);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE, 0);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE, 0);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME, 0);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED, false);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, false);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES, 0);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, 0);
+                    } else {
+                        loadingValues = true;
+                        matchAutoBaselineToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
+                        matchAutoSwitchToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
+                        matchAutoScaleToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
+                        matchTeleSwitchText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH)));
+                        matchTeleScaleText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE)));
+                        matchTeleExchangeText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE)));
+                        matchCycleTypeRating.setRating(matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME));
+                        matchParkedToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED));
+                        matchClimbedToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED));
+                        matchPenaltiesText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES)));
+                        matchOverallRating.setRating(matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_RATING));
+                        loadingValues = false;
+                    }
+                } catch (Exception ex) {
+                    loadingValues = false;
+                    Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                }
+                loadingValues = false;
             }
         });
-        
+
+        // auto baseline button
+
+        matchAutoBaselineToggle.setOnCheckedChangeListener
+                (new CompoundButton.OnCheckedChangeListener() {
+                     @Override
+                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                         if (!loadingValues) {
+                             try {
+                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, isChecked);
+                                 mDBHelper.updateMatchInfo(matchInfo);
+                             } catch (Exception ex) {
+                             }
+                         }
+                     }
+                 }
+                );
+
+        matchAutoSwitchToggle.setOnCheckedChangeListener
+                (new CompoundButton.OnCheckedChangeListener() {
+                     @Override
+                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                         if (!loadingValues) {
+                             try {
+                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, isChecked);
+                                 mDBHelper.updateMatchInfo(matchInfo);
+                             } catch (Exception ex) {
+                             }
+                         }
+                     }
+                 }
+                );
+
+        matchAutoScaleToggle.setOnCheckedChangeListener
+                (new CompoundButton.OnCheckedChangeListener() {
+                     @Override
+                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                         if (!loadingValues) {
+                             try {
+                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, isChecked);
+                                 mDBHelper.updateMatchInfo(matchInfo);
+                             } catch (Exception ex) {
+                             }
+                         }
+                     }
+                 }
+                );
+
+        matchParkedToggle.setOnCheckedChangeListener
+                (new CompoundButton.OnCheckedChangeListener() {
+                     @Override
+                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                         if (!loadingValues) {
+                             try {
+                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED, isChecked);
+                                 mDBHelper.updateMatchInfo(matchInfo);
+                             } catch (Exception ex) {
+                             }
+                         }
+                     }
+                 }
+                );
+
+        matchClimbedToggle.setOnCheckedChangeListener
+                (new CompoundButton.OnCheckedChangeListener() {
+                     @Override
+                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                         if (!loadingValues) {
+                             try {
+                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, isChecked);
+                                 mDBHelper.updateMatchInfo(matchInfo);
+                             } catch (Exception ex) {
+                             }
+                         }
+                     }
+                 }
+                );
+
+
         // tele switch buttons
 
-        Button matchTeleSwitchMinusButton = (Button) findViewById(R.id.match_tele_switch_minus_btn);
         matchTeleSwitchMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,11 +299,15 @@ public class MatchActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-        Button matchTeleSwitchPlusButton = (Button) findViewById(R.id.match_tele_switch_plus_btn);
         matchTeleSwitchPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,11 +324,15 @@ public class MatchActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-        Button matchTeleScaleMinusButton = (Button) findViewById(R.id.match_tele_scale_minus_btn);
         matchTeleScaleMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -187,11 +349,15 @@ public class MatchActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-        Button matchTeleScalePlusButton = (Button) findViewById(R.id.match_tele_scale_plus_btn);
         matchTeleScalePlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -208,11 +374,15 @@ public class MatchActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-        Button matchTeleExchangeMinusButton = (Button) findViewById(R.id.match_tele_exchange_minus_btn);
         matchTeleExchangeMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -229,11 +399,15 @@ public class MatchActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-        Button matchTeleExchangePlusButton = (Button) findViewById(R.id.match_tele_exchange_plus_btn);
         matchTeleExchangePlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -250,11 +424,15 @@ public class MatchActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-        Button matchPenaltiesMinusButton = (Button) findViewById(R.id.match_penalties_minus_btn);
         matchPenaltiesMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,11 +449,15 @@ public class MatchActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     tempValue = 1;
                 }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                }
                 matchText.setText(Integer.toString(tempValue));
             }
         });
 
-        Button matchPenaltiesPlusButton = (Button) findViewById(R.id.match_penalties_plus_btn);
         matchPenaltiesPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -291,6 +473,11 @@ public class MatchActivity extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                     tempValue = 1;
+                }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
                 }
                 matchText.setText(Integer.toString(tempValue));
             }

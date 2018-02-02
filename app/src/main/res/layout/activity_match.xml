@@ -134,7 +134,7 @@
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/match_auto_baseline_checkBox"
+            android:id="@+id/match_auto_baseline_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_auto_baseline_label"
@@ -157,11 +157,11 @@
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/match_auto_switch_checkBox"
+            android:id="@+id/match_auto_switch_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_auto_switch_label"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_toRightOf="@+id/match_auto_switch_label"
             android:text=""
             android:textOff=""
@@ -180,11 +180,11 @@
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/match_auto_scale_checkBox"
+            android:id="@+id/match_auto_scale_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_auto_scale_label"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_toRightOf="@+id/match_auto_scale_label"
             android:text=""
             android:textOff=""
@@ -208,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_tele_switch_label"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_margin="10dp"
             android:layout_toRightOf="@+id/match_tele_switch_label"
             android:ems="2"
@@ -263,7 +263,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_tele_scale_label"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_margin="10dp"
             android:layout_toRightOf="@+id/match_tele_scale_label"
             android:ems="2"
@@ -317,7 +317,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_tele_exchange_label"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_margin="10dp"
             android:layout_toRightOf="@+id/match_tele_exchange_label"
             android:ems="2"
@@ -325,7 +325,7 @@
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/match_tele_exchange_label"
-            app:layout_constraintStart_toStartOf="@+id/match_auto_baseline_checkBox" />
+            app:layout_constraintStart_toStartOf="@+id/match_auto_baseline_toggle" />
 
         <Button
             android:id="@+id/match_tele_exchange_minus_btn"
@@ -352,10 +352,10 @@
             android:textSize="30dp" />
 
         <RatingBar
-            android:id="@+id/cycle_timeBar"
+            android:id="@+id/match_cycletime_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_alignTop="@+id/match_cycle_time_label"
             android:layout_toRightOf="@+id/match_cycle_time_label"
             android:stepSize="1"
@@ -385,15 +385,15 @@
             android:layout_below="@id/match_cycle_time_label"
             android:layout_marginLeft="10sp"
             android:layout_marginTop="20sp"
-            android:text="Tele Parked"
+            android:text="Parked"
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/match_tele_parked_checkBox"
+            android:id="@+id/match_parked_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_tele_parked_label"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_toRightOf="@+id/match_tele_parked_label"
             android:text=""
             android:textOff=""
@@ -408,15 +408,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/match_tele_parked_label"
             android:layout_marginLeft="10sp"
-            android:text="Tele Climbed"
+            android:text="Climbed"
             android:textSize="30dp" />
 
         <ToggleButton
-            android:id="@+id/match_tele_climbed_checkBox"
+            android:id="@+id/match_climbed_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_tele_climbed_label"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_toRightOf="@+id/match_tele_climbed_label"
             android:text=""
             android:textOff=""
@@ -440,7 +440,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/match_penalties_label"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_margin="10dp"
             android:layout_toRightOf="@+id/match_penalties_label"
             android:ems="2"
@@ -491,10 +491,10 @@
             android:textSize="30dp" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/match_overall_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/match_auto_baseline_checkBox"
+            android:layout_alignLeft="@+id/match_auto_baseline_toggle"
             android:layout_alignTop="@+id/match_rating_label"
             android:layout_toRightOf="@+id/match_rating_label"
             android:stepSize="1"

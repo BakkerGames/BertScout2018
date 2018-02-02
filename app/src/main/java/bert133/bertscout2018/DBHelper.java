@@ -203,6 +203,140 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public JSONObject getMatchInfo(int teamNumber, int matchNumber) {
+        JSONObject rowObject = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor results;
+
+        String query;
+        query = "SELECT * FROM " + DBContract.TableMatchInfo.TABLE_NAME_MATCH +
+                " WHERE " + DBContract.TableMatchInfo.COLNAME_MATCH_TEAM + " = " + teamNumber +
+                " AND " + DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER + " = " + matchNumber;
+
+        results = db.rawQuery(query, null);
+        results.moveToFirst();
+
+        while (!results.isAfterLast()) {
+            int totalColumn = results.getColumnCount();
+            rowObject = new JSONObject();
+
+            for (int i = 0; i < totalColumn; i++) {
+                if (results.getColumnName(i) != null) {
+                    try {
+                        switch (results.getColumnName(i)) {
+                            case DBContract.TableMatchInfo._ID:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TEAM:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_RATING:
+                                rowObject.put(results.getColumnName(i), results.getInt(i));
+                                break;
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_PARKED:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED:
+                                if (results.getInt(i) == 0) {
+                                    rowObject.put(results.getColumnName(i), false);
+                                } else {
+                                    rowObject.put(results.getColumnName(i), true);
+                                }
+                                break;
+                        }
+                    } catch (JSONException e) {
+                        return null;
+                    }
+                }
+            }
+            results.moveToNext();
+        }
+
+        results.close();
+
+        return rowObject;
+    }
+
+    public boolean updateMatchInfo(JSONObject matchInfo) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        try {
+
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_RATING));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED));
+
+            if (matchInfo.has(DBContract.TableMatchInfo._ID)) {
+
+                db.update(
+                        DBContract.TableMatchInfo.TABLE_NAME_MATCH,
+                        contentValues,
+                        "_id = ?",
+                        new String[]{String.valueOf(matchInfo.getInt(DBContract.TableMatchInfo._ID))}
+                );
+                return true;
+
+            } else {
+
+                // see if there might already be a record like this
+                Cursor results;
+                String query =
+                        "SELECT * FROM " + DBContract.TableMatchInfo.TABLE_NAME_MATCH +
+                                " WHERE " + DBContract.TableMatchInfo.COLNAME_MATCH_TEAM + " = " + matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM) +
+                                " AND " + DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER + " = " + matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER);
+
+                results = db.rawQuery(query, null);
+
+                if (!results.moveToFirst()) {
+
+                    // it is a new record
+                    long newID = db.insert(
+                            DBContract.TableMatchInfo.TABLE_NAME_MATCH,
+                            null,
+                            contentValues
+                    );
+                    if (newID > 0) {
+                        matchInfo.put(DBContract.TableMatchInfo._ID, newID);
+                        return true;
+                    }
+
+                } else {
+
+                    // it does already exist
+                    db.update(DBContract.TableMatchInfo.TABLE_NAME_MATCH,
+                            contentValues,
+                            DBContract.TableMatchInfo.COLNAME_MATCH_TEAM + " = ? " +
+                                    "AND " + DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER + " = ?",
+                            new String[]{
+                                    String.valueOf(matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM)),
+                                    String.valueOf(matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER))}
+                    );
+                }
+            }
+
+        } catch (JSONException e) {
+            return false;
+        }
+
+        return true;
+
+    }
+
 //    public JSONArray getDataAllStand(int teamNumber) {
 //
 //        JSONArray resultSet = new JSONArray();
@@ -237,7 +371,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH:
 //                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE:
 //                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE:
-//                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PENALTIES:
+//                            case DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES:
 //                            case DBContract.TableMatchInfo.COLNAME_MATCH_RATING:
 //                                rowObject.put(results.getColumnName(i), results.getInt(i));
 //                                break;
@@ -249,8 +383,8 @@ public class DBHelper extends SQLiteOpenHelper {
 //                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE:
 //                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH:
 //                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE:
-//                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PARKED:
-//                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_CLIMBED:
+//                            case DBContract.TableMatchInfo.COLNAME_MATCH_PARKED:
+//                            case DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED:
 //                                if (results.getInt(i) == 0) {
 //                                    rowObject.put(results.getColumnName(i), false);
 //                                } else {
@@ -288,9 +422,9 @@ public class DBHelper extends SQLiteOpenHelper {
 //            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH));
 //            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE));
 //            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE));
-//            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PARKED, standInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PARKED));
-//            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_CLIMBED, standInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_CLIMBED));
-//            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PENALTIES, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_PENALTIES));
+//            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED, standInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED));
+//            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, standInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED));
+//            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES, standInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES));
 //
 //            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, standInfo.getString(DBContract.TableMatchInfo.COLNAME_MATCH_RATING));
 //
