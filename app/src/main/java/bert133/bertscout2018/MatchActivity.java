@@ -57,7 +57,7 @@ public class MatchActivity extends AppCompatActivity {
         final TextView matchTeleSwitchText = (TextView) findViewById(R.id.match_tele_switch_text);
         final TextView matchTeleScaleText = (TextView) findViewById(R.id.match_tele_scale_text);
         final TextView matchTeleExchangeText = (TextView) findViewById(R.id.match_tele_exchange_text);
-        final RatingBar matchCycleTypeRating = (RatingBar) findViewById(R.id.match_cycletime_rating);
+        final RatingBar matchCycleTimeRating = (RatingBar) findViewById(R.id.match_cycletime_rating);
         final ToggleButton matchParkedToggle = (ToggleButton) findViewById(R.id.match_parked_toggle);
         final ToggleButton matchClimbedToggle = (ToggleButton) findViewById(R.id.match_climbed_toggle);
         final TextView matchPenaltiesText = (TextView) findViewById(R.id.match_penalties_text);
@@ -183,12 +183,12 @@ public class MatchActivity extends AppCompatActivity {
                     } else {
                         loadingValues = true;
                         matchAutoBaselineToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
-                        matchAutoSwitchToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
-                        matchAutoScaleToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
+                        matchAutoSwitchToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH));
+                        matchAutoScaleToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE));
                         matchTeleSwitchText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH)));
                         matchTeleScaleText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE)));
                         matchTeleExchangeText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE)));
-                        matchCycleTypeRating.setRating(matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME));
+                        matchCycleTimeRating.setRating(matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME));
                         matchParkedToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED));
                         matchClimbedToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED));
                         matchPenaltiesText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES)));
@@ -241,7 +241,7 @@ public class MatchActivity extends AppCompatActivity {
                      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                          if (!loadingValues) {
                              try {
-                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, isChecked);
+                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, isChecked);
                                  mDBHelper.updateMatchInfo(matchInfo);
                              } catch (Exception ex) {
                              }
@@ -249,6 +249,19 @@ public class MatchActivity extends AppCompatActivity {
                      }
                  }
                 );
+
+        matchCycleTimeRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (!loadingValues) {
+                    try {
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME, (int) rating);
+                        mDBHelper.updateMatchInfo(matchInfo);
+                    } catch (Exception ex) {
+                    }
+                }
+            }
+        });
 
         matchParkedToggle.setOnCheckedChangeListener
                 (new CompoundButton.OnCheckedChangeListener() {
@@ -280,6 +293,18 @@ public class MatchActivity extends AppCompatActivity {
                  }
                 );
 
+        matchOverallRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (!loadingValues) {
+                    try {
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, (int) rating);
+                        mDBHelper.updateMatchInfo(matchInfo);
+                    } catch (Exception ex) {
+                    }
+                }
+            }
+        });
 
         // tele switch buttons
 
