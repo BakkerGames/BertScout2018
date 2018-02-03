@@ -6,33 +6,110 @@
     android:layout_height="match_parent"
     tools:context="bert133.bertscout2018.SyncDataActivity">
 
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/stand_match_labels_layout"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
+
+    <!--<Button android:layout_height="wrap_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:text="Prepare to Send Data"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:id="@+id/sync_data_prepare_send_button"/>-->
+
+    <!--<Button android:layout_height="wrap_content"-->
+    <!--android:id="@+id/sync_data_listen_button"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_below="@+id/sync_data_prepare_send_button"-->
+    <!--android:text="Listen For Data"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--/>-->
+
+    <!--<Button android:layout_height="wrap_content"-->
+    <!--android:id="@+id/sync_data_send_button"-->
+    <!--android:layout_marginTop="20dp"-->
+    <!--android:layout_below="@+id/sync_data_listen_button"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:text="Send Data"-->
+    <!--/>-->
+
+    <!--</RelativeLayout>-->
+
     <RelativeLayout
-        android:id="@+id/stand_match_labels_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:id="@+id/sync_relative_layout_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <Button android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Prepare to Send Data"
-            android:layout_marginTop="20dp"
-            android:id="@+id/sync_data_prepare_send_button"/>
+        <TextView
+            android:id="@+id/sync_connect_status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="20sp"
+            android:text="Not connected"
+            android:textSize="30dp" />
 
-        <Button android:layout_height="wrap_content"
-            android:id="@+id/sync_data_listen_button"
-            android:layout_width="match_parent"
-            android:layout_below="@+id/sync_data_prepare_send_button"
-            android:text="Listen For Data"
-            android:layout_marginTop="20dp"
-            />
+        <Button
+            android:id="@+id/sync_connect_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/sync_connect_status_text"
+            android:layout_margin="0dp"
+            android:layout_toEndOf="@id/sync_connect_status_text"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="Connect"
+            android:textSize="30sp" />
 
-        <Button android:layout_height="wrap_content"
-            android:id="@+id/sync_data_send_button"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/sync_data_listen_button"
-            android:layout_width="match_parent"
-            android:text="Send Data"
-            />
 
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/sync_relative_layout_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/sync_relative_layout_1">
+
+        <ListView
+            android:id="@+id/sync_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/sync_relative_layout_2">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.8">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input some text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.2"
+            android:text="send" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>
