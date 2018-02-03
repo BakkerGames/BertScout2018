@@ -41,30 +41,27 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/sync_connect_status_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="20sp"
-            android:text="Not connected"
-            android:textSize="30dp" />
-
         <Button
             android:id="@+id/sync_connect_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/sync_connect_status_text"
-            android:layout_margin="0dp"
-            android:layout_toEndOf="@id/sync_connect_status_text"
+            android:layout_marginLeft="10dp"
             android:minWidth="50dp"
-            android:paddingBottom="0sp"
-            android:paddingEnd="0sp"
-            android:paddingStart="0sp"
-            android:paddingTop="0sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="Connect"
             android:textSize="30sp" />
 
+        <TextView
+            android:id="@+id/sync_connect_status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/sync_connect_button"
+            android:layout_marginLeft="10sp"
+            android:layout_marginTop="20sp"
+            android:layout_toRightOf="@+id/sync_connect_button"
+            android:text="Not connected"
+            android:textSize="30dp" />
 
     </RelativeLayout>
 
