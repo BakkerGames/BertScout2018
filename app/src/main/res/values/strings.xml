@@ -10,4 +10,6 @@
     <string name="add_team_activity_title">Add Teams</string>
     <string name="sync_data_activity_title">Sync Data</string>
     <string name="clear_data_activity_title">Clear Data</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
 </resources>

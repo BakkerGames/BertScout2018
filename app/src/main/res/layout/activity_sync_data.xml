@@ -10,18 +10,29 @@
         android:id="@+id/stand_match_labels_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <Button android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Prepare to Send Data"
+            android:layout_marginTop="20dp"
+            android:id="@+id/sync_data_prepare_send_button"/>
+
+        <Button android:layout_height="wrap_content"
+            android:id="@+id/sync_data_listen_button"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/sync_data_prepare_send_button"
+            android:text="Listen For Data"
+            android:layout_marginTop="20dp"
+            />
+
+        <Button android:layout_height="wrap_content"
+            android:id="@+id/sync_data_send_button"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/sync_data_listen_button"
             android:layout_width="match_parent"
             android:text="Send Data"
-            android:layout_marginTop="20dp"
-            android:id="@+id/sync_data_send_button"/>
-
-        <Button android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Listen For Data"
-            android:layout_below="@+id/sync_data_send_button"
-            android:layout_marginTop="20dp"
-            android:id="@+id/sync_data_listen_button"/>
+            />
 
     </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
