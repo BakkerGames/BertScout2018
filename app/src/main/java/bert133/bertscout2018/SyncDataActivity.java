@@ -94,56 +94,6 @@ public class SyncDataActivity extends AppCompatActivity {
         chatAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, chatMessages);
         listView.setAdapter(chatAdapter);
 
-//        Button syncPrepareSendButton = (Button) findViewById(R.id.sync_data_prepare_send_button);
-//        syncPrepareSendButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getApplicationContext(), "Waiting...", Toast.LENGTH_SHORT).show();
-//
-//                BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-//                if (bluetoothAdapter.isDiscovering()) {
-//                    bluetoothAdapter.cancelDiscovery();
-//                }
-//                bluetoothAdapter.startDiscovery();
-//
-//                // Register for broadcasts when a device is discovered
-//                IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-//                registerReceiver(discoveryFinishReceiver, filter);
-//
-//                // Register for broadcasts when discovery has finished
-//                filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-//                registerReceiver(discoveryFinishReceiver, filter);
-//
-//                bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-//                Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-//
-//                // If there are paired devices, add each one to the ArrayAdapter
-//                if (pairedDevices.size() > 0) {
-//                    for (BluetoothDevice device : pairedDevices) {
-//                        pairedDevicesAdapter.add(device.getName() + "\n" + device.getAddress());
-//                    }
-//                } else {
-//                    pairedDevicesAdapter.add(getString(R.string.none_paired));
-//                }
-//            }
-//        });
-//
-//        Button syncListenButton = (Button) findViewById(R.id.sync_data_listen_button);
-//        syncListenButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getApplicationContext(), "Listening", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        Button syncSendDataButton = (Button) findViewById(R.id.sync_data_send_button);
-//        syncSendDataButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getApplicationContext(), "Sending...", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
     }
 
     private final BroadcastReceiver discoveryFinishReceiver = new BroadcastReceiver() {
@@ -298,9 +248,6 @@ public class SyncDataActivity extends AppCompatActivity {
         BluetoothDevice device = bluetoothAdapter.getRemoteDevice(deviceAddress);
         chatController.connect(device);
     }
-
-//    private void findViewsByIds() {
-//    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
