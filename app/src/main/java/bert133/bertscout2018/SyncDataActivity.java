@@ -21,9 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.zip.DataFormatException;
 
 public class SyncDataActivity extends AppCompatActivity {
 
@@ -142,6 +144,8 @@ public class SyncDataActivity extends AppCompatActivity {
                         case ChatController.STATE_LISTEN:
                         case ChatController.STATE_NONE:
                             setStatus("Not connected");
+                            chatMessages.clear();
+                            chatAdapter.notifyDataSetChanged();
                             btnConnect.setEnabled(true);
                             sendTeamDataButton.setEnabled(false);
                             sendMatchDataButton.setEnabled(false);
@@ -161,6 +165,7 @@ public class SyncDataActivity extends AppCompatActivity {
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     chatMessages.add(connectingDevice.getName() + ":  " + readMessage);
                     chatAdapter.notifyDataSetChanged();
+                    MergeReceivedData(readMessage);
                     break;
                 case MESSAGE_DEVICE_OBJECT:
                     setStatus("### device_object ###");
@@ -193,10 +198,10 @@ public class SyncDataActivity extends AppCompatActivity {
         discoveredDevicesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
 
         //locate listviews and attatch the adapters
-        ListView listView = (ListView) dialog.findViewById(R.id.pairedDeviceList);
-        ListView listView2 = (ListView) dialog.findViewById(R.id.discoveredDeviceList);
-        listView.setAdapter(pairedDevicesAdapter);
-        listView2.setAdapter(discoveredDevicesAdapter);
+        ListView listViewPairedDevList = (ListView) dialog.findViewById(R.id.pairedDeviceList);
+        ListView listViewDiscoveredDevList = (ListView) dialog.findViewById(R.id.discoveredDeviceList);
+        listViewPairedDevList.setAdapter(pairedDevicesAdapter);
+        listViewDiscoveredDevList.setAdapter(discoveredDevicesAdapter);
 
         // Register for broadcasts when a device is discovered
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
@@ -219,7 +224,7 @@ public class SyncDataActivity extends AppCompatActivity {
         }
 
         //Handling listview item click event
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewPairedDevList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -232,7 +237,7 @@ public class SyncDataActivity extends AppCompatActivity {
 
         });
 
-        listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewDiscoveredDevList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 bluetoothAdapter.cancelDiscovery();
@@ -324,5 +329,56 @@ public class SyncDataActivity extends AppCompatActivity {
         // show all teams already there
         JSONArray matchListJA = mDBHelper.getMatchInfoList(true);
         return matchListJA.toString();
+    }
+
+    private void MergeReceivedData(String message) {
+        try {
+            JSONArray dataArray = new JSONArray(message);
+            if (dataArray.getString(0).equals("team")) {
+                chatMessages.add(dataArray.getString(0));
+                chatAdapter.notifyDataSetChanged();
+                int addCount = 0;
+                for (int i = 1; i < dataArray.length(); i++) {
+                    JSONObject currRow = dataArray.getJSONObject(i);
+                    int teamNumber = currRow.getInt("team");
+                    JSONObject existingRow = mDBHelper.getTeamInfo(teamNumber);
+                    if (existingRow == null) {
+                        currRow.remove("_id"); // can't save another device's id values
+                        mDBHelper.updateTeamInfo(currRow);
+                        addCount++;
+                    }
+                    chatMessages.add(currRow.toString());
+                    chatAdapter.notifyDataSetChanged();
+                }
+                chatMessages.add(String.format("%d rows added", addCount));
+                chatAdapter.notifyDataSetChanged();
+            } else if (dataArray.getString(0).equals("match")) {
+                chatMessages.add(dataArray.getString(0));
+                chatAdapter.notifyDataSetChanged();
+                int addCount = 0;
+                for (int i = 1; i < dataArray.length(); i++) {
+                    JSONObject currRow = dataArray.getJSONObject(i);
+                    int teamNumber = currRow.getInt("team");
+                    int matchNumber = currRow.getInt("match");
+                    JSONObject existingRow = mDBHelper.getMatchInfo(teamNumber, matchNumber);
+                    if (existingRow == null) {
+                        currRow.remove("_id"); // can't save another device's id values
+                        mDBHelper.updateMatchInfo(currRow);
+                        addCount++;
+                    }
+                    chatMessages.add(currRow.toString());
+                    chatAdapter.notifyDataSetChanged();
+                }
+                chatMessages.add(String.format("%d rows added", addCount));
+                chatAdapter.notifyDataSetChanged();
+            } else {
+                chatMessages.add(dataArray.getString(0));
+                chatMessages.add(String.format("Unknown identifier: %s", dataArray.getString(0)));
+                chatAdapter.notifyDataSetChanged();
+                throw new DataFormatException(String.format("Unknown identifier: %s", dataArray.getString(0)));
+            }
+        } catch (Exception ex) {
+            Toast.makeText(this, "Merge error! " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
