@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -31,7 +30,6 @@ public class SyncDataActivity extends AppCompatActivity {
     private TextView status;
     private Button btnConnect;
     private ListView listView;
-    //private EditText textToSend;
     private Button sendTeamDataButton;
     private Button sendMatchDataButton;
 
@@ -64,20 +62,20 @@ public class SyncDataActivity extends AppCompatActivity {
         btnConnect = findViewById(R.id.sync_connect_button);
         status = findViewById(R.id.sync_connect_status_text);
         listView = findViewById(R.id.sync_list);
-        //textToSend = findViewById(R.id.sync_text_to_send);
         sendTeamDataButton = findViewById(R.id.sync_send_team_data_button);
         sendMatchDataButton = findViewById(R.id.sync_send_match_data_button);
 
         sendTeamDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMessage(getTeamData());
-//                if (textToSend.getText().toString().equals("")) {
-//                    Toast.makeText(SyncDataActivity.this, "Please input some texts", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    sendMessage(textToSend.getText().toString());
-//                    textToSend.setText("");
-//                }
+                sendMessage(getTeamDataForSending());
+            }
+        });
+
+        sendMatchDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendMessage(getMatchDataForSending());
             }
         });
 
@@ -311,9 +309,15 @@ public class SyncDataActivity extends AppCompatActivity {
             chatController.stop();
     }
 
-    private String getTeamData() {
+    private String getTeamDataForSending() {
         // show all teams already there
         JSONArray teamListJA = mDBHelper.getTeamInfoList(true);
         return teamListJA.toString();
+    }
+
+    private String getMatchDataForSending() {
+        // show all teams already there
+        JSONArray matchListJA = mDBHelper.getMatchInfoList(true);
+        return matchListJA.toString();
     }
 }
