@@ -64,7 +64,7 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/btn_send"
+            android:id="@+id/sync_send_team_data_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sync_connect_button"
@@ -72,23 +72,36 @@
             android:minWidth="50dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Send"
+            android:text="Send Team Data"
             android:textSize="30sp" />
 
-        <EditText
-            android:id="@+id/sync_text_to_send"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/sync_send_match_data_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/btn_send"
-            android:layout_toEndOf="@id/btn_send"
-            android:hint="Input some text"
+            android:layout_below="@+id/sync_connect_button"
+            android:layout_toEndOf="@+id/sync_send_team_data_button"
+            android:layout_marginStart="10dp"
+            android:minWidth="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Send Match Data"
             android:textSize="30sp" />
+
+        <!--<EditText-->
+            <!--android:id="@+id/sync_text_to_send"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="sync_send_team_data_buttonsend"-->
+            <!--android:layout_toEndOf="sync_send_team_data_buttonsend"-->
+            <!--android:hint="Input some text"-->
+            <!--android:textSize="30sp" />-->
 
         <ListView
             android:id="@+id/sync_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_send" />
+            android:layout_below="@+id/sync_send_team_data_button" />
 
     </RelativeLayout>
 

@@ -16,10 +16,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -29,8 +31,9 @@ public class SyncDataActivity extends AppCompatActivity {
     private TextView status;
     private Button btnConnect;
     private ListView listView;
-    private EditText textToSend;
-    private Button btnSend;
+    //private EditText textToSend;
+    private Button sendTeamDataButton;
+    private Button sendMatchDataButton;
 
     private Dialog dialog;
     private ArrayAdapter<String> chatAdapter;
@@ -50,6 +53,9 @@ public class SyncDataActivity extends AppCompatActivity {
     public BluetoothDevice connectingDevice;
     private ArrayAdapter<String> discoveredDevicesAdapter;
 
+    private Context context = this;
+    private DBHelper mDBHelper = new DBHelper(context);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,18 +64,20 @@ public class SyncDataActivity extends AppCompatActivity {
         btnConnect = findViewById(R.id.sync_connect_button);
         status = findViewById(R.id.sync_connect_status_text);
         listView = findViewById(R.id.sync_list);
-        textToSend = findViewById(R.id.sync_text_to_send);
-        btnSend = findViewById(R.id.btn_send);
+        //textToSend = findViewById(R.id.sync_text_to_send);
+        sendTeamDataButton = findViewById(R.id.sync_send_team_data_button);
+        sendMatchDataButton = findViewById(R.id.sync_send_match_data_button);
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
+        sendTeamDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (textToSend.getText().toString().equals("")) {
-                    Toast.makeText(SyncDataActivity.this, "Please input some texts", Toast.LENGTH_SHORT).show();
-                } else {
-                    sendMessage(textToSend.getText().toString());
-                    textToSend.setText("");
-                }
+                sendMessage(getTeamData());
+//                if (textToSend.getText().toString().equals("")) {
+//                    Toast.makeText(SyncDataActivity.this, "Please input some texts", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    sendMessage(textToSend.getText().toString());
+//                    textToSend.setText("");
+//                }
             }
         });
 
@@ -124,24 +132,27 @@ public class SyncDataActivity extends AppCompatActivity {
                         case ChatController.STATE_CONNECTED:
                             setStatus("Connected to: " + connectingDevice.getName());
                             btnConnect.setEnabled(false);
-                            btnSend.setEnabled(true);
+                            sendTeamDataButton.setEnabled(true);
+                            sendMatchDataButton.setEnabled(true);
                             break;
                         case ChatController.STATE_CONNECTING:
                             setStatus("Connecting...");
                             btnConnect.setEnabled(false);
-                            btnSend.setEnabled(false);
+                            sendTeamDataButton.setEnabled(false);
+                            sendMatchDataButton.setEnabled(false);
                             break;
                         case ChatController.STATE_LISTEN:
                         case ChatController.STATE_NONE:
                             setStatus("Not connected");
-                            btnSend.setEnabled(false);
+                            sendTeamDataButton.setEnabled(false);
+                            sendMatchDataButton.setEnabled(false);
                             break;
                     }
                     break;
                 case MESSAGE_WRITE:
                     byte[] writeBuf = (byte[]) msg.obj;
                     String writeMessage = new String(writeBuf);
-                    chatMessages.add("Me: " + writeMessage);
+                    chatMessages.add("Sent: " + writeMessage);
                     chatAdapter.notifyDataSetChanged();
                     break;
                 case MESSAGE_READ:
@@ -300,4 +311,9 @@ public class SyncDataActivity extends AppCompatActivity {
             chatController.stop();
     }
 
+    private String getTeamData() {
+        // show all teams already there
+        JSONArray teamListJA = mDBHelper.getTeamInfoList(true);
+        return teamListJA.toString();
+    }
 }

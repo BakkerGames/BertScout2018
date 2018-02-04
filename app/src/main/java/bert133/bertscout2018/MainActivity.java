@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         createDatabase();
 
         // show all teams already there
-        JSONArray teamListJA = mDBHelper.getTeamInfoList();
+        JSONArray teamListJA = mDBHelper.getTeamInfoList(false);
         List<String> teamList = new ArrayList<String>();
         try {
             for (int i = 0; i < teamListJA.length(); i++) {

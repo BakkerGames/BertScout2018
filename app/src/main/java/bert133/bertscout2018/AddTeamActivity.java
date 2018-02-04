@@ -125,7 +125,7 @@ public class AddTeamActivity extends AppCompatActivity {
     }
 
     public void ShowTeamList(){
-        JSONArray teamList = mDBHelper.getTeamInfoList();
+        JSONArray teamList = mDBHelper.getTeamInfoList(false);
         TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
         teamNumberList.setText("");
         try {

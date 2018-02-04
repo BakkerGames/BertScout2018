@@ -88,9 +88,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return rowObject;
     }
 
-    public JSONArray getTeamInfoList() {
+    public JSONArray getTeamInfoList(boolean headerName) {
 
         JSONArray teamList = new JSONArray();
+        if (headerName){
+            teamList.put("team");
+        }
         JSONObject rowObject = null;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor results;
