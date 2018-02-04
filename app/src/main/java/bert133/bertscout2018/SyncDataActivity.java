@@ -10,13 +10,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,11 +29,14 @@ public class SyncDataActivity extends AppCompatActivity {
     private TextView status;
     private Button btnConnect;
     private ListView listView;
+    private EditText textToSend;
+    private Button btnSend;
+
     private Dialog dialog;
-    private TextInputLayout inputLayout;
     private ArrayAdapter<String> chatAdapter;
     private ArrayList<String> chatMessages;
     private BluetoothAdapter bluetoothAdapter;
+    private ChatController chatController;
 
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
@@ -43,15 +46,32 @@ public class SyncDataActivity extends AppCompatActivity {
     public static final String DEVICE_OBJECT = "device_name";
 
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
-    private ChatController chatController;
-    private BluetoothDevice connectingDevice;
+
+    public BluetoothDevice connectingDevice;
     private ArrayAdapter<String> discoveredDevicesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync_data);
-        findViewsByIds();
+
+        btnConnect = findViewById(R.id.sync_connect_button);
+        status = findViewById(R.id.sync_connect_status_text);
+        listView = findViewById(R.id.sync_list);
+        textToSend = findViewById(R.id.sync_text_to_send);
+        btnSend = findViewById(R.id.btn_send);
+
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (textToSend.getText().toString().equals("")) {
+                    Toast.makeText(SyncDataActivity.this, "Please input some texts", Toast.LENGTH_SHORT).show();
+                } else {
+                    sendMessage(textToSend.getText().toString());
+                    textToSend.setText("");
+                }
+            }
+        });
 
         //check device support bluetooth or not
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -65,15 +85,14 @@ public class SyncDataActivity extends AppCompatActivity {
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(getApplicationContext(), "Waiting...", Toast.LENGTH_SHORT).show();
                 showBluetoothPickDialog();
             }
         });
 
         //set chat adapter
-//        chatMessages = new ArrayList<>();
-//        chatAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, chatMessages);
-//        listView.setAdapter(chatAdapter);
+        chatMessages = new ArrayList<>();
+        chatAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, chatMessages);
+        listView.setAdapter(chatAdapter);
 
 //        Button syncPrepareSendButton = (Button) findViewById(R.id.sync_data_prepare_send_button);
 //        syncPrepareSendButton.setOnClickListener(new View.OnClickListener() {
@@ -127,23 +146,23 @@ public class SyncDataActivity extends AppCompatActivity {
 
     }
 
-//    private final BroadcastReceiver discoveryFinishReceiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//            String action = intent.getAction();
-//
-//            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-//                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-//                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-//                    discoveredDevicesAdapter.add(device.getName() + "\n" + device.getAddress());
-//                }
-//            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-//                if (discoveredDevicesAdapter.getCount() == 0) {
-//                    discoveredDevicesAdapter.add(getString(R.string.none_found));
-//                }
-//            }
-//        }
-//    };
+    private final BroadcastReceiver discoveryFinishReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
+                    discoveredDevicesAdapter.add(device.getName() + "\n" + device.getAddress());
+                }
+            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
+                if (discoveredDevicesAdapter.getCount() == 0) {
+                    discoveredDevicesAdapter.add(getString(R.string.none_found));
+                }
+            }
+        }
+    };
 
     private Handler handler = new Handler(new Handler.Callback() {
 
@@ -155,27 +174,28 @@ public class SyncDataActivity extends AppCompatActivity {
                         case ChatController.STATE_CONNECTED:
                             setStatus("Connected to: " + connectingDevice.getName());
                             btnConnect.setEnabled(false);
+                            btnSend.setEnabled(true);
                             break;
                         case ChatController.STATE_CONNECTING:
                             setStatus("Connecting...");
                             btnConnect.setEnabled(false);
+                            btnSend.setEnabled(false);
                             break;
                         case ChatController.STATE_LISTEN:
                         case ChatController.STATE_NONE:
                             setStatus("Not connected");
+                            btnSend.setEnabled(false);
                             break;
                     }
                     break;
                 case MESSAGE_WRITE:
                     byte[] writeBuf = (byte[]) msg.obj;
-
                     String writeMessage = new String(writeBuf);
                     chatMessages.add("Me: " + writeMessage);
                     chatAdapter.notifyDataSetChanged();
                     break;
                 case MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
-
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     chatMessages.add(connectingDevice.getName() + ":  " + readMessage);
                     chatAdapter.notifyDataSetChanged();
@@ -242,7 +262,6 @@ public class SyncDataActivity extends AppCompatActivity {
                 bluetoothAdapter.cancelDiscovery();
                 String info = ((TextView) view).getText().toString();
                 String address = info.substring(info.length() - 17);
-
                 connectToDevice(address);
                 dialog.dismiss();
             }
@@ -255,14 +274,12 @@ public class SyncDataActivity extends AppCompatActivity {
                 bluetoothAdapter.cancelDiscovery();
                 String info = ((TextView) view).getText().toString();
                 String address = info.substring(info.length() - 17);
-
                 connectToDevice(address);
                 dialog.dismiss();
             }
         });
 
         dialog.findViewById(R.id.cancelButton).setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
@@ -282,26 +299,8 @@ public class SyncDataActivity extends AppCompatActivity {
         chatController.connect(device);
     }
 
-    private void findViewsByIds() {
-        status = (TextView) findViewById(R.id.sync_connect_status_text);
-        btnConnect = (Button) findViewById(R.id.sync_connect_button);
-        listView = (ListView) findViewById(R.id.sync_list);
-        inputLayout = (TextInputLayout) findViewById(R.id.input_layout);
-        View btnSend = findViewById(R.id.btn_send);
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (inputLayout.getEditText().getText().toString().equals("")) {
-                    Toast.makeText(SyncDataActivity.this, "Please input some texts", Toast.LENGTH_SHORT).show();
-                } else {
-                    //TODO: here
-                    sendMessage(inputLayout.getEditText().getText().toString());
-                    inputLayout.getEditText().setText("");
-                }
-            }
-        });
-    }
+//    private void findViewsByIds() {
+//    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -320,7 +319,6 @@ public class SyncDataActivity extends AppCompatActivity {
             Toast.makeText(this, "Connection was lost!", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (message.length() > 0) {
             byte[] send = message.getBytes();
             chatController.write(send);
@@ -341,7 +339,6 @@ public class SyncDataActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
         if (chatController != null) {
             if (chatController.getState() == ChatController.STATE_NONE) {
                 chatController.start();
@@ -355,23 +352,5 @@ public class SyncDataActivity extends AppCompatActivity {
         if (chatController != null)
             chatController.stop();
     }
-
-    private final BroadcastReceiver discoveryFinishReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                    discoveredDevicesAdapter.add(device.getName() + "\n" + device.getAddress());
-                }
-            } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                if (discoveredDevicesAdapter.getCount() == 0) {
-                    discoveredDevicesAdapter.add(getString(R.string.none_found));
-                }
-            }
-        }
-    };
 
 }

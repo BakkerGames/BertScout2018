@@ -14,13 +14,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.UUID;
 
-/**
- * Created by chime on 02/03/2018.
- */
-
 public class ChatController {
+
     private static final String APP_NAME = "BluetoothChatApp";
-    private static final UUID MY_UUID = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
+    private static final UUID MY_UUID = UUID.fromString("c14598d6-7ef7-4ca5-9a06-4de7511e6d5b");
 
     private final BluetoothAdapter bluetoothAdapter;
     private final Handler handler;
@@ -37,14 +34,12 @@ public class ChatController {
     public ChatController(Context context, Handler handler) {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         state = STATE_NONE;
-
         this.handler = handler;
     }
 
     // Set the current state of the chat connection
     private synchronized void setState(int state) {
         this.state = state;
-
         handler.obtainMessage(SyncDataActivity.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
 
@@ -161,7 +156,7 @@ public class ChatController {
     private void connectionFailed() {
         Message msg = handler.obtainMessage(SyncDataActivity.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString("toast", "Unable to connect device");
+        bundle.putString("toast", "Unable to connect to device");
         msg.setData(bundle);
         handler.sendMessage(msg);
 

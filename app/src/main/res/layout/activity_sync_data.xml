@@ -45,7 +45,7 @@
             android:id="@+id/sync_connect_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:minWidth="50dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -57,56 +57,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/sync_connect_button"
-            android:layout_marginLeft="10sp"
+            android:layout_marginStart="10sp"
             android:layout_marginTop="20sp"
-            android:layout_toRightOf="@+id/sync_connect_button"
+            android:layout_toEndOf="@+id/sync_connect_button"
             android:text="Not connected"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sync_connect_button"
+            android:layout_marginStart="10dp"
+            android:minWidth="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Send"
+            android:textSize="30sp" />
 
-    <RelativeLayout
-        android:id="@+id/sync_relative_layout_2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/sync_relative_layout_1">
+        <EditText
+            android:id="@+id/sync_text_to_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/btn_send"
+            android:layout_toEndOf="@id/btn_send"
+            android:hint="Input some text"
+            android:textSize="30sp" />
 
         <ListView
             android:id="@+id/sync_list"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_send" />
 
     </RelativeLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/sync_relative_layout_2">
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/input_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.8">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Input some text" />
-        </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_send"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.2"
-            android:text="send" />
-    </LinearLayout>
-
 
 </android.support.constraint.ConstraintLayout>
