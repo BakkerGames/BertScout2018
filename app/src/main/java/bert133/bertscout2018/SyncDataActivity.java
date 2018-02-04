@@ -142,29 +142,34 @@ public class SyncDataActivity extends AppCompatActivity {
                         case ChatController.STATE_LISTEN:
                         case ChatController.STATE_NONE:
                             setStatus("Not connected");
+                            btnConnect.setEnabled(true);
                             sendTeamDataButton.setEnabled(false);
                             sendMatchDataButton.setEnabled(false);
                             break;
                     }
                     break;
                 case MESSAGE_WRITE:
+                    setStatus("### message_write ###");
                     byte[] writeBuf = (byte[]) msg.obj;
                     String writeMessage = new String(writeBuf);
                     chatMessages.add("Sent: " + writeMessage);
                     chatAdapter.notifyDataSetChanged();
                     break;
                 case MESSAGE_READ:
+                    setStatus("### message_read ###");
                     byte[] readBuf = (byte[]) msg.obj;
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     chatMessages.add(connectingDevice.getName() + ":  " + readMessage);
                     chatAdapter.notifyDataSetChanged();
                     break;
                 case MESSAGE_DEVICE_OBJECT:
+                    setStatus("### device_object ###");
                     connectingDevice = msg.getData().getParcelable(DEVICE_OBJECT);
-                    Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(),
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(), Toast.LENGTH_SHORT).show();
+                    btnConnect.setEnabled(false);
                     break;
                 case MESSAGE_TOAST:
+                    setStatus("### message_toast ###");
                     Toast.makeText(getApplicationContext(), msg.getData().getString("toast"),
                             Toast.LENGTH_SHORT).show();
                     break;
