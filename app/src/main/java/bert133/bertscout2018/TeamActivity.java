@@ -5,15 +5,20 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class TeamActivity extends AppCompatActivity {
 
@@ -22,6 +27,8 @@ public class TeamActivity extends AppCompatActivity {
 
     private Context context = this;
     private DBHelper mDBHelper = new DBHelper(context);
+    private ArrayAdapter<String> matchesAdapter;
+    private ArrayList<String> matchesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +44,17 @@ public class TeamActivity extends AppCompatActivity {
         this.setTitle(String.format("Team Information - Team %s", message));
 
         // set objects here
-        final RatingBar ratingStars = (RatingBar) findViewById(R.id.team_rating_value);
-        final TextView matchText = (TextView) findViewById(R.id.team_pick_number_text);
-        final Button teamPickNumberMinusButton = (Button) findViewById(R.id.team_pick_number_minus_btn);
-        final Button teamPickNumberPlusButton = (Button) findViewById(R.id.team_pick_number_plus_btn);
-        final ToggleButton teamPickedButton = (ToggleButton) findViewById(R.id.team_picked_checkBox);
+        final RatingBar ratingStars = findViewById(R.id.team_rating_value);
+        final TextView matchText = findViewById(R.id.team_pick_number_text);
+        final Button teamPickNumberMinusButton = findViewById(R.id.team_pick_number_minus_btn);
+        final Button teamPickNumberPlusButton = findViewById(R.id.team_pick_number_plus_btn);
+        final ToggleButton teamPickedButton = findViewById(R.id.team_picked_checkBox);
+        final ListView showMatchesListView = findViewById(R.id.team_show_matches_list);
+
+        //set chat adapter
+        matchesList = new ArrayList<>();
+        matchesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matchesList);
+        showMatchesListView.setAdapter(matchesAdapter);
 
         // set current information
 
@@ -55,6 +68,26 @@ public class TeamActivity extends AppCompatActivity {
             return;
         }
 
+        // show all matches
+        JSONArray matchList = mDBHelper.getMatchInfoByTeam(currTeamNumber);
+        try {
+            for (int i = 0; i < matchList.length(); i++) {
+                JSONObject m = (JSONObject) matchList.get(i);
+                int tempMatchNum =m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER);
+                int tempCycleTime =m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME);
+                int tempPenalties =m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES);
+                int tempRating =m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_RATING);
+                String lineInfo = String.format("Match %d - Cycle %d - Penalties %d - Rating %d"
+                        , tempMatchNum
+                        , tempCycleTime
+                        , tempPenalties
+                        , tempRating);
+                matchesList.add(lineInfo);
+                matchesAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception ex) {
+        }
+
         // rating
 
         ratingStars.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -62,7 +95,7 @@ public class TeamActivity extends AppCompatActivity {
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
                 try {
-                    currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, (int)rating);
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, (int) rating);
                     mDBHelper.updateTeamInfo(currTeam);
                 } catch (Exception ex) {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();

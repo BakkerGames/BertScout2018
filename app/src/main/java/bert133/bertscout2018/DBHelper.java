@@ -263,6 +263,66 @@ public class DBHelper extends SQLiteOpenHelper {
         return rowObject;
     }
 
+    public JSONArray getMatchInfoByTeam(int teamNumber) {
+
+        JSONArray matchList = new JSONArray();
+        JSONObject rowObject = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor results;
+
+        String query;
+        query = "SELECT * FROM " + DBContract.TableMatchInfo.TABLE_NAME_MATCH +
+                " WHERE " + DBContract.TableMatchInfo.COLNAME_MATCH_TEAM + " = " + teamNumber +
+                " ORDER BY " + DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER;
+
+        results = db.rawQuery(query, null);
+        results.moveToFirst();
+
+        while (!results.isAfterLast()) {
+            int totalColumn = results.getColumnCount();
+            rowObject = new JSONObject();
+
+            for (int i = 0; i < totalColumn; i++) {
+                if (results.getColumnName(i) != null) {
+                    try {
+                        switch (results.getColumnName(i)) {
+                            case DBContract.TableMatchInfo._ID:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TEAM:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_RATING:
+                                rowObject.put(results.getColumnName(i), results.getInt(i));
+                                break;
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_PARKED:
+                            case DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED:
+                                if (results.getInt(i) == 0) {
+                                    rowObject.put(results.getColumnName(i), false);
+                                } else {
+                                    rowObject.put(results.getColumnName(i), true);
+                                }
+                                break;
+                        }
+                    } catch (JSONException e) {
+                        return null;
+                    }
+                }
+            }
+            matchList.put(rowObject);
+            results.moveToNext();
+        }
+
+        results.close();
+
+        return matchList;
+    }
+
     public JSONArray getMatchInfoList(boolean headerInfo){
 
         JSONArray matchList = new JSONArray();

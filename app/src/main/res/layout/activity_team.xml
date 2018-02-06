@@ -116,16 +116,24 @@
             android:text="Comments:"
             android:textSize="30dp" />
 
-        <EditText
-            android:id="@+id/team_comment_text"
+        <!--<EditText-->
+            <!--android:id="@+id/team_comment_text"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/team_comment_label"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:ems="20"-->
+            <!--android:inputType="textMultiLine"-->
+            <!--android:text=""-->
+            <!--android:textSize="30sp" />-->
+
+        <ListView
+            android:id="@+id/team_show_matches_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/team_comment_label"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:ems="20"
-            android:inputType="textMultiLine"
-            android:text=""
-            android:textSize="30sp" />
+            android:layout_below="@+id/team_comment_label" />
+
     </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
