@@ -31,6 +31,8 @@ public class ChatController {
     static final int STATE_CONNECTING = 2;
     static final int STATE_CONNECTED = 3;
 
+    static final int MAX_MESSAGE_BYTES = 1024;
+
     public ChatController(Context context, Handler handler) {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         state = STATE_NONE;
@@ -304,7 +306,7 @@ public class ChatController {
         }
 
         public void run() {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[MAX_MESSAGE_BYTES];
             int bytes;
 
             // Keep listening to the InputStream

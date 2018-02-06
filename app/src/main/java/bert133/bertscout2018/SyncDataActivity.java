@@ -70,14 +70,52 @@ public class SyncDataActivity extends AppCompatActivity {
         sendTeamDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMessage(getTeamDataForSending());
+                JSONArray teamDataList = mDBHelper.getTeamInfoList(false);
+                JSONArray sendList = new JSONArray();
+                for (int i = 0; i < teamDataList.length(); i++){
+                    try {
+                        JSONObject team = (JSONObject)teamDataList.get(i);
+                        if (sendList.length() == 0){
+                            sendList.put("team");
+                        }
+                        if (sendList.toString().length() + team.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4){
+                            sendList.put(team);
+                        }else{
+                            sendMessage(sendList.toString());
+                            sendList = new JSONArray();
+                        }
+                    }catch(Exception ex){
+                    }
+                }
+                if (sendList.length()> 0){
+                    sendMessage(sendList.toString());
+                }
             }
         });
 
         sendMatchDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendMessage(getMatchDataForSending());
+                JSONArray matchDataList = mDBHelper.getMatchInfoList(false);
+                JSONArray sendList = new JSONArray();
+                for (int i = 0; i < matchDataList.length(); i++){
+                    try {
+                        JSONObject match = (JSONObject)matchDataList.get(i);
+                        if (sendList.length() == 0){
+                            sendList.put("match");
+                        }
+                        if (sendList.toString().length() + match.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4){
+                            sendList.put(match);
+                        }else{
+                            sendMessage(sendList.toString());
+                            sendList = new JSONArray();
+                        }
+                    }catch(Exception ex){
+                    }
+                }
+                if (sendList.length()> 0){
+                    sendMessage(sendList.toString());
+                }
             }
         });
 
