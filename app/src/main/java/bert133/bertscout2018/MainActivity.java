@@ -18,7 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> gridViewArrayAdapter = new ArrayAdapter<String>
                 (this, android.R.layout.simple_list_item_1, teamList);
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        GridView gridView = (GridView) findViewById(R.id.main_gridview);
         gridView.setAdapter(gridViewArrayAdapter);
 
         gridView.setLongClickable(true);
@@ -75,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                GridView gridView = (GridView) findViewById(R.id.gridView);
+                GridView gridView = (GridView) findViewById(R.id.main_gridview);
                 TextView v = (TextView) gridView.getChildAt(i);
 
                 // send team number
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View arg1,
                                            int position, long arg3) {
-                GridView gridView = (GridView) findViewById(R.id.gridView);
+                GridView gridView = (GridView) findViewById(R.id.main_gridview);
                 TextView v = (TextView) gridView.getChildAt(position);
 
                 // send team number

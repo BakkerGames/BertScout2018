@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -55,6 +57,15 @@ public class TeamActivity extends AppCompatActivity {
         matchesList = new ArrayList<>();
         matchesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matchesList);
         showMatchesListView.setAdapter(matchesAdapter);
+        showMatchesListView.setClickable(true);
+
+        showMatchesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object o = showMatchesListView.getItemAtPosition(position);
+                Toast.makeText(getBaseContext(), o.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // set current information
 
@@ -90,13 +101,11 @@ public class TeamActivity extends AppCompatActivity {
                 matchesList.add(lineInfo);
                 matchesAdapter.notifyDataSetChanged();
             }
-
-            // Match 1 - Cycle ***** - Climbed - Penalties 1 - Rating ****
-
         } catch (Exception ex) {
             Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
             return;
         }
+
 
         // rating
 
