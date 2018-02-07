@@ -113,11 +113,7 @@ public class MatchActivity extends AppCompatActivity {
                 int tempValue;
                 try {
                     tempValue = Integer.parseInt(matchText.getText().toString());
-                    if (tempValue <= 10) {
-                        tempValue = 1;
-                    } else if (tempValue % 10 != 0) {
-                        tempValue = tempValue - (tempValue % 10);
-                    } else {
+                    if (tempValue > 10) {
                         tempValue = tempValue - 10;
                     }
                 } catch (Exception e) {
@@ -135,13 +131,7 @@ public class MatchActivity extends AppCompatActivity {
                 int tempValue;
                 try {
                     tempValue = Integer.parseInt(matchText.getText().toString());
-                    if (tempValue < 10) {
-                        tempValue = 10;
-                    } else if (tempValue >= 990) {
-                        tempValue = 999;
-                    } else if (tempValue % 10 != 0) {
-                        tempValue = tempValue + 10 - (tempValue % 10);
-                    } else {
+                    if (tempValue < 990) {
                         tempValue = tempValue + 10;
                     }
                 } catch (Exception e) {
