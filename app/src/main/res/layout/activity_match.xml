@@ -45,24 +45,10 @@
         app:layout_constraintStart_toEndOf="@id/match_labels_layout">
 
         <Button
-            android:id="@+id/match_number_minus_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:minWidth="50dp"
-            android:paddingBottom="0sp"
-            android:paddingEnd="0sp"
-            android:paddingStart="0sp"
-            android:paddingTop="0sp"
-            android:text="—"
-            android:textSize="30sp" />
-
-        <Button
             android:id="@+id/match_number_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/match_number_minus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -72,17 +58,17 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/match_number_minus10_btn"
+            android:id="@+id/match_number_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_number_plus_btn"
-            android:minWidth="80dp"
+            android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
             android:paddingStart="0sp"
             android:paddingTop="0sp"
-            android:text="-10"
+            android:text="—"
             android:textSize="30sp" />
 
         <Button
@@ -90,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/match_number_minus10_btn"
+            android:layout_toEndOf="@id/match_number_minus_btn"
             android:minWidth="80dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -100,11 +86,25 @@
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/match_go_btn"
+            android:id="@+id/match_number_minus10_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_number_plus10_btn"
+            android:minWidth="80dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="-10"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/match_go_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_number_minus10_btn"
             android:minWidth="80dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
