@@ -89,13 +89,14 @@ public class TeamActivity extends AppCompatActivity {
                 int tempRating = m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_RATING);
                 String tempRatingString = "*****".substring(0, tempRating);
                 boolean tempClimbed = m.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED);
-                String tempClimbedString = tempClimbed ? "Yes" : "No";
-                String lineInfo = String.format("Match %d -- Cycle %s -- Penalties %d -- Rating %s -- Climbed %s"
+                String tempClimbedString = tempClimbed ? "YES" : "NO";
+                String lineInfo = String.format("Match %d   --   Cycle %s   --   Climbed %s   --   Penalties %d   --   Rating %s"
                         , tempMatchNum
                         , tempCycleTimeString
+                        , tempClimbedString
                         , tempPenalties
                         , tempRatingString
-                        , tempClimbedString);
+                );
                 matchesList.add(lineInfo);
                 matchesAdapter.notifyDataSetChanged();
             }
