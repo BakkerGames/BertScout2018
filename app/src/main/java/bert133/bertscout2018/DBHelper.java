@@ -16,6 +16,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "bert_scout_2018.db";
     public static final int DATABASE_VERSION = 2;
 
+    public static final String SYNC_HEADER_TEAM = "team";
+    public static final String SYNC_HEADER_MATCH = "match";
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -65,7 +68,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         JSONArray teamList = new JSONArray();
         if (header){
-            teamList.put("team");
+            teamList.put(SYNC_HEADER_TEAM);
         }
 
         JSONObject rowObject = null;
@@ -242,7 +245,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         JSONArray matchList = new JSONArray();
         if (header){
-            matchList.put("match");
+            matchList.put(SYNC_HEADER_MATCH);
         }
 
         JSONObject rowObject = null;

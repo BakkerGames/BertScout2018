@@ -76,7 +76,7 @@ public class SyncDataActivity extends AppCompatActivity {
                     try {
                         JSONObject team = (JSONObject)teamDataList.get(i);
                         if (sendList.length() == 0){
-                            sendList.put("team");
+                            sendList.put(DBHelper.SYNC_HEADER_TEAM);
                         }
                         if (sendList.toString().length() + team.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4){
                             sendList.put(team);
@@ -102,7 +102,7 @@ public class SyncDataActivity extends AppCompatActivity {
                     try {
                         JSONObject match = (JSONObject)matchDataList.get(i);
                         if (sendList.length() == 0){
-                            sendList.put("match");
+                            sendList.put(DBHelper.SYNC_HEADER_MATCH);
                         }
                         if (sendList.toString().length() + match.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4){
                             sendList.put(match);
@@ -372,39 +372,49 @@ public class SyncDataActivity extends AppCompatActivity {
     private void MergeReceivedData(String message) {
         try {
             JSONArray dataArray = new JSONArray(message);
-            if (dataArray.getString(0).equals("team")) {
+            if (dataArray.getString(0).equals(DBHelper.SYNC_HEADER_TEAM)) {
                 chatMessages.add(dataArray.getString(0));
                 chatAdapter.notifyDataSetChanged();
                 int addCount = 0;
                 for (int i = 1; i < dataArray.length(); i++) {
-                    JSONObject currRow = dataArray.getJSONObject(i);
-                    int teamNumber = currRow.getInt("team");
+                    JSONObject newRow = dataArray.getJSONObject(i);
+                    int teamNumber = newRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_NUMBER);
                     JSONObject existingRow = mDBHelper.getTeamInfo(teamNumber);
                     if (existingRow == null) {
-                        currRow.remove("_id"); // can't save another device's id values
-                        mDBHelper.updateTeamInfo(currRow);
+                        newRow.remove(DBContract.TableTeamInfo._ID); // can't save another device's id values
+                        mDBHelper.updateTeamInfo(newRow);
+                        addCount++;
+                    } else if (newRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) >
+                               existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION)) {
+                        newRow.put(DBContract.TableTeamInfo._ID, existingRow.getInt(DBContract.TableTeamInfo._ID));
+                        mDBHelper.updateTeamInfo(newRow);
                         addCount++;
                     }
-                    chatMessages.add(currRow.toString());
+                    chatMessages.add(newRow.toString());
                     chatAdapter.notifyDataSetChanged();
                 }
                 chatMessages.add(String.format("%d rows added", addCount));
                 chatAdapter.notifyDataSetChanged();
-            } else if (dataArray.getString(0).equals("match")) {
+            } else if (dataArray.getString(0).equals(DBHelper.SYNC_HEADER_MATCH)) {
                 chatMessages.add(dataArray.getString(0));
                 chatAdapter.notifyDataSetChanged();
                 int addCount = 0;
                 for (int i = 1; i < dataArray.length(); i++) {
-                    JSONObject currRow = dataArray.getJSONObject(i);
-                    int teamNumber = currRow.getInt("team");
-                    int matchNumber = currRow.getInt("match");
+                    JSONObject newRow = dataArray.getJSONObject(i);
+                    int teamNumber = newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM);
+                    int matchNumber = newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER);
                     JSONObject existingRow = mDBHelper.getMatchInfo(teamNumber, matchNumber);
                     if (existingRow == null) {
-                        currRow.remove("_id"); // can't save another device's id values
-                        mDBHelper.updateMatchInfo(currRow);
+                        newRow.remove(DBContract.TableMatchInfo._ID); // can't save another device's id values
+                        mDBHelper.updateMatchInfo(newRow);
+                        addCount++;
+                    }else if (newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) >
+                              existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)) {
+                        newRow.put(DBContract.TableMatchInfo._ID, existingRow.getInt(DBContract.TableMatchInfo._ID));
+                        mDBHelper.updateMatchInfo(newRow);
                         addCount++;
                     }
-                    chatMessages.add(currRow.toString());
+                    chatMessages.add(newRow.toString());
                     chatAdapter.notifyDataSetChanged();
                 }
                 chatMessages.add(String.format("%d rows added", addCount));
