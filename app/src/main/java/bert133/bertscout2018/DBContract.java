@@ -4,9 +4,6 @@ import android.provider.BaseColumns;
 
 public final class DBContract {
 
-    public static final String DATABASE_NAME = "bert_scout_2018.db";
-    public static final int DATABASE_VERSION = 1;
-
     // To prevent someone from accidentally instantiating the contract class,
     // make the constructor private.
     private DBContract() {

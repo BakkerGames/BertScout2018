@@ -34,8 +34,7 @@ public class AddTeamActivity extends AppCompatActivity {
                 TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
                 String value = String.valueOf(teamNumberEdit.getText());
                 int teamNumber = Integer.parseInt(value);
-                if (teamNumber < 1)
-                {
+                if (teamNumber < 1) {
                     teamNumberEdit.setText("");
                     return;
                 }
@@ -66,12 +65,46 @@ public class AddTeamActivity extends AppCompatActivity {
 
                     ShowTeamList();
                 } else {
-                    Toast.makeText(getApplicationContext(), String.format("Team %s already exists!", teamNumber), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), String.format("Team %s already exists!", teamNumber), Toast.LENGTH_SHORT).show();
                 }
 
                 teamNumberEdit.setText("");
             }
         });
+
+        Button deleteTeamButton = (Button) findViewById(R.id.add_teams_delete_button);
+        deleteTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText teamNumberEdit =  findViewById(R.id.add_teams_team_number_edit);
+                TextView teamNumberList =  findViewById(R.id.add_teams_list_text);
+                String value = String.valueOf(teamNumberEdit.getText());
+                int teamNumber = Integer.parseInt(value);
+                if (teamNumber < 1) {
+                    teamNumberEdit.setText("");
+                    return;
+                }
+                JSONObject currTeam = mDBHelper.getTeamInfo(teamNumber);
+
+                if (currTeam != null) {
+                    try {
+                        JSONArray matchList = mDBHelper.getMatchInfoByTeam(teamNumber);
+                        if (matchList == null || matchList.length() == 0){
+                            mDBHelper.deleteTeamInfo(teamNumber);
+                        }else{
+                            Toast.makeText(context, String.format("Team %s has matches -- Cannot delete!", teamNumber), Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception ex) {
+                        Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    ShowTeamList();
+                } else {
+                    Toast.makeText(getApplicationContext(), String.format("Team %s not found!", teamNumber), Toast.LENGTH_SHORT).show();
+                }
+                teamNumberEdit.setText("");
+            }
+        });
+
     }
 
     public void ShowTeamList(){

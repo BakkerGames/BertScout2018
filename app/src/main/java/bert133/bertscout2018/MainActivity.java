@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     //public static String[] teams;
 
-    private void createDatabase(){
-        SQLiteDatabase db = openOrCreateDatabase(DBContract.DATABASE_NAME, Context.MODE_PRIVATE, null);
+    private void createDatabase() {
+        SQLiteDatabase db = openOrCreateDatabase(DBHelper.DATABASE_NAME, Context.MODE_PRIVATE, null);
         // this creates the tables if first time, otherwise does nothing
         db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
         db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_CREATE_TABLE);
@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
         try {
             for (int i = 0; i < teamListJA.length(); i++) {
                 JSONObject teamInfo = teamListJA.getJSONObject(i);
-                boolean picked = teamInfo.getBoolean("picked");
-                String teamText = String.format("%d", teamInfo.getInt("team"));
-                if (teamInfo.getInt("pick_number") > 0){
-                    teamText = teamText + " #" + String.format("%d", teamInfo.getInt("pick_number"));
-                }
-                if (teamInfo.getBoolean("picked")){
-                    teamText = teamText + " *";
+                String teamText = String.format("%d", teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_NUMBER));
+                if (teamInfo.getBoolean(DBContract.TableTeamInfo.COLNAME_TEAM_PICKED)) {
+                    teamText = teamText + " \r\nPICKED";
+                } else {
+                    if (teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER) > 0) {
+                        teamText = teamText + " \r\n#" + String.format("%d", teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER));
+                    }
                 }
                 teamList.add(teamText);
             }
@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
                 // send team number
                 Intent intent = new Intent(MainActivity.this, MatchActivity.class);
-                String teamMessage = (String)v.getText();
-                if (teamMessage.contains(" ")){
-                    teamMessage= teamMessage.substring(0, teamMessage.indexOf(" "));
+                String teamMessage = (String) v.getText();
+                if (teamMessage.contains(" ")) {
+                    teamMessage = teamMessage.substring(0, teamMessage.indexOf(" "));
                 }
                 intent.putExtra(TEAM_MESSAGE, teamMessage);
                 startActivity(intent);
@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
                 // send team number
                 Intent intent = new Intent(MainActivity.this, TeamActivity.class);
-                String teamMessage = (String)v.getText();
-                if (teamMessage.contains(" ")){
-                    teamMessage= teamMessage.substring(0, teamMessage.indexOf(" "));
+                String teamMessage = (String) v.getText();
+                if (teamMessage.contains(" ")) {
+                    teamMessage = teamMessage.substring(0, teamMessage.indexOf(" "));
                 }
                 intent.putExtra(TEAM_MESSAGE, teamMessage);
                 startActivity(intent);

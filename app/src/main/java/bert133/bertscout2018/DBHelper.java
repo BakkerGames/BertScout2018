@@ -193,6 +193,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public void deleteTeamInfo(int teamNumber){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query;
+        query = "DELETE FROM " + DBContract.TableTeamInfo.TABLE_NAME_TEAM +
+                " WHERE " + DBContract.TableTeamInfo.COLNAME_TEAM_NUMBER + " = " + teamNumber;
+        db.execSQL(query);
+    }
+
     public JSONObject getMatchInfo(int teamNumber, int matchNumber) {
         JSONObject rowObject = null;
         SQLiteDatabase db = this.getReadableDatabase();

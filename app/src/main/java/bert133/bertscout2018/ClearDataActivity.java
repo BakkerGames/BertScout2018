@@ -21,7 +21,7 @@ public class ClearDataActivity extends AppCompatActivity {
         clearDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SQLiteDatabase db = openOrCreateDatabase(DBContract.DATABASE_NAME, Context.MODE_PRIVATE, null);
+                SQLiteDatabase db = openOrCreateDatabase(DBHelper.DATABASE_NAME, Context.MODE_PRIVATE, null);
                 db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_DELETE_TABLE);
                 db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_DELETE_TABLE);
                 db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
