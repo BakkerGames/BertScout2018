@@ -159,6 +159,7 @@ public class MatchActivity extends AppCompatActivity {
                         matchInfo = new JSONObject();
                         matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TEAM, myTeamNumber);
                         matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER, myMatchNumber);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION, 0);
                         matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, false);
                         matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, false);
                         matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, false);
@@ -170,6 +171,7 @@ public class MatchActivity extends AppCompatActivity {
                         matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, false);
                         matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES, 0);
                         matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, 0);
+                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_COMMENT, "");
                     } else {
                         loadingValues = true;
                         matchAutoBaselineToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
@@ -240,18 +242,19 @@ public class MatchActivity extends AppCompatActivity {
                  }
                 );
 
-        matchCycleTimeRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (!loadingValues) {
-                    try {
-                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME, (int) rating);
-                        mDBHelper.updateMatchInfo(matchInfo);
-                    } catch (Exception ex) {
+        matchCycleTimeRating.setOnRatingBarChangeListener(
+                new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        if (!loadingValues) {
+                            try {
+                                matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME, (int) rating);
+                                mDBHelper.updateMatchInfo(matchInfo);
+                            } catch (Exception ex) {
+                            }
+                        }
                     }
-                }
-            }
-        });
+                });
 
         matchParkedToggle.setOnCheckedChangeListener
                 (new CompoundButton.OnCheckedChangeListener() {
@@ -268,33 +271,34 @@ public class MatchActivity extends AppCompatActivity {
                  }
                 );
 
-        matchClimbedToggle.setOnCheckedChangeListener
-                (new CompoundButton.OnCheckedChangeListener() {
-                     @Override
-                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                         if (!loadingValues) {
-                             try {
-                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, isChecked);
-                                 mDBHelper.updateMatchInfo(matchInfo);
-                             } catch (Exception ex) {
-                             }
-                         }
-                     }
-                 }
-                );
-
-        matchOverallRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (!loadingValues) {
-                    try {
-                        matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, (int) rating);
-                        mDBHelper.updateMatchInfo(matchInfo);
-                    } catch (Exception ex) {
+        matchClimbedToggle.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (!loadingValues) {
+                            try {
+                                matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, isChecked);
+                                mDBHelper.updateMatchInfo(matchInfo);
+                            } catch (Exception ex) {
+                            }
+                        }
                     }
                 }
-            }
-        });
+        );
+
+        matchOverallRating.setOnRatingBarChangeListener(
+                new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        if (!loadingValues) {
+                            try {
+                                matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, (int) rating);
+                                mDBHelper.updateMatchInfo(matchInfo);
+                            } catch (Exception ex) {
+                            }
+                        }
+                    }
+                });
 
         // tele switch buttons
 

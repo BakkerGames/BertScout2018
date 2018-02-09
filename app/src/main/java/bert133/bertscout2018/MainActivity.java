@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
     private void createDatabase(){
         SQLiteDatabase db = openOrCreateDatabase(DBContract.DATABASE_NAME, Context.MODE_PRIVATE, null);
         // this creates the tables if first time, otherwise does nothing
-        db.execSQL(DBContract.TableVersionInfo.SQL_QUERY_CREATE_TABLE);
         db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);
         db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_CREATE_TABLE);
     }

@@ -22,7 +22,6 @@ public class ClearDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 SQLiteDatabase db = openOrCreateDatabase(DBContract.DATABASE_NAME, Context.MODE_PRIVATE, null);
-                db.execSQL(DBContract.TableVersionInfo.SQL_QUERY_CREATE_TABLE);
                 db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_DELETE_TABLE);
                 db.execSQL(DBContract.TableMatchInfo.SQL_QUERY_DELETE_TABLE);
                 db.execSQL(DBContract.TableTeamInfo.SQL_QUERY_CREATE_TABLE);

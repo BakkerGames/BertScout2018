@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewDebug;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,10 +46,12 @@ public class AddTeamActivity extends AppCompatActivity {
                     currTeam = new JSONObject();
 
                     try {
-                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM, teamNumber);
-                        currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, 0);
-                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER, 0);
-                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, false);
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_NUMBER, teamNumber);
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION, 0);
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_RATING, 0);
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER, 0);
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_PICKED, false);
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_COMMENT, "");
                     } catch (JSONException ex) {
                         Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                         return;
@@ -71,57 +72,6 @@ public class AddTeamActivity extends AppCompatActivity {
                 teamNumberEdit.setText("");
             }
         });
-
-//        Button deleteTeamButton = (Button) findViewById(R.id.add_teams_delete_button);
-//        deleteTeamButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                EditText teamNumberEdit = (EditText) findViewById(R.id.add_teams_team_number_edit);
-//                TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
-//                String value = String.valueOf(teamNumberEdit.getText());
-//                while (value.startsWith("0")) {
-//                    value = value.substring(1);
-//                }
-//
-//                int teamNumber = Integer.parseInt(value);
-//                JSONObject currTeam = mDBHelper.getTeamInfo(teamNumber);
-//
-//                if (currTeam != null) {
-//
-//                    currTeam = new JSONObject();
-//
-//                    try {
-//                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM, teamNumber);
-//                        currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, 0);
-//                        currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, false);
-//                    } catch (JSONException ex) {
-//                        Toast.makeText(getApplicationContext(), "Error filling TeamInfo", Toast.LENGTH_LONG).show();
-//                        return;
-//                    }
-//
-//                    try {
-//                        mDBHelper.updateTeamInfo(currTeam);
-//                    } catch (Exception ex) {
-//                        Toast.makeText(getApplicationContext(), "Error saving TeamInfo", Toast.LENGTH_LONG).show();
-//                        return;
-//                    }
-//
-//                    if (!value.equals("")) {
-//                        if (String.valueOf(teamNumberList.getText()).length() > 0) {
-//                            teamNumberList.append(", ");
-//                        }
-//                        teamNumberList.append(value);
-//                        teamNumberEdit.setText("");
-//                    }
-//                } else {
-//                    Toast.makeText(getApplicationContext(), String.format("Team %s already exists!", teamNumber), Toast.LENGTH_LONG).show();
-//                }
-//
-//                teamNumberEdit.setText("");
-//            }
-//        });
-
-
     }
 
     public void ShowTeamList(){

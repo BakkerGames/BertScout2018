@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -71,9 +69,9 @@ public class TeamActivity extends AppCompatActivity {
 
         JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
         try {
-            ratingStars.setRating(currTeam.getInt(DBContract.TableTeamInfo.COLNAME_RATING));
-            teamPickedButton.setChecked(currTeam.getBoolean(DBContract.TableTeamInfo.COLNAME_PICKED));
-            matchText.setText(String.format("%d", currTeam.getInt(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER)));
+            ratingStars.setRating(currTeam.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_RATING));
+            teamPickedButton.setChecked(currTeam.getBoolean(DBContract.TableTeamInfo.COLNAME_TEAM_PICKED));
+            matchText.setText(String.format("%d", currTeam.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER)));
         } catch (Exception ex) {
             Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
             return;
@@ -114,7 +112,7 @@ public class TeamActivity extends AppCompatActivity {
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
                 try {
-                    currTeam.put(DBContract.TableTeamInfo.COLNAME_RATING, (int) rating);
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_RATING, (int) rating);
                     mDBHelper.updateTeamInfo(currTeam);
                 } catch (Exception ex) {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
@@ -143,7 +141,7 @@ public class TeamActivity extends AppCompatActivity {
                 // get the team record from database
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
                 try {
-                    currTeam.put(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER, tempValue);
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER, tempValue);
                     mDBHelper.updateTeamInfo(currTeam);
                 } catch (Exception ex) {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
@@ -171,7 +169,7 @@ public class TeamActivity extends AppCompatActivity {
                 }
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
                 try {
-                    currTeam.put(DBContract.TableTeamInfo.COLNAME_PICK_NUMBER, tempValue);
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER, tempValue);
                     mDBHelper.updateTeamInfo(currTeam);
                 } catch (Exception ex) {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
@@ -193,7 +191,7 @@ public class TeamActivity extends AppCompatActivity {
 
                 // update the picked flag
                 try {
-                    currTeam.put(DBContract.TableTeamInfo.COLNAME_PICKED, buttonView.isChecked());
+                    currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_PICKED, buttonView.isChecked());
                     mDBHelper.updateTeamInfo(currTeam);
                 } catch (Exception ex) {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
