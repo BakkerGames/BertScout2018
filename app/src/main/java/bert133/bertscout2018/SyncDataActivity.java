@@ -387,6 +387,8 @@ public class SyncDataActivity extends AppCompatActivity {
                     } else if (newRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) >
                                existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION)) {
                         newRow.put(DBContract.TableTeamInfo._ID, existingRow.getInt(DBContract.TableTeamInfo._ID));
+                        // subtract one from version, it will be added back upon save
+                        newRow.put(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION, existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION)-1);
                         mDBHelper.updateTeamInfo(newRow);
                         addCount++;
                     }
@@ -411,6 +413,8 @@ public class SyncDataActivity extends AppCompatActivity {
                     }else if (newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) >
                               existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)) {
                         newRow.put(DBContract.TableMatchInfo._ID, existingRow.getInt(DBContract.TableMatchInfo._ID));
+                        // subtract one from version, it will be added back upon save
+                        newRow.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION, existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)-1);
                         mDBHelper.updateMatchInfo(newRow);
                         addCount++;
                     }
