@@ -65,8 +65,22 @@ public class TeamActivity extends AppCompatActivity {
         showMatchesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object o = showMatchesListView.getItemAtPosition(position);
-                Toast.makeText(getBaseContext(), o.toString(), Toast.LENGTH_SHORT).show();
+                String matchLine = showMatchesListView.getItemAtPosition(position).toString();
+                //Toast.makeText(getBaseContext(), matchLine, Toast.LENGTH_SHORT).show();
+
+                String[] matchLineArray = matchLine.split(" ");
+                String teamMatchMessage = String.format("%d %s", currTeamNumber, matchLineArray[1]);
+                Toast.makeText(getBaseContext(), teamMatchMessage, Toast.LENGTH_SHORT).show();
+
+                try{
+                    // jump to match info here
+                    Intent intent = new Intent(TeamActivity.this, MatchActivity.class);
+                    intent.putExtra(MainActivity.TEAM_MESSAGE, teamMatchMessage);
+                    startActivity(intent);
+                }catch (Exception ex){
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
         });
 
