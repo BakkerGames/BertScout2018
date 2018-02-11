@@ -1,5 +1,6 @@
 package bert133.bertscout2018;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -599,4 +601,5 @@ public class MatchActivity extends AppCompatActivity {
         }
         loadingValues = false;
     }
+
 }

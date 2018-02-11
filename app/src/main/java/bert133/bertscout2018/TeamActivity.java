@@ -1,5 +1,6 @@
 package bert133.bertscout2018;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -70,14 +72,14 @@ public class TeamActivity extends AppCompatActivity {
 
                 String[] matchLineArray = matchLine.split(" ");
                 String teamMatchMessage = String.format("%d %s", currTeamNumber, matchLineArray[1]);
-                Toast.makeText(getBaseContext(), teamMatchMessage, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), teamMatchMessage, Toast.LENGTH_SHORT).show();
 
-                try{
+                try {
                     // jump to match info here
                     Intent intent = new Intent(TeamActivity.this, MatchActivity.class);
                     intent.putExtra(MainActivity.TEAM_MESSAGE, teamMatchMessage);
                     startActivity(intent);
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -256,4 +258,5 @@ public class TeamActivity extends AppCompatActivity {
         });
 
     }
+
 }
