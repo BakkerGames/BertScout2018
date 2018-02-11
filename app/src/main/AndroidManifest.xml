@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="bert133.bertscout2018">
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,9 @@
         android:label="@string/title_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,28 +23,28 @@
         <activity
             android:name=".MatchActivity"
             android:label="@string/match_activity_title"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".TeamActivity"
             android:label="@string/team_activity_title"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".AddTeamActivity"
             android:label="@string/add_team_activity_title"
-            android:windowSoftInputMode="stateAlwaysVisible"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".SyncDataActivity"
             android:label="@string/sync_data_activity_title"
-            android:windowSoftInputMode="stateAlwaysVisible"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ClearDataActivity"
             android:label="@string/clear_data_activity_title"
-            android:windowSoftInputMode="stateAlwaysVisible"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>
