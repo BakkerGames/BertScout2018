@@ -32,7 +32,7 @@ public class TeamActivity extends AppCompatActivity {
     private DBHelper mDBHelper = new DBHelper(context);
     private ArrayAdapter<String> matchesAdapter;
     private ArrayList<String> matchesList;
-    boolean fillingValues = false;
+    boolean loadingValues = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,14 +74,14 @@ public class TeamActivity extends AppCompatActivity {
 
         JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
         try {
-            fillingValues = true;
+            loadingValues = true;
             ratingStars.setRating(currTeam.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_RATING));
             teamPickedButton.setChecked(currTeam.getBoolean(DBContract.TableTeamInfo.COLNAME_TEAM_PICKED));
             pickNumberText.setText(String.format("%d", currTeam.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER)));
             teamComments.setText(currTeam.getString(DBContract.TableTeamInfo.COLNAME_TEAM_COMMENT));
-            fillingValues = false;
+            loadingValues = false;
         } catch (Exception ex) {
-            fillingValues = false;
+            loadingValues = false;
             Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
             return;
         }
@@ -119,7 +119,7 @@ public class TeamActivity extends AppCompatActivity {
         ratingStars.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                if (fillingValues) {
+                if (loadingValues) {
                     return;
                 }
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
@@ -197,7 +197,7 @@ public class TeamActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (fillingValues) {
+                if (loadingValues) {
                     return;
                 }
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
@@ -224,7 +224,7 @@ public class TeamActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (fillingValues) {
+                if (loadingValues) {
                     return;
                 }
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
