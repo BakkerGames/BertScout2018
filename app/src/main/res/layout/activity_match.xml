@@ -509,7 +509,7 @@
             android:layout_below="@id/match_rating_label"
             android:layout_marginStart="10sp"
             android:layout_marginTop="10sp"
-            android:text="Comments:"
+            android:text="Comments "
             android:textSize="30sp" />
 
         <EditText
@@ -521,6 +521,7 @@
             android:inputType="textMultiLine"
             android:scrollHorizontally="false"
             android:selectAllOnFocus="false"
+            android:layout_marginTop="5dp"
             android:textSize="20sp"
             />
 
