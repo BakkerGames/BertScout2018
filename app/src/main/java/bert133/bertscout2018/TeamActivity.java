@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -29,6 +32,7 @@ public class TeamActivity extends AppCompatActivity {
     private DBHelper mDBHelper = new DBHelper(context);
     private ArrayAdapter<String> matchesAdapter;
     private ArrayList<String> matchesList;
+    boolean fillingValues = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +49,14 @@ public class TeamActivity extends AppCompatActivity {
 
         // set objects here
         final RatingBar ratingStars = findViewById(R.id.team_rating_value);
-        final TextView matchText = findViewById(R.id.team_pick_number_text);
+        final TextView pickNumberText = findViewById(R.id.team_pick_number_text);
         final Button teamPickNumberMinusButton = findViewById(R.id.team_pick_number_minus_btn);
         final Button teamPickNumberPlusButton = findViewById(R.id.team_pick_number_plus_btn);
         final ToggleButton teamPickedButton = findViewById(R.id.team_picked_checkBox);
         final ListView showMatchesListView = findViewById(R.id.team_show_matches_list);
+        final EditText teamComments = findViewById(R.id.team_comments_text);
 
-        //set chat adapter
+        //set match adapter
         matchesList = new ArrayList<>();
         matchesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, matchesList);
         showMatchesListView.setAdapter(matchesAdapter);
@@ -69,10 +74,14 @@ public class TeamActivity extends AppCompatActivity {
 
         JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
         try {
+            fillingValues = true;
             ratingStars.setRating(currTeam.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_RATING));
             teamPickedButton.setChecked(currTeam.getBoolean(DBContract.TableTeamInfo.COLNAME_TEAM_PICKED));
-            matchText.setText(String.format("%d", currTeam.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER)));
+            pickNumberText.setText(String.format("%d", currTeam.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER)));
+            teamComments.setText(currTeam.getString(DBContract.TableTeamInfo.COLNAME_TEAM_COMMENT));
+            fillingValues = false;
         } catch (Exception ex) {
+            fillingValues = false;
             Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
             return;
         }
@@ -105,12 +114,14 @@ public class TeamActivity extends AppCompatActivity {
             return;
         }
 
-
         // rating
 
         ratingStars.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (fillingValues) {
+                    return;
+                }
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
                 try {
                     currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_RATING, (int) rating);
@@ -127,10 +138,10 @@ public class TeamActivity extends AppCompatActivity {
         teamPickNumberMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                matchText.requestFocus();
+                pickNumberText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(pickNumberText.getText().toString());
                     if (tempValue <= 0) {
                         tempValue = 0;
                     } else {
@@ -148,7 +159,7 @@ public class TeamActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                pickNumberText.setText(Integer.toString(tempValue));
             }
         });
 
@@ -186,14 +197,43 @@ public class TeamActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                // get the team record from database
+                if (fillingValues) {
+                    return;
+                }
                 JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
-
-                // update the picked flag
                 try {
                     currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_PICKED, buttonView.isChecked());
                     mDBHelper.updateTeamInfo(currTeam);
+                } catch (Exception ex) {
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        });
+
+        // comments
+
+        teamComments.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (fillingValues) {
+                    return;
+                }
+                JSONObject currTeam = mDBHelper.getTeamInfo(currTeamNumber);
+                try {
+                    String tempValue = teamComments.getText().toString();
+                    if (currTeam.getString(DBContract.TableTeamInfo.COLNAME_TEAM_COMMENT) != tempValue) {
+                        currTeam.put(DBContract.TableTeamInfo.COLNAME_TEAM_COMMENT, tempValue);
+                        mDBHelper.updateTeamInfo(currTeam);
+                    }
                 } catch (Exception ex) {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
