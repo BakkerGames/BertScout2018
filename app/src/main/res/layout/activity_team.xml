@@ -17,18 +17,18 @@
             android:id="@+id/team_rating_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="20sp"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="0sp"
             android:text="Overall Rating"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <RatingBar
             android:id="@+id/team_rating_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/team_rating_label"
-            android:layout_marginLeft="40dp"
-            android:layout_toRightOf="@+id/team_rating_label"
+            android:layout_marginStart="40dp"
+            android:layout_toEndOf="@+id/team_rating_label"
             android:stepSize="1" />
 
         <TextView
@@ -36,10 +36,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/team_rating_label"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="10dp"
             android:text="Pick Number"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/team_pick_number_text"
@@ -48,7 +48,7 @@
             android:layout_alignBaseline="@+id/team_pick_number_label"
             android:layout_alignStart="@+id/team_rating_value"
             android:layout_margin="10dp"
-            android:layout_toRightOf="@+id/team_pick_number_label"
+            android:layout_toEndOf="@+id/team_pick_number_label"
             android:ems="2"
             android:text="0"
             android:textSize="30sp"
@@ -89,10 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/team_pick_number_label"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="10dp"
             android:text="Team Picked"
-            android:textSize="30dp" />
+            android:textSize="30sp" />
 
         <ToggleButton
             android:id="@+id/team_picked_checkBox"
@@ -100,39 +100,46 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/team_picked_label"
             android:layout_alignStart="@+id/team_rating_value"
-            android:layout_toRightOf="@+id/team_picked_label"
+            android:layout_toEndOf="@+id/team_picked_label"
             android:text=""
             android:textOff=""
             android:textOn="Yes"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/team_comment_label"
+            android:id="@+id/team_comments_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/team_picked_label"
-            android:layout_marginLeft="10sp"
-            android:layout_marginTop="20dp"
-            android:text="Comments:"
-            android:textSize="30dp" />
+            android:layout_marginStart="10sp"
+            android:layout_marginTop="10dp"
+            android:text="Comments: "
+            android:textSize="30sp" />
 
-        <!--<EditText-->
-            <!--android:id="@+id/team_comment_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@+id/team_comment_label"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:ems="20"-->
-            <!--android:inputType="textMultiLine"-->
-            <!--android:text=""-->
-            <!--android:textSize="30sp" />-->
+        <EditText
+            android:id="@+id/team_comments_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/team_picked_label"
+            android:layout_toEndOf="@+id/team_comments_label"
+            android:inputType="textMultiLine"
+            android:scrollHorizontally="false"
+            android:selectAllOnFocus="false"
+            android:layout_marginTop="10sp"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/match_showmatch_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/match_labels_layout">
 
         <ListView
             android:id="@+id/team_show_matches_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/team_comment_label" />
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
