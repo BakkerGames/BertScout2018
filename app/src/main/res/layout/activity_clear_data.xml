@@ -6,11 +6,62 @@
     android:layout_height="match_parent"
     tools:context="bert133.bertscout2018.ClearDataActivity">
 
-    <Button
-        android:id="@+id/clear_data_button"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="Clear"
-        />
+    <RelativeLayout
+        android:id="@+id/clear_relative_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/clear_password_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="0sp"
+            android:paddingEnd="10sp"
+            android:paddingStart="10sp"
+            android:paddingTop="5sp"
+            android:maxLength="8"
+            android:text="Password:"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/clear_password_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/clear_password_label"
+            android:layout_toEndOf="@id/clear_password_label"
+            android:ems="4"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:text=""
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/clear_password_go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/clear_password_text"
+            android:layout_alignBaseline="@id/clear_password_label"
+            android:text="Go"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/clear_relative_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/clear_relative_1"
+        android:visibility="invisible"
+        >
+
+        <Button
+            android:id="@+id/clear_data_button"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
