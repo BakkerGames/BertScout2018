@@ -29,7 +29,7 @@
             android:layout_alignTop="@+id/team_rating_label"
             android:layout_toEndOf="@+id/team_rating_label"
             android:paddingEnd="0dp"
-            android:paddingStart="10dp"
+            android:paddingStart="0dp"
             android:stepSize="1" />
 
         <!-- pick number -->
