@@ -72,22 +72,22 @@ public class SyncDataActivity extends AppCompatActivity {
             public void onClick(View view) {
                 JSONArray teamDataList = mDBHelper.getTeamInfoList(false);
                 JSONArray sendList = new JSONArray();
-                for (int i = 0; i < teamDataList.length(); i++){
+                for (int i = 0; i < teamDataList.length(); i++) {
                     try {
-                        JSONObject team = (JSONObject)teamDataList.get(i);
-                        if (sendList.length() == 0){
+                        JSONObject team = (JSONObject) teamDataList.get(i);
+                        if (sendList.length() == 0) {
                             sendList.put(DBHelper.SYNC_HEADER_TEAM);
                         }
-                        if (sendList.toString().length() + team.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4){
+                        if (sendList.toString().length() + team.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4) {
                             sendList.put(team);
-                        }else{
+                        } else {
                             sendMessage(sendList.toString());
                             sendList = new JSONArray();
                         }
-                    }catch(Exception ex){
+                    } catch (Exception ex) {
                     }
                 }
-                if (sendList.length()> 0){
+                if (sendList.length() > 0) {
                     sendMessage(sendList.toString());
                 }
             }
@@ -98,22 +98,22 @@ public class SyncDataActivity extends AppCompatActivity {
             public void onClick(View view) {
                 JSONArray matchDataList = mDBHelper.getMatchInfoList(false);
                 JSONArray sendList = new JSONArray();
-                for (int i = 0; i < matchDataList.length(); i++){
+                for (int i = 0; i < matchDataList.length(); i++) {
                     try {
-                        JSONObject match = (JSONObject)matchDataList.get(i);
-                        if (sendList.length() == 0){
+                        JSONObject match = (JSONObject) matchDataList.get(i);
+                        if (sendList.length() == 0) {
                             sendList.put(DBHelper.SYNC_HEADER_MATCH);
                         }
-                        if (sendList.toString().length() + match.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4){
+                        if (sendList.toString().length() + match.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4) {
                             sendList.put(match);
-                        }else{
+                        } else {
                             sendMessage(sendList.toString());
                             sendList = new JSONArray();
                         }
-                    }catch(Exception ex){
+                    } catch (Exception ex) {
                     }
                 }
-                if (sendList.length()> 0){
+                if (sendList.length() > 0) {
                     sendMessage(sendList.toString());
                 }
             }
@@ -385,10 +385,10 @@ public class SyncDataActivity extends AppCompatActivity {
                         mDBHelper.updateTeamInfo(newRow);
                         addCount++;
                     } else if (newRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) >
-                               existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION)) {
+                            existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION)) {
                         newRow.put(DBContract.TableTeamInfo._ID, existingRow.getInt(DBContract.TableTeamInfo._ID));
                         // subtract one from version, it will be added back upon save
-                        newRow.put(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION, existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION)-1);
+                        newRow.put(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION, existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) - 1);
                         mDBHelper.updateTeamInfo(newRow);
                         addCount++;
                     }
@@ -410,11 +410,11 @@ public class SyncDataActivity extends AppCompatActivity {
                         newRow.remove(DBContract.TableMatchInfo._ID); // can't save another device's id values
                         mDBHelper.updateMatchInfo(newRow);
                         addCount++;
-                    }else if (newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) >
-                              existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)) {
+                    } else if (newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) >
+                            existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)) {
                         newRow.put(DBContract.TableMatchInfo._ID, existingRow.getInt(DBContract.TableMatchInfo._ID));
                         // subtract one from version, it will be added back upon save
-                        newRow.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION, existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)-1);
+                        newRow.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION, existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) - 1);
                         mDBHelper.updateMatchInfo(newRow);
                         addCount++;
                     }
