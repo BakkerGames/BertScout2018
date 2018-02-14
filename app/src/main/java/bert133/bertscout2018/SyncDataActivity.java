@@ -50,6 +50,8 @@ public class SyncDataActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
 
+    private static final int SLEEP_TIME = 100;
+
     public BluetoothDevice connectingDevice;
     private ArrayAdapter<String> discoveredDevicesAdapter;
 
@@ -71,24 +73,15 @@ public class SyncDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 JSONArray teamDataList = mDBHelper.getTeamInfoList(false);
-                JSONArray sendList = new JSONArray();
                 for (int i = 0; i < teamDataList.length(); i++) {
                     try {
+                        JSONArray sendList = new JSONArray();
+                        sendList.put(DBHelper.SYNC_HEADER_TEAM);
                         JSONObject team = (JSONObject) teamDataList.get(i);
-                        if (sendList.length() == 0) {
-                            sendList.put(DBHelper.SYNC_HEADER_TEAM);
-                        }
-                        if (sendList.toString().length() + team.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4) {
-                            sendList.put(team);
-                        } else {
-                            sendMessage(sendList.toString());
-                            sendList = new JSONArray();
-                        }
+                        sendList.put(team);
+                        sendMessage(sendList.toString());
                     } catch (Exception ex) {
                     }
-                }
-                if (sendList.length() > 0) {
-                    sendMessage(sendList.toString());
                 }
             }
         });
@@ -97,24 +90,15 @@ public class SyncDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 JSONArray matchDataList = mDBHelper.getMatchInfoList(false);
-                JSONArray sendList = new JSONArray();
                 for (int i = 0; i < matchDataList.length(); i++) {
                     try {
+                        JSONArray sendList = new JSONArray();
+                        sendList.put(DBHelper.SYNC_HEADER_TEAM);
                         JSONObject match = (JSONObject) matchDataList.get(i);
-                        if (sendList.length() == 0) {
-                            sendList.put(DBHelper.SYNC_HEADER_MATCH);
-                        }
-                        if (sendList.toString().length() + match.toString().length() < ChatController.MAX_MESSAGE_BYTES - 4) {
-                            sendList.put(match);
-                        } else {
-                            sendMessage(sendList.toString());
-                            sendList = new JSONArray();
-                        }
+                        sendList.put(match);
+                        sendMessage(sendList.toString());
                     } catch (Exception ex) {
                     }
-                }
-                if (sendList.length() > 0) {
-                    sendMessage(sendList.toString());
                 }
             }
         });
@@ -326,9 +310,9 @@ public class SyncDataActivity extends AppCompatActivity {
         if (message.length() > 0) {
             byte[] send = message.getBytes();
             chatController.write(send);
-            try{
-                Thread.sleep(2000);
-            } catch(Exception ex){
+            try {
+                Thread.sleep(SLEEP_TIME);
+            } catch (Exception ex) {
                 Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
@@ -378,7 +362,7 @@ public class SyncDataActivity extends AppCompatActivity {
         try {
             JSONArray dataArray = new JSONArray(message);
             if (dataArray.getString(0).equals(DBHelper.SYNC_HEADER_TEAM)) {
-                chatMessages.add(dataArray.getString(0));
+                //chatMessages.add(dataArray.getString(0));
                 chatAdapter.notifyDataSetChanged();
                 int addCount = 0;
                 for (int i = 1; i < dataArray.length(); i++) {
@@ -403,7 +387,7 @@ public class SyncDataActivity extends AppCompatActivity {
                 chatMessages.add(String.format("%d rows added", addCount));
                 chatAdapter.notifyDataSetChanged();
             } else if (dataArray.getString(0).equals(DBHelper.SYNC_HEADER_MATCH)) {
-                chatMessages.add(dataArray.getString(0));
+                //chatMessages.add(dataArray.getString(0));
                 chatAdapter.notifyDataSetChanged();
                 int addCount = 0;
                 for (int i = 1; i < dataArray.length(); i++) {
