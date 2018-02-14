@@ -29,7 +29,7 @@ public class ClearDataActivity extends AppCompatActivity {
                     RelativeLayout layout2 = findViewById(R.id.clear_relative_2);
                     layout2.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Wrong password! " + passwordText.getText().toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Wrong password!", Toast.LENGTH_LONG).show();
                 }
             }
         });

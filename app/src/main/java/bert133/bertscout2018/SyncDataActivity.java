@@ -81,6 +81,7 @@ public class SyncDataActivity extends AppCompatActivity {
                         sendList.put(team);
                         sendMessage(sendList.toString());
                     } catch (Exception ex) {
+                        Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -98,6 +99,7 @@ public class SyncDataActivity extends AppCompatActivity {
                         sendList.put(match);
                         sendMessage(sendList.toString());
                     } catch (Exception ex) {
+                        Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -106,7 +108,7 @@ public class SyncDataActivity extends AppCompatActivity {
         //check device support bluetooth or not
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
-            Toast.makeText(this, "Bluetooth is not available!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bluetooth is not available!", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
@@ -192,13 +194,13 @@ public class SyncDataActivity extends AppCompatActivity {
                 case MESSAGE_DEVICE_OBJECT:
                     setStatus("### device_object ###");
                     connectingDevice = msg.getData().getParcelable(DEVICE_OBJECT);
-                    Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(), Toast.LENGTH_LONG).show();
                     btnConnect.setEnabled(false);
                     break;
                 case MESSAGE_TOAST:
                     setStatus("### message_toast ###");
                     Toast.makeText(getApplicationContext(), msg.getData().getString("toast"),
-                            Toast.LENGTH_SHORT).show();
+                            Toast.LENGTH_LONG).show();
                     break;
             }
             return false;
@@ -296,7 +298,7 @@ public class SyncDataActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     chatController = new ChatController(this, handler);
                 } else {
-                    Toast.makeText(this, "Bluetooth still disabled, turn off application!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Bluetooth still disabled, turn off application!", Toast.LENGTH_LONG).show();
                     finish();
                 }
         }
@@ -304,7 +306,7 @@ public class SyncDataActivity extends AppCompatActivity {
 
     private void sendMessage(String message) {
         if (chatController.getState() != ChatController.STATE_CONNECTED) {
-            Toast.makeText(this, "Connection was lost!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Connection was lost!", Toast.LENGTH_LONG).show();
             return;
         }
         if (message.length() > 0) {
@@ -419,7 +421,7 @@ public class SyncDataActivity extends AppCompatActivity {
                 throw new DataFormatException(String.format("Unknown identifier: %s", dataArray.getString(0)));
             }
         } catch (Exception ex) {
-            Toast.makeText(this, "Merge error! " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Merge error! " + ex.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }
