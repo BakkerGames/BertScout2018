@@ -119,8 +119,8 @@
         android:id="@+id/match_info_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
         android:layout_marginTop="20dp"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@id/match_button_layout">
 
         <!-- auto baseline -->
@@ -221,9 +221,9 @@
             android:id="@+id/match_tele_switch_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/match_tele_switch_text"
             android:layout_alignBaseline="@+id/match_tele_switch_text"
             android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_tele_switch_text"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -236,9 +236,9 @@
             android:id="@+id/match_tele_switch_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/match_tele_switch_text"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_tele_switch_minus_btn"
-            android:layout_alignBaseline="@+id/match_tele_switch_text"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -275,9 +275,9 @@
             android:id="@+id/match_tele_scale_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/match_tele_scale_text"
             android:layout_alignBaseline="@+id/match_tele_scale_text"
             android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_tele_scale_text"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -290,9 +290,9 @@
             android:id="@+id/match_tele_scale_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/match_tele_scale_minus_btn"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_tele_scale_minus_btn"
-            android:layout_alignBaseline="@+id/match_tele_scale_minus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -331,9 +331,9 @@
             android:id="@+id/match_tele_exchange_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/match_tele_exchange_text"
             android:layout_alignBaseline="@+id/match_tele_exchange_text"
             android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_tele_exchange_text"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -358,16 +358,15 @@
             android:layout_alignStart="@+id/match_auto_baseline_toggle"
             android:layout_alignTop="@+id/match_cycle_time_label"
             android:layout_toEndOf="@+id/match_cycle_time_label"
-            android:stepSize="1"
-            />
+            android:stepSize="1" />
 
         <Button
             android:id="@+id/match_tele_exchange_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/match_tele_exchange_minus_btn"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_tele_exchange_minus_btn"
-            android:layout_alignBaseline="@+id/match_tele_exchange_minus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -452,9 +451,9 @@
             android:id="@+id/match_penalties_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/match_penalties_text"
             android:layout_alignBaseline="@+id/match_penalties_text"
             android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_penalties_text"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -467,9 +466,9 @@
             android:id="@+id/match_penalties_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/match_penalties_minus_btn"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_penalties_minus_btn"
-            android:layout_alignBaseline="@+id/match_penalties_minus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -497,8 +496,7 @@
             android:layout_alignStart="@+id/match_auto_baseline_toggle"
             android:layout_alignTop="@+id/match_rating_label"
             android:layout_toEndOf="@+id/match_rating_label"
-            android:stepSize="1"
-            />
+            android:stepSize="1" />
 
         <!-- comments -->
 
@@ -516,14 +514,13 @@
             android:id="@+id/match_comments_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/match_comments_label"
             android:layout_below="@+id/match_rating_label"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@+id/match_comments_label"
             android:inputType="textMultiLine"
             android:scrollHorizontally="false"
             android:selectAllOnFocus="false"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
