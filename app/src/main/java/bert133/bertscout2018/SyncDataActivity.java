@@ -326,6 +326,11 @@ public class SyncDataActivity extends AppCompatActivity {
         if (message.length() > 0) {
             byte[] send = message.getBytes();
             chatController.write(send);
+            try{
+                Thread.sleep(2000);
+            } catch(Exception ex){
+                Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
