@@ -50,7 +50,7 @@ public class SyncDataActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
 
-    private static final int SLEEP_TIME = 100;
+    private static final int SLEEP_TIME = 200;
 
     public BluetoothDevice connectingDevice;
     private ArrayAdapter<String> discoveredDevicesAdapter;
