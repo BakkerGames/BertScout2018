@@ -52,9 +52,9 @@ public final class DBContract {
         public static final String COLNAME_MATCH_TELE_SCALE = "tele_scale";
         public static final String COLNAME_MATCH_TELE_EXCHANGE = "tele_exchange";
         public static final String COLNAME_MATCH_CYCLE_TIME = "cycle_time";
-        public static final String COLNAME_MATCH_PARKED = "tele_parked";
-        public static final String COLNAME_MATCH_CLIMBED = "tele_climbed";
-        public static final String COLNAME_MATCH_PENALTIES = "tele_penalties";
+        public static final String COLNAME_MATCH_PARKED = "parked";
+        public static final String COLNAME_MATCH_CLIMBED = "climbed";
+        public static final String COLNAME_MATCH_PENALTIES = "penalties";
         public static final String COLNAME_MATCH_RATING = "rating";
         public static final String COLNAME_MATCH_COMMENT = "comment";
 

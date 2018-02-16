@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "bert_scout_2018.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     public static final String SYNC_HEADER_TEAM = "team";
     public static final String SYNC_HEADER_MATCH = "match";
