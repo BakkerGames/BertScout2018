@@ -50,6 +50,9 @@ public class SyncDataActivity extends AppCompatActivity {
 
     private static final int REQUEST_ENABLE_BLUETOOTH = 1;
 
+    private static final String ACK_MESSAGE = "ACK";
+    private static final String NAK_MESSAGE = "NAK";
+
     private static final int SLEEP_TIME = 200;
 
     public BluetoothDevice connectingDevice;
@@ -80,6 +83,7 @@ public class SyncDataActivity extends AppCompatActivity {
                         JSONObject team = (JSONObject) teamDataList.get(i);
                         sendList.put(team);
                         sendMessage(sendList.toString());
+                        chatAdapter.notifyDataSetChanged();
                     } catch (Exception ex) {
                         Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -98,6 +102,7 @@ public class SyncDataActivity extends AppCompatActivity {
                         JSONObject match = (JSONObject) matchDataList.get(i);
                         sendList.put(match);
                         sendMessage(sendList.toString());
+                        chatAdapter.notifyDataSetChanged();
                     } catch (Exception ex) {
                         Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -146,6 +151,9 @@ public class SyncDataActivity extends AppCompatActivity {
         }
     };
 
+    private boolean ackFlag = false;
+    private boolean nakFlag = false;
+
     private Handler handler = new Handler(new Handler.Callback() {
 
         @Override
@@ -168,8 +176,6 @@ public class SyncDataActivity extends AppCompatActivity {
                         case ChatController.STATE_LISTEN:
                         case ChatController.STATE_NONE:
                             setStatus("Not connected");
-                            chatMessages.clear();
-                            chatAdapter.notifyDataSetChanged();
                             btnConnect.setEnabled(true);
                             sendTeamDataButton.setEnabled(false);
                             sendMatchDataButton.setEnabled(false);
@@ -180,16 +186,28 @@ public class SyncDataActivity extends AppCompatActivity {
                     setStatus("### message_write ###");
                     byte[] writeBuf = (byte[]) msg.obj;
                     String writeMessage = new String(writeBuf);
-                    chatMessages.add("Sent: " + writeMessage);
+                    chatMessages.add("SENT: " + writeMessage);
                     chatAdapter.notifyDataSetChanged();
                     break;
                 case MESSAGE_READ:
                     setStatus("### message_read ###");
                     byte[] readBuf = (byte[]) msg.obj;
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                    chatMessages.add(connectingDevice.getName() + ":  " + readMessage);
+                    chatMessages.add("RCVD: " + readMessage);
                     chatAdapter.notifyDataSetChanged();
-                    MergeReceivedData(readMessage);
+                    if (readMessage.equals(ACK_MESSAGE)) {
+                        ackFlag = true;
+                        break;
+                    }
+                    if (readMessage.equals(NAK_MESSAGE)) {
+                        nakFlag = true;
+                        break;
+                    }
+                    if (MergeReceivedData(readMessage)) {
+                        sendMessage(ACK_MESSAGE);
+                    } else {
+                        sendMessage(NAK_MESSAGE);
+                    }
                     break;
                 case MESSAGE_DEVICE_OBJECT:
                     setStatus("### device_object ###");
@@ -199,7 +217,10 @@ public class SyncDataActivity extends AppCompatActivity {
                     break;
                 case MESSAGE_TOAST:
                     setStatus("### message_toast ###");
-                    Toast.makeText(getApplicationContext(), msg.getData().getString("toast"),
+                    String msgValue = msg.getData().getString("toast");
+                    chatMessages.add(msgValue);
+                    chatAdapter.notifyDataSetChanged();
+                    Toast.makeText(getApplicationContext(), msgValue,
                             Toast.LENGTH_LONG).show();
                     break;
             }
@@ -306,10 +327,19 @@ public class SyncDataActivity extends AppCompatActivity {
 
     private void sendMessage(String message) {
         if (chatController.getState() != ChatController.STATE_CONNECTED) {
-            Toast.makeText(this, "Connection was lost!", Toast.LENGTH_LONG).show();
+            chatMessages.add("Connection lost!");
+            chatAdapter.notifyDataSetChanged();
+            Toast.makeText(this, "Connection lost!", Toast.LENGTH_LONG).show();
             return;
         }
         if (message.length() > 0) {
+            if (message.equals(ACK_MESSAGE) || message.equals(NAK_MESSAGE)) {
+                byte[] sendAckNak = message.getBytes();
+                chatController.write(sendAckNak);
+                return;
+            }
+            ackFlag = false;
+            nakFlag = false;
             byte[] send = message.getBytes();
             chatController.write(send);
             try {
@@ -348,23 +378,10 @@ public class SyncDataActivity extends AppCompatActivity {
             chatController.stop();
     }
 
-    private String getTeamDataForSending() {
-        // show all teams already there
-        JSONArray teamListJA = mDBHelper.getTeamInfoList(true);
-        return teamListJA.toString();
-    }
-
-    private String getMatchDataForSending() {
-        // show all teams already there
-        JSONArray matchListJA = mDBHelper.getMatchInfoList(true);
-        return matchListJA.toString();
-    }
-
-    private void MergeReceivedData(String message) {
+    private boolean MergeReceivedData(String message) {
         try {
             JSONArray dataArray = new JSONArray(message);
             if (dataArray.getString(0).equals(DBHelper.SYNC_HEADER_TEAM)) {
-                //chatMessages.add(dataArray.getString(0));
                 chatAdapter.notifyDataSetChanged();
                 int addCount = 0;
                 for (int i = 1; i < dataArray.length(); i++) {
@@ -375,21 +392,20 @@ public class SyncDataActivity extends AppCompatActivity {
                         newRow.remove(DBContract.TableTeamInfo._ID); // can't save another device's id values
                         mDBHelper.updateTeamInfo(newRow);
                         addCount++;
-                    } else if (newRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) >
-                            existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION)) {
-                        newRow.put(DBContract.TableTeamInfo._ID, existingRow.getInt(DBContract.TableTeamInfo._ID));
-                        // subtract one from version, it will be added back upon save
-                        newRow.put(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION, existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) - 1);
-                        mDBHelper.updateTeamInfo(newRow);
-                        addCount++;
+                    } else {
+                        if (newRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) >
+                                existingRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION)) {
+                            newRow.put(DBContract.TableTeamInfo._ID, existingRow.getInt(DBContract.TableTeamInfo._ID));
+                            // subtract one from version, it will be added back upon save
+                            newRow.put(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION, newRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) - 1);
+                            mDBHelper.updateTeamInfo(newRow);
+                            addCount++;
+                        }
                     }
-                    chatMessages.add(newRow.toString());
-                    chatAdapter.notifyDataSetChanged();
                 }
                 chatMessages.add(String.format("%d rows added", addCount));
                 chatAdapter.notifyDataSetChanged();
             } else if (dataArray.getString(0).equals(DBHelper.SYNC_HEADER_MATCH)) {
-                //chatMessages.add(dataArray.getString(0));
                 chatAdapter.notifyDataSetChanged();
                 int addCount = 0;
                 for (int i = 1; i < dataArray.length(); i++) {
@@ -405,12 +421,10 @@ public class SyncDataActivity extends AppCompatActivity {
                             existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)) {
                         newRow.put(DBContract.TableMatchInfo._ID, existingRow.getInt(DBContract.TableMatchInfo._ID));
                         // subtract one from version, it will be added back upon save
-                        newRow.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION, existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) - 1);
+                        newRow.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION, newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) - 1);
                         mDBHelper.updateMatchInfo(newRow);
                         addCount++;
                     }
-                    chatMessages.add(newRow.toString());
-                    chatAdapter.notifyDataSetChanged();
                 }
                 chatMessages.add(String.format("%d rows added", addCount));
                 chatAdapter.notifyDataSetChanged();
@@ -420,8 +434,10 @@ public class SyncDataActivity extends AppCompatActivity {
                 chatAdapter.notifyDataSetChanged();
                 throw new DataFormatException(String.format("Unknown identifier: %s", dataArray.getString(0)));
             }
+            return true;
         } catch (Exception ex) {
             Toast.makeText(this, "Merge error! " + ex.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 }

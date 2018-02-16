@@ -174,6 +174,11 @@ public class ChatController {
         handler.sendMessage(msg);
 
         // Start the service over to restart listening mode
+        ChatController.this.stop();
+        try {
+            Thread.sleep(1000);
+        } catch (Exception ex) {
+        }
         ChatController.this.start();
     }
 
