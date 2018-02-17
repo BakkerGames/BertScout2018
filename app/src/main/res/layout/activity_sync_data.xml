@@ -6,35 +6,6 @@
     android:layout_height="match_parent"
     tools:context="bert133.bertscout2018.SyncDataActivity">
 
-    <!--<RelativeLayout-->
-    <!--android:id="@+id/stand_match_labels_layout"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content">-->
-
-    <!--<Button android:layout_height="wrap_content"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:text="Prepare to Send Data"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--android:id="@+id/sync_data_prepare_send_button"/>-->
-
-    <!--<Button android:layout_height="wrap_content"-->
-    <!--android:id="@+id/sync_data_listen_button"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_below="@+id/sync_data_prepare_send_button"-->
-    <!--android:text="Listen For Data"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--/>-->
-
-    <!--<Button android:layout_height="wrap_content"-->
-    <!--android:id="@+id/sync_data_send_button"-->
-    <!--android:layout_marginTop="20dp"-->
-    <!--android:layout_below="@+id/sync_data_listen_button"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:text="Send Data"-->
-    <!--/>-->
-
-    <!--</RelativeLayout>-->
-
     <RelativeLayout
         android:id="@+id/sync_relative_layout_1"
         android:layout_width="match_parent"
@@ -69,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/sync_connect_button"
             android:layout_marginStart="10dp"
+            android:enabled="false"
             android:minWidth="50dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -80,28 +52,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sync_connect_button"
-            android:layout_toEndOf="@+id/sync_send_team_data_button"
             android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/sync_send_team_data_button"
+            android:enabled="false"
             android:minWidth="50dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Send Match Data"
             android:textSize="30sp" />
 
-        <!--<EditText-->
-            <!--android:id="@+id/sync_text_to_send"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignBaseline="sync_send_team_data_buttonsend"-->
-            <!--android:layout_toEndOf="sync_send_team_data_buttonsend"-->
-            <!--android:hint="Input some text"-->
-            <!--android:textSize="30sp" />-->
+        <Button
+            android:id="@+id/sync_disconnect_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sync_send_team_data_button"
+            android:layout_marginStart="10dp"
+            android:enabled="false"
+            android:minWidth="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Disconnect"
+            android:textSize="30sp" />
 
         <ListView
             android:id="@+id/sync_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sync_send_team_data_button" />
+            android:layout_below="@+id/sync_disconnect_button" />
 
     </RelativeLayout>
 

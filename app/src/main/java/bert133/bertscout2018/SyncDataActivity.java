@@ -34,6 +34,7 @@ public class SyncDataActivity extends AppCompatActivity {
     private ListView listView;
     private Button sendTeamDataButton;
     private Button sendMatchDataButton;
+    private Button sendDisconnectButton;
 
     private Dialog dialog;
     private ArrayAdapter<String> chatAdapter;
@@ -71,6 +72,7 @@ public class SyncDataActivity extends AppCompatActivity {
         listView = findViewById(R.id.sync_list);
         sendTeamDataButton = findViewById(R.id.sync_send_team_data_button);
         sendMatchDataButton = findViewById(R.id.sync_send_match_data_button);
+        sendDisconnectButton = findViewById(R.id.sync_disconnect_button);
 
         sendTeamDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +109,20 @@ public class SyncDataActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
+            }
+        });
+
+        sendDisconnectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (bluetoothAdapter != null && bluetoothAdapter.isDiscovering()) {
+                    bluetoothAdapter.cancelDiscovery();
+                }
+                if (chatController != null) {
+                    chatController.stop();
+                }
+                chatMessages.add("Disconnected");
+                chatAdapter.notifyDataSetChanged();
             }
         });
 
@@ -163,22 +179,31 @@ public class SyncDataActivity extends AppCompatActivity {
                     switch (msg.arg1) {
                         case ChatController.STATE_CONNECTED:
                             setStatus("Connected to: " + connectingDevice.getName());
+                            chatMessages.add("Connected to: " + connectingDevice.getName());
+                            chatAdapter.notifyDataSetChanged();
                             btnConnect.setEnabled(false);
                             sendTeamDataButton.setEnabled(true);
                             sendMatchDataButton.setEnabled(true);
+                            sendDisconnectButton.setEnabled(true);
                             break;
                         case ChatController.STATE_CONNECTING:
                             setStatus("Connecting...");
+                            chatMessages.add("Connecting...");
+                            chatAdapter.notifyDataSetChanged();
                             btnConnect.setEnabled(false);
                             sendTeamDataButton.setEnabled(false);
                             sendMatchDataButton.setEnabled(false);
+                            sendDisconnectButton.setEnabled(false);
                             break;
                         case ChatController.STATE_LISTEN:
                         case ChatController.STATE_NONE:
                             setStatus("Not connected");
+                            chatMessages.add("Not connected");
+                            chatAdapter.notifyDataSetChanged();
                             btnConnect.setEnabled(true);
                             sendTeamDataButton.setEnabled(false);
                             sendMatchDataButton.setEnabled(false);
+                            sendDisconnectButton.setEnabled(false);
                             break;
                     }
                     break;
@@ -212,16 +237,20 @@ public class SyncDataActivity extends AppCompatActivity {
                 case MESSAGE_DEVICE_OBJECT:
                     setStatus("### device_object ###");
                     connectingDevice = msg.getData().getParcelable(DEVICE_OBJECT);
+                    chatMessages.add("Connected to " + connectingDevice.getName());
+                    chatAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), "Connected to " + connectingDevice.getName(), Toast.LENGTH_LONG).show();
                     btnConnect.setEnabled(false);
+                    sendTeamDataButton.setEnabled(true);
+                    sendMatchDataButton.setEnabled(true);
+                    sendDisconnectButton.setEnabled(true);
                     break;
                 case MESSAGE_TOAST:
                     setStatus("### message_toast ###");
-                    String msgValue = msg.getData().getString("toast");
-                    chatMessages.add(msgValue);
+                    String msgValueMT = msg.getData().getString("toast");
+                    chatMessages.add(msgValueMT);
                     chatAdapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(), msgValue,
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), msgValueMT, Toast.LENGTH_LONG).show();
                     break;
             }
             return false;
