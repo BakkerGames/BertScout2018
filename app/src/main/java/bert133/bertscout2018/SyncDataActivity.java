@@ -390,6 +390,9 @@ public class SyncDataActivity extends AppCompatActivity {
                     JSONObject existingRow = mDBHelper.getTeamInfo(teamNumber);
                     if (existingRow == null) {
                         newRow.remove(DBContract.TableTeamInfo._ID); // can't save another device's id values
+                        // subtract one from version, it will be added back upon save
+                        newRow.put(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION,
+                                newRow.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_VERSION) - 1);
                         mDBHelper.updateTeamInfo(newRow);
                         addCount++;
                     } else {
@@ -416,16 +419,21 @@ public class SyncDataActivity extends AppCompatActivity {
                     JSONObject existingRow = mDBHelper.getMatchInfo(teamNumber, matchNumber);
                     if (existingRow == null) {
                         newRow.remove(DBContract.TableMatchInfo._ID); // can't save another device's id values
-                        mDBHelper.updateMatchInfo(newRow);
-                        addCount++;
-                    } else if (newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) >
-                            existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)) {
-                        newRow.put(DBContract.TableMatchInfo._ID, existingRow.getInt(DBContract.TableMatchInfo._ID));
                         // subtract one from version, it will be added back upon save
                         newRow.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION,
                                 newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) - 1);
                         mDBHelper.updateMatchInfo(newRow);
                         addCount++;
+                    } else {
+                        if (newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) >
+                                existingRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION)) {
+                            newRow.put(DBContract.TableMatchInfo._ID, existingRow.getInt(DBContract.TableMatchInfo._ID));
+                            // subtract one from version, it will be added back upon save
+                            newRow.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION,
+                                    newRow.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION) - 1);
+                            mDBHelper.updateMatchInfo(newRow);
+                            addCount++;
+                        }
                     }
                 }
                 chatMessages.add(String.format("%d rows added", addCount));
