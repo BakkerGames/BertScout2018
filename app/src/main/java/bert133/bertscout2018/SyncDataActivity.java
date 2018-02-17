@@ -98,7 +98,7 @@ public class SyncDataActivity extends AppCompatActivity {
                 for (int i = 0; i < matchDataList.length(); i++) {
                     try {
                         JSONArray sendList = new JSONArray();
-                        sendList.put(DBHelper.SYNC_HEADER_TEAM);
+                        sendList.put(DBHelper.SYNC_HEADER_MATCH);
                         JSONObject match = (JSONObject) matchDataList.get(i);
                         sendList.put(match);
                         sendMessage(sendList.toString());
