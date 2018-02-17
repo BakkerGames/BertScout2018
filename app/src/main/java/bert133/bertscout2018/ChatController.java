@@ -31,7 +31,7 @@ public class ChatController {
     static final int STATE_CONNECTING = 2;
     static final int STATE_CONNECTED = 3;
 
-    static final int MAX_MESSAGE_BYTES = 1024;
+    static final int MAX_MESSAGE_BYTES = 2048;
 
     public ChatController(Context context, Handler handler) {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
