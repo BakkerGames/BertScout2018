@@ -53,8 +53,14 @@ public class MainActivity extends AppCompatActivity {
                 if (teamInfo.getBoolean(DBContract.TableTeamInfo.COLNAME_TEAM_PICKED)) {
                     teamText = teamText + " \r\nPICKED";
                 } else {
-                    if (teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER) > 0) {
-                        teamText = teamText + " \r\n#" + String.format("%d", teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER));
+                    int tempRating = teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_RATING);
+                    int tempPickNumber = teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER);
+                    if (tempRating > 0) {
+                        String tempRatingString = "*****".substring(0, tempRating);
+                        teamText = teamText + " \r\n" + tempRatingString;
+                    }
+                    if (tempPickNumber > 0) {
+                        teamText = teamText + String.format(" \r\n#%d", tempPickNumber);
                     }
                 }
                 teamList.add(teamText);
