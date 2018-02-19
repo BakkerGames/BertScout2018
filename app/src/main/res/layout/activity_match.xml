@@ -119,9 +119,9 @@
         android:id="@+id/match_info_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/match_button_layout">
+        app:layout_constraintTop_toBottomOf="@id/match_labels_layout">
 
         <!-- auto baseline -->
 
@@ -218,10 +218,10 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/match_tele_switch_minus_btn"
+            android:id="@+id/match_tele_switch_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/match_tele_switch_text"
+            android:layout_alignBaseline="@+id/match_tele_switch_label"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_tele_switch_text"
             android:minWidth="50dp"
@@ -229,22 +229,22 @@
             android:paddingEnd="0sp"
             android:paddingStart="0sp"
             android:paddingTop="0sp"
-            android:text="—"
+            android:text="+"
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/match_tele_switch_plus_btn"
+            android:id="@+id/match_tele_switch_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/match_tele_switch_text"
+            android:layout_alignBaseline="@+id/match_tele_switch_label"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/match_tele_switch_minus_btn"
+            android:layout_toEndOf="@id/match_tele_switch_plus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
             android:paddingStart="0sp"
             android:paddingTop="0sp"
-            android:text="+"
+            android:text="—"
             android:textSize="30sp" />
 
         <!-- tele scale -->
@@ -272,10 +272,10 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/match_tele_scale_minus_btn"
+            android:id="@+id/match_tele_scale_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/match_tele_scale_text"
+            android:layout_alignBaseline="@+id/match_tele_scale_label"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_tele_scale_text"
             android:minWidth="50dp"
@@ -283,22 +283,22 @@
             android:paddingEnd="0sp"
             android:paddingStart="0sp"
             android:paddingTop="0sp"
-            android:text="—"
+            android:text="+"
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/match_tele_scale_plus_btn"
+            android:id="@+id/match_tele_scale_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/match_tele_scale_minus_btn"
+            android:layout_alignBaseline="@+id/match_tele_scale_label"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/match_tele_scale_minus_btn"
+            android:layout_toEndOf="@id/match_tele_scale_plus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
             android:paddingStart="0sp"
             android:paddingTop="0sp"
-            android:text="+"
+            android:text="—"
             android:textSize="30sp" />
 
         <!-- tele exchange -->
@@ -324,16 +324,30 @@
             android:text="0"
             android:textSize="30sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/match_tele_exchange_label"
-            app:layout_constraintStart_toStartOf="@+id/match_auto_baseline_toggle" />
+            />
+
+        <Button
+            android:id="@+id/match_tele_exchange_plus_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/match_tele_exchange_label"
+            android:layout_margin="0dp"
+            android:layout_toEndOf="@id/match_tele_exchange_text"
+            android:minWidth="50dp"
+            android:paddingBottom="0sp"
+            android:paddingEnd="0sp"
+            android:paddingStart="0sp"
+            android:paddingTop="0sp"
+            android:text="+"
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/match_tele_exchange_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/match_tele_exchange_text"
+            android:layout_alignBaseline="@+id/match_tele_exchange_label"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/match_tele_exchange_text"
+            android:layout_toEndOf="@id/match_tele_exchange_plus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
@@ -359,21 +373,6 @@
             android:layout_alignTop="@+id/match_cycle_time_label"
             android:layout_toEndOf="@+id/match_cycle_time_label"
             android:stepSize="1" />
-
-        <Button
-            android:id="@+id/match_tele_exchange_plus_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/match_tele_exchange_minus_btn"
-            android:layout_margin="0dp"
-            android:layout_toEndOf="@id/match_tele_exchange_minus_btn"
-            android:minWidth="50dp"
-            android:paddingBottom="0sp"
-            android:paddingEnd="0sp"
-            android:paddingStart="0sp"
-            android:paddingTop="0sp"
-            android:text="+"
-            android:textSize="30sp" />
 
         <!-- tele parked -->
 
@@ -448,10 +447,10 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/match_penalties_minus_btn"
+            android:id="@+id/match_penalties_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/match_penalties_text"
+            android:layout_alignBaseline="@+id/match_penalties_label"
             android:layout_margin="0dp"
             android:layout_toEndOf="@id/match_penalties_text"
             android:minWidth="50dp"
@@ -459,22 +458,22 @@
             android:paddingEnd="0sp"
             android:paddingStart="0sp"
             android:paddingTop="0sp"
-            android:text="—"
+            android:text="+"
             android:textSize="30sp" />
 
         <Button
-            android:id="@+id/match_penalties_plus_btn"
+            android:id="@+id/match_penalties_minus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/match_penalties_minus_btn"
+            android:layout_alignBaseline="@+id/match_penalties_label"
             android:layout_margin="0dp"
-            android:layout_toEndOf="@id/match_penalties_minus_btn"
+            android:layout_toEndOf="@id/match_penalties_plus_btn"
             android:minWidth="50dp"
             android:paddingBottom="0sp"
             android:paddingEnd="0sp"
             android:paddingStart="0sp"
             android:paddingTop="0sp"
-            android:text="+"
+            android:text="—"
             android:textSize="30sp" />
 
         <!-- rating -->
