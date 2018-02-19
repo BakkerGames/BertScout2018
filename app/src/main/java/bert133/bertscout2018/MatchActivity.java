@@ -34,23 +34,6 @@ public class MatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match);
 
-        // get team number from MainActivity
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.TEAM_MESSAGE);
-        if (message.contains(" ")) {
-            String[] messageList = message.split(" ");
-            myTeamNumber = Integer.parseInt(messageList[0]);
-            TextView matchText = findViewById(R.id.match_number_text);
-            matchText.setText(messageList[1]);
-            DoGoAction();
-            return;
-        } else {
-            myTeamNumber = Integer.parseInt(message);
-        }
-
-        // set title
-        this.setTitle(String.format("Match Scouting - Team %s", message));
-
         // set objects here
 
         Button matchMinusButton = findViewById(R.id.match_number_minus_btn);
@@ -79,6 +62,22 @@ public class MatchActivity extends AppCompatActivity {
         final TextView matchPenaltiesText = findViewById(R.id.match_penalties_text);
         final RatingBar matchOverallRating = findViewById(R.id.match_overall_rating);
         final EditText matchComments = findViewById(R.id.match_comments_text);
+
+        // get team number from MainActivity
+        Intent intent = getIntent();
+        String message = intent.getStringExtra(MainActivity.TEAM_MESSAGE);
+        if (message.contains(" ")) {
+            String[] messageList = message.split(" ");
+            myTeamNumber = Integer.parseInt(messageList[0]);
+            this.setTitle(String.format("Match Scouting - Team %s", messageList[0]));
+            myMatchNumber = Integer.parseInt(messageList[1]);
+            TextView matchText = findViewById(R.id.match_number_text);
+            matchText.setText(messageList[1]);
+            DoGoAction();
+        } else {
+            myTeamNumber = Integer.parseInt(message);
+            this.setTitle(String.format("Match Scouting - Team %s", message));
+        }
 
         // --- buttons ---
 
@@ -162,7 +161,6 @@ public class MatchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DoGoAction();
-
             }
         });
 
