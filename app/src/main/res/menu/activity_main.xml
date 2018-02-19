@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:orderInCategory="100"
-        android:title="BERT 133 Scouting 2018 v1.0" />
+        android:title="BERT 133 Scouting 2018 v1.1" />
     <item
         android:orderInCategory="101"
         android:title="----------------------------------------------------" />
