@@ -289,11 +289,10 @@ public class MatchActivity extends AppCompatActivity {
         matchTeleSwitchMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = findViewById(R.id.match_tele_switch_text);
-                matchText.requestFocus();
+                matchTeleSwitchText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(matchTeleSwitchText.getText().toString());
                     if (tempValue <= 0) {
                         tempValue = 0;
                     } else {
@@ -309,18 +308,17 @@ public class MatchActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                matchTeleSwitchText.setText(Integer.toString(tempValue));
             }
         });
 
         matchTeleSwitchPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = findViewById(R.id.match_tele_switch_text);
-                matchText.requestFocus();
+                matchTeleSwitchText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(matchTeleSwitchText.getText().toString());
                     if (tempValue >= 999) {
                         tempValue = 999;
                     } else {
@@ -336,18 +334,17 @@ public class MatchActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                matchTeleSwitchText.setText(Integer.toString(tempValue));
             }
         });
 
         matchTeleScaleMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = findViewById(R.id.match_tele_scale_text);
-                matchText.requestFocus();
+                matchTeleScaleText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(matchTeleScaleText.getText().toString());
                     if (tempValue <= 0) {
                         tempValue = 0;
                     } else {
@@ -363,18 +360,18 @@ public class MatchActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                matchTeleScaleText.setText(Integer.toString(tempValue));
             }
         });
 
         matchTeleScalePlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = findViewById(R.id.match_tele_scale_text);
-                matchText.requestFocus();
+                //TextView matchText = findViewById(R.id.match_tele_scale_text);
+                matchTeleScaleText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(matchTeleScaleText.getText().toString());
                     if (tempValue >= 999) {
                         tempValue = 999;
                     } else {
@@ -390,18 +387,17 @@ public class MatchActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                matchTeleScaleText.setText(Integer.toString(tempValue));
             }
         });
 
         matchTeleExchangeMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = findViewById(R.id.match_tele_exchange_text);
-                matchText.requestFocus();
+                matchTeleExchangeText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(matchTeleExchangeText.getText().toString());
                     if (tempValue <= 0) {
                         tempValue = 0;
                     } else {
@@ -417,18 +413,17 @@ public class MatchActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                matchTeleExchangeText.setText(Integer.toString(tempValue));
             }
         });
 
         matchTeleExchangePlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = findViewById(R.id.match_tele_exchange_text);
-                matchText.requestFocus();
+                matchTeleExchangeText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(matchTeleExchangeText.getText().toString());
                     if (tempValue >= 999) {
                         tempValue = 999;
                     } else {
@@ -444,18 +439,17 @@ public class MatchActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                matchTeleExchangeText.setText(Integer.toString(tempValue));
             }
         });
 
         matchPenaltiesMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = findViewById(R.id.match_penalties_text);
-                matchText.requestFocus();
+                matchPenaltiesText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(matchPenaltiesText.getText().toString());
                     if (tempValue <= 0) {
                         tempValue = 0;
                     } else {
@@ -471,18 +465,17 @@ public class MatchActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                matchPenaltiesText.setText(Integer.toString(tempValue));
             }
         });
 
         matchPenaltiesPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView matchText = findViewById(R.id.match_penalties_text);
-                matchText.requestFocus();
+                matchPenaltiesText.requestFocus();
                 int tempValue;
                 try {
-                    tempValue = Integer.parseInt(matchText.getText().toString());
+                    tempValue = Integer.parseInt(matchPenaltiesText.getText().toString());
                     if (tempValue >= 999) {
                         tempValue = 999;
                     } else {
@@ -498,7 +491,7 @@ public class MatchActivity extends AppCompatActivity {
                     Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
                     return;
                 }
-                matchText.setText(Integer.toString(tempValue));
+                matchPenaltiesText.setText(Integer.toString(tempValue));
             }
         });
 
