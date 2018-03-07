@@ -41,6 +41,10 @@ public class MatchActivity extends AppCompatActivity {
         Button matchMinus10Button = findViewById(R.id.match_number_minus10_btn);
         Button matchPlus10Button = findViewById(R.id.match_number_plus10_btn);
         Button matchGoButton = findViewById(R.id.match_go_btn);
+        Button matchAutoSwitchMinusButton = findViewById(R.id.match_auto_switch_minus_btn);
+        Button matchAutoSwitchPlusButton = findViewById(R.id.match_auto_switch_plus_btn);
+        Button matchAutoScaleMinusButton = findViewById(R.id.match_auto_scale_minus_btn);
+        Button matchAutoScalePlusButton = findViewById(R.id.match_auto_scale_plus_btn);
         Button matchTeleSwitchMinusButton = findViewById(R.id.match_tele_switch_minus_btn);
         Button matchTeleSwitchPlusButton = findViewById(R.id.match_tele_switch_plus_btn);
         Button matchTeleScaleMinusButton = findViewById(R.id.match_tele_scale_minus_btn);
@@ -51,8 +55,8 @@ public class MatchActivity extends AppCompatActivity {
         Button matchPenaltiesPlusButton = findViewById(R.id.match_penalties_plus_btn);
 
         final ToggleButton matchAutoBaselineToggle = findViewById(R.id.match_auto_baseline_toggle);
-        final ToggleButton matchAutoSwitchToggle = findViewById(R.id.match_auto_switch_toggle);
-        final ToggleButton matchAutoScaleToggle = findViewById(R.id.match_auto_scale_toggle);
+        final TextView matchAutoSwitchText = findViewById(R.id.match_auto_switch_text);
+        final TextView matchAutoScaleText = findViewById(R.id.match_auto_scale_text);
         final TextView matchTeleSwitchText = findViewById(R.id.match_tele_switch_text);
         final TextView matchTeleScaleText = findViewById(R.id.match_tele_scale_text);
         final TextView matchTeleExchangeText = findViewById(R.id.match_tele_exchange_text);
@@ -184,39 +188,146 @@ public class MatchActivity extends AppCompatActivity {
                  }
                 );
 
-        matchAutoSwitchToggle.setOnCheckedChangeListener
-                (new CompoundButton.OnCheckedChangeListener() {
-                     @Override
-                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                         if (!loadingValues) {
-                             try {
-                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, isChecked);
-                                 mDBHelper.updateMatchInfo(matchInfo);
-                             } catch (Exception ex) {
-                                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
-                                 return;
-                             }
-                         }
-                     }
-                 }
-                );
+//        matchAutoSwitchText.setOnCheckedChangeListener
+//                (new CompoundButton.OnCheckedChangeListener() {
+//                     @Override
+//                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                         if (!loadingValues) {
+//                             try {
+//                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, isChecked);
+//                                 mDBHelper.updateMatchInfo(matchInfo);
+//                             } catch (Exception ex) {
+//                                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+//                                 return;
+//                             }
+//                         }
+//                     }
+//                 }
+//                );
 
-        matchAutoScaleToggle.setOnCheckedChangeListener
-                (new CompoundButton.OnCheckedChangeListener() {
-                     @Override
-                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                         if (!loadingValues) {
-                             try {
-                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, isChecked);
-                                 mDBHelper.updateMatchInfo(matchInfo);
-                             } catch (Exception ex) {
-                                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
-                                 return;
-                             }
-                         }
-                     }
-                 }
-                );
+//        matchAutoScaleText.setOnCheckedChangeListener
+//                (new CompoundButton.OnCheckedChangeListener() {
+//                     @Override
+//                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                         if (!loadingValues) {
+//                             try {
+//                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, isChecked);
+//                                 mDBHelper.updateMatchInfo(matchInfo);
+//                             } catch (Exception ex) {
+//                                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+//                                 return;
+//                             }
+//                         }
+//                     }
+//                 }
+//                );
+
+        // auto switch buttons
+
+        matchAutoSwitchMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matchAutoSwitchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchAutoSwitchText.getText().toString());
+                    if (tempValue <= 0) {
+                        tempValue = 0;
+                    } else {
+                        tempValue--;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                matchAutoSwitchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        matchAutoSwitchPlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matchAutoSwitchText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchAutoSwitchText.getText().toString());
+                    if (tempValue >= 999) {
+                        tempValue = 999;
+                    } else {
+                        tempValue++;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                matchAutoSwitchText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        matchAutoScaleMinusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matchAutoScaleText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchAutoScaleText.getText().toString());
+                    if (tempValue <= 0) {
+                        tempValue = 0;
+                    } else {
+                        tempValue--;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                matchAutoScaleText.setText(Integer.toString(tempValue));
+            }
+        });
+
+        matchAutoScalePlusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TextView matchText = findViewById(R.id.match_auto_scale_text);
+                matchAutoScaleText.requestFocus();
+                int tempValue;
+                try {
+                    tempValue = Integer.parseInt(matchAutoScaleText.getText().toString());
+                    if (tempValue >= 999) {
+                        tempValue = 999;
+                    } else {
+                        tempValue++;
+                    }
+                } catch (Exception e) {
+                    tempValue = 1;
+                }
+                try {
+                    matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, tempValue);
+                    mDBHelper.updateMatchInfo(matchInfo);
+                } catch (Exception ex) {
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                matchAutoScaleText.setText(Integer.toString(tempValue));
+            }
+        });
 
         matchCycleTimeRating.setOnRatingBarChangeListener(
                 new RatingBar.OnRatingBarChangeListener() {
@@ -529,8 +640,8 @@ public class MatchActivity extends AppCompatActivity {
     private void DoGoAction() {
 
         ToggleButton matchAutoBaselineToggle = findViewById(R.id.match_auto_baseline_toggle);
-        ToggleButton matchAutoSwitchToggle = findViewById(R.id.match_auto_switch_toggle);
-        ToggleButton matchAutoScaleToggle = findViewById(R.id.match_auto_scale_toggle);
+        TextView matchAutoSwitchText = findViewById(R.id.match_auto_switch_text);
+        TextView matchAutoScaleText = findViewById(R.id.match_auto_scale_text);
         TextView matchTeleSwitchText = findViewById(R.id.match_tele_switch_text);
         TextView matchTeleScaleText = findViewById(R.id.match_tele_scale_text);
         TextView matchTeleExchangeText = findViewById(R.id.match_tele_exchange_text);
@@ -558,8 +669,8 @@ public class MatchActivity extends AppCompatActivity {
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER, myMatchNumber);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_VERSION, 0);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, false);
-                matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, false);
-                matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, false);
+                matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, 0);
+                matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, 0);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH, 0);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE, 0);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE, 0);
@@ -572,8 +683,8 @@ public class MatchActivity extends AppCompatActivity {
             } else {
                 loadingValues = true;
                 matchAutoBaselineToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
-                matchAutoSwitchToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH));
-                matchAutoScaleToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE));
+                matchAutoSwitchText.setText(String.format("%d",matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH)));
+                matchAutoScaleText.setText(String.format("%d",matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE)));
                 matchTeleSwitchText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH)));
                 matchTeleScaleText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE)));
                 matchTeleExchangeText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE)));

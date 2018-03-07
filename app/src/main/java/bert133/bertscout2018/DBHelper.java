@@ -289,6 +289,8 @@ public class DBHelper extends SQLiteOpenHelper {
                         case DBContract.TableMatchInfo.COLNAME_MATCH_TEAM:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_VERSION:
+                        case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH:
+                        case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE:
@@ -298,8 +300,6 @@ public class DBHelper extends SQLiteOpenHelper {
                             rowObject.put(results.getColumnName(i), results.getInt(i));
                             break;
                         case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE:
-                        case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH:
-                        case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_PARKED:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED:
                             if (results.getInt(i) == 0) {
@@ -336,8 +336,8 @@ public class DBHelper extends SQLiteOpenHelper {
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_RATING));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE));
-            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH));
-            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_COMMENT, matchInfo.getString(DBContract.TableMatchInfo.COLNAME_MATCH_COMMENT));
