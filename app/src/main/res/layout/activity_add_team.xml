@@ -6,52 +6,53 @@
     android:layout_height="match_parent"
     tools:context="bert133.bertscout2018.AddTeamActivity">
 
-    <RelativeLayout
-        android:id="@+id/add_teams_layout_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/add_teams_layout_password"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-        <TextView
-            android:id="@+id/add_teams_password_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLength="8"
-            android:paddingBottom="0sp"
-            android:paddingEnd="10sp"
-            android:paddingStart="10sp"
-            android:paddingTop="5sp"
-            android:text="Password:"
-            android:textSize="30sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/add_teams_password_label"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:maxLength="8"-->
+            <!--android:paddingBottom="0sp"-->
+            <!--android:paddingEnd="10sp"-->
+            <!--android:paddingStart="10sp"-->
+            <!--android:paddingTop="5sp"-->
+            <!--android:text="Password:"-->
+            <!--android:textSize="30sp" />-->
 
-        <EditText
-            android:id="@+id/add_teams_password_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/add_teams_password_label"
-            android:layout_toEndOf="@id/add_teams_password_label"
-            android:ems="4"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            android:text=""
-            android:textSize="30sp" />
+        <!--<EditText-->
+            <!--android:id="@+id/add_teams_password_text"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="@+id/add_teams_password_label"-->
+            <!--android:layout_toEndOf="@id/add_teams_password_label"-->
+            <!--android:ems="4"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:singleLine="true"-->
+            <!--android:text=""-->
+            <!--android:textSize="30sp" />-->
 
-        <Button
-            android:id="@+id/add_teams_password_go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/add_teams_password_label"
-            android:layout_toEndOf="@+id/add_teams_password_text"
-            android:text="Go"
-            android:textSize="30sp" />
+        <!--<Button-->
+            <!--android:id="@+id/add_teams_password_go"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="@id/add_teams_password_label"-->
+            <!--android:layout_toEndOf="@+id/add_teams_password_text"-->
+            <!--android:text="Go"-->
+            <!--android:textSize="30sp" />-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/add_teams_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/add_teams_layout_password">
+        android:visibility="visible"
+        >
+        <!--app:layout_constraintTop_toBottomOf="@+id/add_teams_layout_password"-->
 
         <TextView
             android:id="@+id/add_teams_team_number_label"
@@ -70,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/add_teams_team_number_label"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@id/add_teams_team_number_label"
             android:ems="3"
@@ -105,7 +106,7 @@
         android:layout_height="wrap_content"
         android:paddingEnd="10sp"
         android:paddingStart="10sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/add_teams_layout">
 
         <TextView

@@ -28,22 +28,22 @@ public class AddTeamActivity extends AppCompatActivity {
         // show all teams already there
         ShowTeamList();
 
-        Button passwordGoButton = findViewById(R.id.add_teams_password_go);
-        passwordGoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText passwordText = findViewById(R.id.add_teams_password_text);
-                String passwordValue = passwordText.getText().toString();
-                if (passwordValue.startsWith(passwordCorrectValue)) {
-                    RelativeLayout layout2 = findViewById(R.id.add_teams_layout);
-                    layout2.setVisibility(View.VISIBLE);
-                    RelativeLayout layout3 = findViewById(R.id.add_teams_list_layout);
-                    layout3.setVisibility(View.VISIBLE);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Wrong password! " + passwordText.getText().toString(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+//        Button passwordGoButton = findViewById(R.id.add_teams_password_go);
+//        passwordGoButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EditText passwordText = findViewById(R.id.add_teams_password_text);
+//                String passwordValue = passwordText.getText().toString();
+//                if (passwordValue.startsWith(passwordCorrectValue)) {
+//                    RelativeLayout layout2 = findViewById(R.id.add_teams_layout);
+//                    layout2.setVisibility(View.VISIBLE);
+//                    RelativeLayout layout3 = findViewById(R.id.add_teams_list_layout);
+//                    layout3.setVisibility(View.VISIBLE);
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Wrong password! " + passwordText.getText().toString(), Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
         Button addTeamButton = (Button) findViewById(R.id.add_teams_add_button);
         addTeamButton.setOnClickListener(new View.OnClickListener() {
