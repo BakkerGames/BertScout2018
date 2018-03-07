@@ -14,7 +14,7 @@ import org.json.JSONObject;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "bert_scout_2018.db";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     public static final String SYNC_HEADER_TEAM = "team";
     public static final String SYNC_HEADER_MATCH = "match";
@@ -301,6 +301,7 @@ public class DBHelper extends SQLiteOpenHelper {
                             break;
                         case DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_PARKED:
+                        case DBContract.TableMatchInfo.COLNAME_MATCH_RAMPS:
                         case DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED:
                             if (results.getInt(i) == 0) {
                                 rowObject.put(results.getColumnName(i), false);
@@ -339,6 +340,7 @@ public class DBHelper extends SQLiteOpenHelper {
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED));
+            contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_RAMPS, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_RAMPS));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED));
             contentValues.put(DBContract.TableMatchInfo.COLNAME_MATCH_COMMENT, matchInfo.getString(DBContract.TableMatchInfo.COLNAME_MATCH_COMMENT));
 

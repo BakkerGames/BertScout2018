@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Click a Team number for Match Scouting. Hold-click for Team Info."
+            android:text="Click a Team number for Match Scouting. Hold for Team Info."
+            android:textSize="15sp"
             android:textAlignment="center" />
 
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"

@@ -53,6 +53,7 @@ public final class DBContract {
         public static final String COLNAME_MATCH_TELE_EXCHANGE = "tele_exchange";
         public static final String COLNAME_MATCH_CYCLE_TIME = "cycle_time";
         public static final String COLNAME_MATCH_PARKED = "parked";
+        public static final String COLNAME_MATCH_RAMPS = "ramps";
         public static final String COLNAME_MATCH_CLIMBED = "climbed";
         public static final String COLNAME_MATCH_PENALTIES = "penalties";
         public static final String COLNAME_MATCH_RATING = "rating";
@@ -74,6 +75,7 @@ public final class DBContract {
                         ", " + COLNAME_MATCH_TELE_EXCHANGE + " INTEGER" +
                         ", " + COLNAME_MATCH_CYCLE_TIME + " INTEGER" +
                         ", " + COLNAME_MATCH_PARKED + " INTEGER" +
+                        ", " + COLNAME_MATCH_RAMPS + " INTEGER" +
                         ", " + COLNAME_MATCH_CLIMBED + " INTEGER" +
                         ", " + COLNAME_MATCH_PENALTIES + " INTEGER" +
                         ", " + COLNAME_MATCH_RATING + " INTEGER " +

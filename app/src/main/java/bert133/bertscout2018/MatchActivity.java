@@ -62,6 +62,7 @@ public class MatchActivity extends AppCompatActivity {
         final TextView matchTeleExchangeText = findViewById(R.id.match_tele_exchange_text);
         final RatingBar matchCycleTimeRating = findViewById(R.id.match_cycletime_rating);
         final ToggleButton matchParkedToggle = findViewById(R.id.match_parked_toggle);
+        final ToggleButton matchRampsToggle = findViewById(R.id.match_ramps_toggle);
         final ToggleButton matchClimbedToggle = findViewById(R.id.match_climbed_toggle);
         final TextView matchPenaltiesText = findViewById(R.id.match_penalties_text);
         final RatingBar matchOverallRating = findViewById(R.id.match_overall_rating);
@@ -187,40 +188,6 @@ public class MatchActivity extends AppCompatActivity {
                      }
                  }
                 );
-
-//        matchAutoSwitchText.setOnCheckedChangeListener
-//                (new CompoundButton.OnCheckedChangeListener() {
-//                     @Override
-//                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                         if (!loadingValues) {
-//                             try {
-//                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH, isChecked);
-//                                 mDBHelper.updateMatchInfo(matchInfo);
-//                             } catch (Exception ex) {
-//                                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
-//                                 return;
-//                             }
-//                         }
-//                     }
-//                 }
-//                );
-
-//        matchAutoScaleText.setOnCheckedChangeListener
-//                (new CompoundButton.OnCheckedChangeListener() {
-//                     @Override
-//                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                         if (!loadingValues) {
-//                             try {
-//                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE, isChecked);
-//                                 mDBHelper.updateMatchInfo(matchInfo);
-//                             } catch (Exception ex) {
-//                                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
-//                                 return;
-//                             }
-//                         }
-//                     }
-//                 }
-//                );
 
         // auto switch buttons
 
@@ -352,6 +319,23 @@ public class MatchActivity extends AppCompatActivity {
                          if (!loadingValues) {
                              try {
                                  matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED, isChecked);
+                                 mDBHelper.updateMatchInfo(matchInfo);
+                             } catch (Exception ex) {
+                                 Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
+                                 return;
+                             }
+                         }
+                     }
+                 }
+                );
+
+        matchRampsToggle.setOnCheckedChangeListener
+                (new CompoundButton.OnCheckedChangeListener() {
+                     @Override
+                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                         if (!loadingValues) {
+                             try {
+                                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_RAMPS, isChecked);
                                  mDBHelper.updateMatchInfo(matchInfo);
                              } catch (Exception ex) {
                                  Toast.makeText(context, ex.getMessage(), Toast.LENGTH_LONG).show();
@@ -647,6 +631,7 @@ public class MatchActivity extends AppCompatActivity {
         TextView matchTeleExchangeText = findViewById(R.id.match_tele_exchange_text);
         RatingBar matchCycleTimeRating = findViewById(R.id.match_cycletime_rating);
         ToggleButton matchParkedToggle = findViewById(R.id.match_parked_toggle);
+        ToggleButton matchRampsToggle = findViewById(R.id.match_ramps_toggle);
         ToggleButton matchClimbedToggle = findViewById(R.id.match_climbed_toggle);
         TextView matchPenaltiesText = findViewById(R.id.match_penalties_text);
         RatingBar matchOverallRating = findViewById(R.id.match_overall_rating);
@@ -676,6 +661,7 @@ public class MatchActivity extends AppCompatActivity {
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE, 0);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME, 0);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED, false);
+                matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_RAMPS, false);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED, false);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES, 0);
                 matchInfo.put(DBContract.TableMatchInfo.COLNAME_MATCH_RATING, 0);
@@ -690,6 +676,7 @@ public class MatchActivity extends AppCompatActivity {
                 matchTeleExchangeText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE)));
                 matchCycleTimeRating.setRating(matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME));
                 matchParkedToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED));
+                matchRampsToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_RAMPS));
                 matchClimbedToggle.setChecked(matchInfo.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED));
                 matchPenaltiesText.setText(String.format("%d", matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES)));
                 matchOverallRating.setRating(matchInfo.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_RATING));
