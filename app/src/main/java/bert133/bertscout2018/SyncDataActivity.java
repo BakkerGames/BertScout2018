@@ -77,6 +77,8 @@ public class SyncDataActivity extends AppCompatActivity {
         sendTeamDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                chatMessages.clear();
+                chatAdapter.notifyDataSetChanged();
                 JSONArray teamDataList = mDBHelper.getTeamInfoList(false);
                 for (int i = 0; i < teamDataList.length(); i++) {
                     try {
@@ -96,6 +98,8 @@ public class SyncDataActivity extends AppCompatActivity {
         sendMatchDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                chatMessages.clear();
+                chatAdapter.notifyDataSetChanged();
                 JSONArray matchDataList = mDBHelper.getMatchInfoList(false);
                 for (int i = 0; i < matchDataList.length(); i++) {
                     try {
