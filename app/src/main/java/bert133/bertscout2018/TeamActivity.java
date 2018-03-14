@@ -68,11 +68,11 @@ public class TeamActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String matchLine = showMatchesListView.getItemAtPosition(position).toString();
-                //Toast.makeText(getBaseContext(), matchLine, Toast.LENGTH_SHORT).show();
-
+                if (!matchLine.startsWith("Match ")) {
+                    return;
+                }
                 String[] matchLineArray = matchLine.split(" ");
                 String teamMatchMessage = String.format("%d %s", currTeamNumber, matchLineArray[1]);
-                //Toast.makeText(getBaseContext(), teamMatchMessage, Toast.LENGTH_SHORT).show();
 
                 try {
                     // jump to match info here
@@ -109,20 +109,71 @@ public class TeamActivity extends AppCompatActivity {
                 JSONObject m = (JSONObject) matchList.get(i);
                 int tempMatchNum = m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_NUMBER);
                 int tempCycleTime = m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_CYCLE_TIME);
-                String tempCycleTimeString = "*****".substring(0, tempCycleTime);
-                int tempPenalties = m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_PENALTIES);
+                String tempCycleTimeString = tempCycleTime > 0 ? "*****".substring(0, tempCycleTime) : "0";
                 int tempRating = m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_RATING);
-                String tempRatingString = "*****".substring(0, tempRating);
+                String tempRatingString = tempRating > 0 ? "*****".substring(0, tempRating) : "0";
+                boolean tempParked = m.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_PARKED);
                 boolean tempClimbed = m.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_CLIMBED);
-                String tempClimbedString = tempClimbed ? "YES" : "NO";
-                String lineInfo = String.format("Match %d   --   Cycle %s   --   Climbed %s   --   Penalties %d   --   Rating %s"
+                String tempEndgame = tempClimbed ? "CLIMB" : (tempParked ? "PARK" : "-");
+                String tempComment = m.getString(DBContract.TableMatchInfo.COLNAME_MATCH_COMMENT);
+                String tempAutoString = "";
+                if (m.getBoolean(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_BASELINE)) {
+                    tempAutoString += "B";
+                }
+                if (m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH) == 1) {
+                    if (tempAutoString != "") {
+                        tempAutoString += ",";
+                    }
+                    tempAutoString += "Sw";
+                } else if (m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH) > 1) {
+                    if (tempAutoString != "") {
+                        tempAutoString += ",";
+                    }
+                    tempAutoString += "Sw=" + m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SWITCH);
+                }
+                if (m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE) == 1) {
+                    if (tempAutoString != "") {
+                        tempAutoString += ",";
+                    }
+                    tempAutoString += "Sc";
+                } else if (m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE) > 1) {
+                    if (tempAutoString != "") {
+                        tempAutoString += ",";
+                    }
+                    tempAutoString += "Sc=" + m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_AUTO_SCALE);
+                }
+                String tempTeleString = "";
+                if (m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH) > 0) {
+                    tempTeleString += "Sw=" + m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SWITCH);
+                }
+                if (m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE) > 0) {
+                    if (tempTeleString != "") {
+                        tempTeleString += ",";
+                    }
+                    tempTeleString += "Sc=" + m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_SCALE);
+                }
+                if (m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE) > 0) {
+                    if (tempTeleString != "") {
+                        tempTeleString += ",";
+                    }
+                    tempTeleString += "X=" + m.getInt(DBContract.TableMatchInfo.COLNAME_MATCH_TELE_EXCHANGE);
+                }
+                if (tempComment != "") {
+                    tempComment = "\r\n" + tempComment;
+                }
+                String lineInfo = String.format("Match %d -- Auto %s -- Tele %s -- End %s -- Cycle %s -- Rating %s%s"
                         , tempMatchNum
+                        , tempAutoString
+                        , tempTeleString
+                        , tempEndgame
                         , tempCycleTimeString
-                        , tempClimbedString
-                        , tempPenalties
                         , tempRatingString
+                        , tempComment
                 );
                 matchesList.add(lineInfo);
+//                if (tempComment != null && tempComment != "") {
+//                    matchesList.add(tempComment);
+//                }
                 matchesAdapter.notifyDataSetChanged();
             }
         } catch (Exception ex) {
