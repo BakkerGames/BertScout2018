@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         createDatabase();
 
         // show all teams already there
-        JSONArray teamListJA = mDBHelper.getTeamInfoList(false);
+        JSONArray teamListJA = mDBHelper.getTeamInfoListPickSort(false);
         List<String> teamList = new ArrayList<String>();
         try {
             for (int i = 0; i < teamListJA.length(); i++) {
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     int tempRating = teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_RATING);
                     int tempPickNumber = teamInfo.getInt(DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER);
-                    if (tempRating > 0) {
-                        String tempRatingString = "*****".substring(0, tempRating);
-                        teamText = teamText + " \r\n" + tempRatingString;
-                    }
+//                    if (tempRating > 0) {
+//                        String tempRatingString = "*****".substring(0, tempRating);
+//                        teamText = teamText + " \r\n" + tempRatingString;
+//                    }
                     if (tempPickNumber > 0) {
                         teamText = teamText + String.format(" \r\n#%d", tempPickNumber);
                     }

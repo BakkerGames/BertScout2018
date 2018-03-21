@@ -93,6 +93,40 @@ public class DBHelper extends SQLiteOpenHelper {
         return teamList;
     }
 
+    public JSONArray getTeamInfoListPickSort(boolean header) {
+
+        JSONArray teamList = new JSONArray();
+        if (header){
+            teamList.put(SYNC_HEADER_TEAM);
+        }
+
+        JSONObject rowObject = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor results;
+
+        String query;
+        query = "SELECT * FROM " + DBContract.TableTeamInfo.TABLE_NAME_TEAM +
+                " ORDER BY " +
+                "CASE" +
+                " WHEN " + DBContract.TableTeamInfo.COLNAME_TEAM_PICKED + " = 1 THEN 999" +
+                " WHEN " + DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER + " = 0 THEN 998" +
+                " ELSE " + DBContract.TableTeamInfo.COLNAME_TEAM_PICK_NUMBER + " END" +
+                ", " + DBContract.TableTeamInfo.COLNAME_TEAM_NUMBER;
+
+        results = db.rawQuery(query, null);
+        results.moveToFirst();
+
+        while (!results.isAfterLast()) {
+            rowObject = getTeam_Internal(results);
+            teamList.put(rowObject);
+            results.moveToNext();
+        }
+
+        results.close();
+
+        return teamList;
+    }
+
     @Nullable
     private JSONObject getTeam_Internal(Cursor results){
         int totalColumn = results.getColumnCount();
