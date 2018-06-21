@@ -15,9 +15,9 @@
             android:id="@+id/main_helpinfo_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:text="Click a Team number for Match Scouting. Hold for Team Info."
-            android:textSize="15sp"
+            android:textSize="20dp"
             android:textAlignment="center" />
 
         <GridView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,12 +25,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/main_helpinfo_text"
-            android:columnWidth="100dp"
+            android:columnWidth="0dp"
             android:gravity="center"
-            android:horizontalSpacing="20dp"
-            android:numColumns="auto_fit"
+            android:horizontalSpacing="0dp"
+            android:numColumns="6"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="20dp" />
+            android:verticalSpacing="0dp" />
 
     </RelativeLayout>
 
