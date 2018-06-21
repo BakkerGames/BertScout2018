@@ -52,6 +52,9 @@ public class AddTeamActivity extends AppCompatActivity {
                 EditText teamNumberEdit = (EditText) findViewById(R.id.add_teams_team_number_edit);
                 TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
                 String value = String.valueOf(teamNumberEdit.getText());
+                if (value.isEmpty()) {
+                    return;
+                }
                 int teamNumber = Integer.parseInt(value);
                 if (teamNumber < 1) {
                     teamNumberEdit.setText("");
@@ -95,9 +98,12 @@ public class AddTeamActivity extends AppCompatActivity {
         deleteTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText teamNumberEdit =  findViewById(R.id.add_teams_team_number_edit);
-                TextView teamNumberList =  findViewById(R.id.add_teams_list_text);
+                EditText teamNumberEdit = findViewById(R.id.add_teams_team_number_edit);
+                TextView teamNumberList = findViewById(R.id.add_teams_list_text);
                 String value = String.valueOf(teamNumberEdit.getText());
+                if (value.isEmpty()) {
+                    return;
+                }
                 int teamNumber = Integer.parseInt(value);
                 if (teamNumber < 1) {
                     teamNumberEdit.setText("");
@@ -108,9 +114,9 @@ public class AddTeamActivity extends AppCompatActivity {
                 if (currTeam != null) {
                     try {
                         JSONArray matchList = mDBHelper.getMatchInfoByTeam(teamNumber);
-                        if (matchList == null || matchList.length() == 0){
+                        if (matchList == null || matchList.length() == 0) {
                             mDBHelper.deleteTeamInfo(teamNumber);
-                        }else{
+                        } else {
                             Toast.makeText(context, String.format("Team %s has matches -- Cannot delete!", teamNumber), Toast.LENGTH_LONG).show();
                         }
                     } catch (Exception ex) {
@@ -126,7 +132,7 @@ public class AddTeamActivity extends AppCompatActivity {
 
     }
 
-    public void ShowTeamList(){
+    public void ShowTeamList() {
         JSONArray teamList = mDBHelper.getTeamInfoList(false);
         TextView teamNumberList = (TextView) findViewById(R.id.add_teams_list_text);
         teamNumberList.setText("");
